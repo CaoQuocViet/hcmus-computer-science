@@ -1,7 +1,7 @@
 const controller = {};
 const ApiError = require("../utils/apiError");
 const ApiResponse = require("../utils/apiResponse");
-const { Product, Category, Tag } = require("../models");
+const { Product, Category, Tag, Image, Review, User } = require("../models");
 const { Op } = require("sequelize");
 
 /**
@@ -156,6 +156,22 @@ controller.getProductById = async (req, res) => {
   id = parseInt(id);
   const product = await Product.findByPk(id, {
     include: [
+      {
+        model: Image,
+        attributes: ["id", "imagePath", "altText", "displayOrder"],
+        orderBy: [["displayOrder", "ASC"]],
+        required: false,
+      },
+      {
+        model: Review,
+        attributes: ["id", "userId", "title", "rating", "comment"],
+        include: [
+          {
+            model: User,
+            attributes: ["id", "firstName", "lastName", "profileImage"],
+          },
+        ],
+      },
       {
         model: Category,
         attributes: ["id", "name"],
