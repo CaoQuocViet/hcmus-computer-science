@@ -18,8 +18,7 @@ controller.getAllProducts = async (req, res) => {
     maxPrice,
     page = 1,
     limit = 10,
-    sortBy = "price",
-    sortOrder = "ASC",
+    sort = "newest",
   } = req.query;
 
   const pageNum = parseInt(page);
@@ -30,7 +29,6 @@ controller.getAllProducts = async (req, res) => {
     where: {},
     limit: limitNum,
     offset: offset,
-    order: [[sortBy, sortOrder.toUpperCase()]],
     include: [
       {
         model: Category,
@@ -78,12 +76,13 @@ controller.getAllProducts = async (req, res) => {
   }
 
   // Filter by minimum price
+  option.where.price = {};
   if (minPrice) {
     if (isNaN(minPrice)) {
       throw new ApiError(400, "minPrice phai la so thuc");
     }
     minPrice = parseFloat(minPrice);
-    option.where.price = { [Op.gte]: minPrice };
+    option.where.price[Op.gte] = minPrice;
   }
 
   // Filter by maximum price
@@ -92,18 +91,23 @@ controller.getAllProducts = async (req, res) => {
       throw new ApiError(400, "maxPrice phai la so thuc");
     }
     maxPrice = parseFloat(maxPrice);
-    option.where.price = { [Op.lte]: maxPrice };
+    option.where.price[Op.lte] = maxPrice;
   }
 
   // sort
-  const validSortFields = ["price", "name", "createdAt"];
-  const validSortOrders = ["ASC", "DESC"];
-  if (validSortFields.includes(sortBy) && validSortOrders.includes(sortOrder.toUpperCase())) {
-    option.order = [[sortBy, sortOrder.toUpperCase()]];
+  const validSortFields = {
+    newest: {sortBy: "createdAt", sortOrder: "DESC"},
+    price_asc: {sortBy: "price", sortOrder: "ASC"},
+    price_desc: {sortBy: "price", sortOrder: "DESC"},
+    name_asc: {sortBy: "name", sortOrder: "ASC"},
+    name_desc: {sortBy: "name", sortOrder: "DESC"},
+  }
+
+  if (Object.keys(validSortFields).includes(sort)) {
+    const validSort = validSortFields[sort];
+    option.order = [[validSort.sortBy, validSort.sortOrder]];
   } else {
-    sortBy = "price";
-    sortOrder = "ASC";
-    option.order = [["price", "ASC"]];
+    option.order = [["created", "desc"]];
   }
 
   const { count, rows } = await Product.findAndCountAll(option);
@@ -130,8 +134,7 @@ controller.getAllProducts = async (req, res) => {
       maxPrice: maxPrice || null,
       limit: limitNum,
       page: pageNum,
-      sortBy: sortBy,
-      sortOrder: sortOrder.toUpperCase(),
+      sort: sort,
     },
   };
 
