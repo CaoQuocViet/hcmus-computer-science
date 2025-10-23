@@ -20,7 +20,7 @@ export default function SidebarCategories() {
                 }
             } catch (err) {
                 if (!canceled) {
-                    setError(error?.response?.data?.message || "khong tai duoc danh muc san pham");
+                    setError(err?.response?.data?.message || "khong tai duoc danh muc san pham");
                     setLoading(false);
                 }
             }
@@ -36,10 +36,10 @@ export default function SidebarCategories() {
             <div className="head">Browse Categories</div>
             <ul className="main-categories">
                 {loading && <li>Dang tai....</li>}
-                {error && <li className="text-danger">{error}</li>}
-                {categories && categories.map((c) => (
+                {error && <div className="alert alert-danger">{error}</div>}
+                {!loading && !error && categories.map((c) => (
                     <li className="main-nav-list" key={c.id}>
-                        <a href="#">
+                        <a href={`/products?category=${c.id}`}>
                             {c.name}
                             <span className="number">({c.Products?.length || 0})</span>
                         </a>

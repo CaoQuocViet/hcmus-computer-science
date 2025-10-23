@@ -22,7 +22,7 @@ export default function Header() {
                 <nav className="navbar navbar-expand-lg navbar-light main_box">
                     <div className="container">
                         {/* Brand and toggle get grouped for better mobile display */}
-                        <a className="navbar-brand logo_h" href="index.html"><img src="img/logo.png" alt="Karma Shop Logo"/></a>
+                        <a className="navbar-brand logo_h" href="index.html"><img src="/img/logo.png" alt="Karma Shop Logo"/></a>
                         <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                             <span className="icon-bar" />
                             <span className="icon-bar" />
