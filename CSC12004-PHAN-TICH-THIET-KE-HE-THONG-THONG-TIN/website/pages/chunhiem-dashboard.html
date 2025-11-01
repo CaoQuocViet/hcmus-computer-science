@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Chủ nhiệm đề tài</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="dashboard">
+        <!-- Sidebar -->
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <h3>Chủ nhiệm đề tài</h3>
+                <div class="user-info" id="userInfo">Đang tải...</div>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="#dashboard" class="nav-link active" onclick="showSection('dashboard')">
+                        <i class="fas fa-tachometer-alt"></i> Dashboard
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#ho-so-cua-toi" class="nav-link" onclick="showSection('ho-so-cua-toi')">
+                        <i class="fas fa-folder"></i> Hồ sơ của tôi
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#tien-do-de-tai" class="nav-link" onclick="showSection('tien-do-de-tai')">
+                        <i class="fas fa-chart-line"></i> Tiến độ đề tài
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#nghiem-thu" class="nav-link" onclick="showSection('nghiem-thu')">
+                        <i class="fas fa-clipboard-check"></i> Nghiệm thu
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Top Bar -->
+            <div class="top-bar">
+                <h2 class="page-title">Quản lý đề tài nghiên cứu</h2>
+                <div class="user-menu">
+                    <button onclick="logout()" class="logout-btn">
+                        <i class="fas fa-sign-out-alt"></i> Đăng xuất
+                    </button>
+                </div>
+            </div>
+
+            <!-- Content Area -->
+            <div class="content">
+                <!-- Dashboard Section -->
+                <section id="dashboard" class="content-section">
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-icon blue">
+                                <i class="fas fa-file-alt"></i>
+                            </div>
+                            <div class="stat-content">
+                                <h3 id="totalDeTai">0</h3>
+                                <p>Tổng đề tài</p>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon green">
+                                <i class="fas fa-play"></i>
+                            </div>
+                            <div class="stat-content">
+                                <h3 id="dangThucHien">0</h3>
+                                <p>Đang thực hiện</p>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon orange">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <div class="stat-content">
+                                <h3 id="choXuLy">0</h3>
+                                <p>Chờ xử lý</p>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon red">
+                                <i class="fas fa-check-circle"></i>
+                            </div>
+                            <div class="stat-content">
+                                <h3 id="hoanTat">0</h3>
+                                <p>Hoàn tất</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="table-container">
+                        <div class="table-header">
+                            <h3 class="table-title">Đề tài của tôi</h3>
+                        </div>
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Mã đề tài</th>
+                                    <th>Tên đề tài</th>
+                                    <th>Lĩnh vực</th>
+                                    <th>Trạng thái</th>
+                                    <th>Ngày tạo</th>
+                                </tr>
+                            </thead>
+                            <tbody id="myProjectsTable">
+                                <!-- Data will be loaded here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- Hồ sơ của tôi -->
+                <section id="ho-so-cua-toi" class="content-section" style="display: none;">
+                    <div class="table-container">
+                        <div class="table-header">
+                            <h3 class="table-title">Danh sách hồ sơ của tôi</h3>
+                        </div>
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Mã hồ sơ</th>
+                                    <th>Tên đề tài</th>
+                                    <th>Trạng thái</th>
+                                    <th>Ngày tạo</th>
+                                    <th>Thao tác</th>
+                                </tr>
+                            </thead>
+                            <tbody id="hoSoCuaToiTable">
+                                <!-- Data will be loaded here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- Tiến độ đề tài -->
+                <section id="tien-do-de-tai" class="content-section" style="display: none;">
+                    <div class="table-container">
+                        <div class="table-header">
+                            <h3 class="table-title">Tiến độ các đề tài đang thực hiện</h3>
+                        </div>
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Mã đề tài</th>
+                                    <th>Tên đề tài</th>
+                                    <th>Tiến độ</th>
+                                    <th>Kỳ báo cáo tiếp theo</th>
+                                    <th>Thao tác</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tienDoTable">
+                                <!-- Data will be loaded here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- Nghiệm thu -->
+                <section id="nghiem-thu" class="content-section" style="display: none;">
+                    <div class="table-container">
+                        <div class="table-header">
+                            <h3 class="table-title">Đề tài cần nghiệm thu</h3>
+                        </div>
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Mã đề tài</th>
+                                    <th>Tên đề tài</th>
+                                    <th>Tiến độ</th>
+                                    <th>Hạn nghiệm thu</th>
+                                    <th>Thao tác</th>
+                                </tr>
+                            </thead>
+                            <tbody id="nghiemThuTable">
+                                <!-- Data will be loaded here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal hoàn thiện hồ sơ -->
+    <div id="hoanThienHoSoModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Hoàn thiện hồ sơ đề tài</h3>
+                <span class="close" onclick="hideModal('hoanThienHoSoModal')">&times;</span>
+            </div>
+            <div id="hoanThienContent">
+                <!-- Content will be loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal cập nhật hồ sơ đã chỉnh sửa -->
+    <div id="capNhatHoSoModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Cập nhật hồ sơ đã chỉnh sửa</h3>
+                <span class="close" onclick="hideModal('capNhatHoSoModal')">&times;</span>
+            </div>
+            <div id="capNhatContent">
+                <!-- Content will be loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal tải báo cáo tiến độ -->
+    <div id="baoCaoTienDoModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Tải báo cáo tiến độ</h3>
+                <span class="close" onclick="hideModal('baoCaoTienDoModal')">&times;</span>
+            </div>
+            <div id="baoCaoContent">
+                <!-- Content will be loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal tải hồ sơ nghiệm thu -->
+    <div id="nghiemThuModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Tải hồ sơ nghiệm thu</h3>
+                <span class="close" onclick="hideModal('nghiemThuModal')">&times;</span>
+            </div>
+            <div id="nghiemThuContent">
+                <!-- Content will be loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/common.js"></script>
+    <script src="../js/chunhiem.js"></script>
+</body>
+</html>
