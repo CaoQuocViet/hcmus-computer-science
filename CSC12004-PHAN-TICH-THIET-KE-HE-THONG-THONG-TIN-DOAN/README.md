@@ -14,3 +14,4 @@ HCMUS course
 + Code ngắn, ưu tiên dùng thư viện
 + Minh họa tốt và tìm hiểu những khía cạnh đặt biệt sẽ được đánh giá cao hơn
 + Có rất nhiều khía cạnh/vấn đề nhưng có thể tập trung vào một (vài) vấn đề thôi
++ Không yêu cầu pptx, nhwung có thể tạo 1 file đơn giản để báo cáo
