@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Thành viên Hội đồng khoa học</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="dashboard">
+        <!-- Sidebar -->
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <h3>Hội đồng khoa học</h3>
+                <div class="user-info" id="userInfo">Đang tải...</div>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="#dashboard" class="nav-link active" onclick="showSection('dashboard')">
+                        <i class="fas fa-tachometer-alt"></i> Dashboard
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#xet-duyet" class="nav-link" onclick="showSection('xet-duyet')">
+                        <i class="fas fa-clipboard-list"></i> Xét duyệt đề tài
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#lich-su-danh-gia" class="nav-link" onclick="showSection('lich-su-danh-gia')">
+                        <i class="fas fa-history"></i> Lịch sử đánh giá
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Top Bar -->
+            <div class="top-bar">
+                <h2 class="page-title">Hệ thống xét duyệt đề tài nghiên cứu</h2>
+                <div class="user-menu">
+                    <button onclick="logout()" class="logout-btn">
+                        <i class="fas fa-sign-out-alt"></i> Đăng xuất
+                    </button>
+                </div>
+            </div>
+
+            <!-- Content Area -->
+            <div class="content">
+                <!-- Dashboard Section -->
+                <section id="dashboard" class="content-section">
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-icon blue">
+                                <i class="fas fa-file-alt"></i>
+                            </div>
+                            <div class="stat-content">
+                                <h3 id="totalChoXetDuyet">0</h3>
+                                <p>Chờ xét duyệt</p>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon green">
+                                <i class="fas fa-check-circle"></i>
+                            </div>
+                            <div class="stat-content">
+                                <h3 id="daDanhGia">0</h3>
+                                <p>Đã đánh giá</p>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon orange">
+                                <i class="fas fa-thumbs-up"></i>
+                            </div>
+                            <div class="stat-content">
+                                <h3 id="daPheDuyet">0</h3>
+                                <p>Đã phê duyệt</p>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon red">
+                                <i class="fas fa-edit"></i>
+                            </div>
+                            <div class="stat-content">
+                                <h3 id="yeuCauChinhSua">0</h3>
+                                <p>Yêu cầu chỉnh sửa</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="table-container">
+                        <div class="table-header">
+                            <h3 class="table-title">Đề tài cần xét duyệt gần đây</h3>
+                        </div>
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Mã hồ sơ</th>
+                                    <th>Tên đề tài</th>
+                                    <th>Người đề xuất</th>
+                                    <th>Lĩnh vực</th>
+                                    <th>Ngày gửi</th>
+                                    <th>Trạng thái</th>
+                                </tr>
+                            </thead>
+                            <tbody id="recentProjectsTable">
+                                <!-- Data will be loaded here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- Xét duyệt đề tài -->
+                <section id="xet-duyet" class="content-section" style="display: none;">
+                    <div class="table-container">
+                        <div class="table-header">
+                            <h3 class="table-title">Danh sách đề tài chờ xét duyệt</h3>
+                        </div>
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Mã hồ sơ</th>
+                                    <th>Tên đề tài</th>
+                                    <th>Người đề xuất</th>
+                                    <th>Lĩnh vực</th>
+                                    <th>Ngày gửi</th>
+                                    <th>Thao tác</th>
+                                </tr>
+                            </thead>
+                            <tbody id="xetDuyetTable">
+                                <!-- Data will be loaded here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- Lịch sử đánh giá -->
+                <section id="lich-su-danh-gia" class="content-section" style="display: none;">
+                    <div class="table-container">
+                        <div class="table-header">
+                            <h3 class="table-title">Lịch sử đánh giá của tôi</h3>
+                        </div>
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Mã hồ sơ</th>
+                                    <th>Tên đề tài</th>
+                                    <th>Người đề xuất</th>
+                                    <th>Quyết định</th>
+                                    <th>Ngày đánh giá</th>
+                                    <th>Thao tác</th>
+                                </tr>
+                            </thead>
+                            <tbody id="lichSuTable">
+                                <!-- Data will be loaded here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal xét duyệt đề tài -->
+    <div id="xetDuyetModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Xét duyệt đề tài nghiên cứu</h3>
+                <span class="close" onclick="hideModal('xetDuyetModal')">&times;</span>
+            </div>
+            <div id="xetDuyetContent">
+                <!-- Content will be loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal xem chi tiết đánh giá -->
+    <div id="chiTietModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Chi tiết đánh giá</h3>
+                <span class="close" onclick="hideModal('chiTietModal')">&times;</span>
+            </div>
+            <div id="chiTietContent">
+                <!-- Content will be loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/common.js"></script>
+    <script src="../js/hoidong.js"></script>
+</body>
+</html>
