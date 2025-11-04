@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard - Nhân viên</title>
-    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../components/common-styles.css">
+    <link rel="stylesheet" href="../components/form-styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         /* Advanced Dashboard Styles */
@@ -1161,208 +1162,2211 @@
                 </div>
             </section>
 
-                <!-- Tạo hồ sơ sơ bộ -->
-                <section id="tao-hoso" class="content-section" style="display: none;">
-                    <div class="form-container">
-                        <h3>Tạo hồ sơ sơ bộ</h3>
-                        <form id="taoHoSoForm">
-                            <div class="form-row">
-                                <div class="form-group required">
-                                    <label for="tenDeTai">Tên đề tài:</label>
-                                    <input type="text" id="tenDeTai" name="tenDeTai" required>
+            <!-- Enhanced Create Project Section -->
+            <section id="create-project" class="content-section" style="display: none;">
+                <div class="enhanced-form">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
+                        <h2 style="margin: 0; color: #2c3e50;">Tạo hồ sơ sơ bộ</h2>
+                        <button type="button" class="enhanced-btn btn-secondary-enhanced" onclick="showSection('dashboard')">
+                            <i class="fas fa-arrow-left"></i> Quay lại
+                        </button>
+                    </div>
+                    
+                    <form id="taoHoSoForm" onsubmit="createProject(event)">
+                        <!-- Thông tin cơ bản -->
+                        <div class="form-section">
+                            <h3 class="section-title">
+                                <i class="fas fa-info-circle" style="margin-right: 8px; color: #667eea;"></i>
+                                Thông tin cơ bản
+                            </h3>
+                            
+                            <div class="enhanced-form-row">
+                                <div class="enhanced-form-group">
+                                    <label class="enhanced-form-label" for="tenDeTai">
+                                        Tên đề tài <span class="required-asterisk">*</span>
+                                    </label>
+                                    <input 
+                                        type="text" 
+                                        id="tenDeTai" 
+                                        name="tenDeTai" 
+                                        class="enhanced-form-input" 
+                                        placeholder="Nhập tên đề tài nghiên cứu..."
+                                        required
+                                    >
+                                    <div class="form-help">Tên đề tài phải rõ ràng, cụ thể và thể hiện nội dung nghiên cứu</div>
                                 </div>
-                                <div class="form-group required">
-                                    <label for="nguoiDeXuat">Người đề xuất:</label>
-                                    <input type="text" id="nguoiDeXuat" name="nguoiDeXuat" required>
+                                
+                                <div class="enhanced-form-group">
+                                    <label class="enhanced-form-label" for="maDeTai">
+                                        Mã đề tài
+                                    </label>
+                                    <input 
+                                        type="text" 
+                                        id="maDeTai" 
+                                        name="maDeTai" 
+                                        class="enhanced-form-input" 
+                                        placeholder="Tự động tạo"
+                                        readonly
+                                    >
+                                    <div class="form-help">Mã đề tài sẽ được tạo tự động khi lưu hồ sơ</div>
                                 </div>
                             </div>
-                            <div class="form-row">
-                                <div class="form-group required">
-                                    <label for="linhVuc">Lĩnh vực nghiên cứu:</label>
-                                    <select id="linhVuc" name="linhVuc" required>
+                            
+                            <div class="enhanced-form-row">
+                                <div class="enhanced-form-group">
+                                    <label class="enhanced-form-label" for="linhVuc">
+                                        Lĩnh vực nghiên cứu <span class="required-asterisk">*</span>
+                                    </label>
+                                    <select id="linhVuc" name="linhVuc" class="enhanced-form-select" required>
                                         <option value="">-- Chọn lĩnh vực --</option>
                                         <option value="Công nghệ thông tin">Công nghệ thông tin</option>
                                         <option value="Kỹ thuật">Kỹ thuật</option>
-                                        <option value="Y học">Y học</option>
-                                        <option value="Hóa học">Hóa học</option>
-                                        <option value="Vật lý">Vật lý</option>
-                                        <option value="Sinh học">Sinh học</option>
+                                        <option value="Y học">Y học - Dược học</option>
+                                        <option value="Khoa học tự nhiên">Khoa học tự nhiên</option>
+                                        <option value="Khoa học xã hội">Khoa học xã hội - Nhân văn</option>
+                                        <option value="Nông nghiệp">Nông - Lâm - Thủy sản</option>
+                                        <option value="Giáo dục">Giáo dục & Đào tạo</option>
                                     </select>
                                 </div>
-                                <div class="form-group required">
-                                    <label for="thoiGianThucHien">Thời gian thực hiện dự kiến (tháng):</label>
-                                    <input type="number" id="thoiGianThucHien" name="thoiGianThucHien" min="1" max="60" required>
+                                
+                                <div class="enhanced-form-group">
+                                    <label class="enhanced-form-label" for="capDeTai">
+                                        Cấp đề tài <span class="required-asterisk">*</span>
+                                    </label>
+                                    <select id="capDeTai" name="capDeTai" class="enhanced-form-select" required>
+                                        <option value="">-- Chọn cấp đề tài --</option>
+                                        <option value="Cơ sở">Cấp cơ sở</option>
+                                        <option value="Trường">Cấp trường</option>
+                                        <option value="Bộ">Cấp Bộ</option>
+                                        <option value="Nhà nước">Cấp Nhà nước</option>
+                                    </select>
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <label for="moTa">Mô tả sơ bộ:</label>
-                                <textarea id="moTa" name="moTa" rows="4"></textarea>
+                        </div>
+                        
+                        <!-- Thông tin người đề xuất -->
+                        <div class="form-section">
+                            <h3 class="section-title">
+                                <i class="fas fa-user" style="margin-right: 8px; color: #667eea;"></i>
+                                Thông tin người đề xuất
+                            </h3>
+                            
+                            <div class="enhanced-form-row">
+                                <div class="enhanced-form-group">
+                                    <label class="enhanced-form-label" for="nguoiDeXuat">
+                                        Tìm kiếm người đề xuất <span class="required-asterisk">*</span>
+                                    </label>
+                                    <div style="position: relative;">
+                                        <input 
+                                            type="text" 
+                                            id="nguoiDeXuat" 
+                                            name="nguoiDeXuat" 
+                                            class="enhanced-form-input" 
+                                            placeholder="Nhập tên hoặc mã số để tìm kiếm..."
+                                            oninput="searchUser(this.value)"
+                                            required
+                                        >
+                                        <div id="userSearchResults" class="search-results" style="display: none;">
+                                            <div class="search-item" onclick="selectUser('NV001', 'Nguyễn Văn An', 'Tiến sĩ', 'nva@university.edu.vn')">
+                                                <div style="font-weight: 500;">Nguyễn Văn An (NV001)</div>
+                                                <div style="font-size: 12px; color: #666;">Tiến sĩ - nva@university.edu.vn</div>
+                                            </div>
+                                            <div class="search-item" onclick="selectUser('NV002', 'Lê Thị Bình', 'Thạc sĩ', 'ltb@university.edu.vn')">
+                                                <div style="font-weight: 500;">Lê Thị Bình (NV002)</div>
+                                                <div style="font-size: 12px; color: #666;">Thạc sĩ - ltb@university.edu.vn</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="enhanced-form-group">
+                                    <label class="enhanced-form-label" for="hocVi">
+                                        Học vị
+                                    </label>
+                                    <input 
+                                        type="text" 
+                                        id="hocVi" 
+                                        name="hocVi" 
+                                        class="enhanced-form-input" 
+                                        placeholder="Tự động điền"
+                                        readonly
+                                    >
+                                </div>
                             </div>
-                            <button type="submit" class="btn btn-primary">
-                                <i class="fas fa-plus"></i> Tạo hồ sơ
+                            
+                            <div class="enhanced-form-row">
+                                <div class="enhanced-form-group">
+                                    <label class="enhanced-form-label" for="email">
+                                        Email liên hệ
+                                    </label>
+                                    <input 
+                                        type="email" 
+                                        id="email" 
+                                        name="email" 
+                                        class="enhanced-form-input" 
+                                        placeholder="Tự động điền"
+                                        readonly
+                                    >
+                                </div>
+                                
+                                <div class="enhanced-form-group">
+                                    <label class="enhanced-form-label" for="donVi">
+                                        Đơn vị công tác
+                                    </label>
+                                    <input 
+                                        type="text" 
+                                        id="donVi" 
+                                        name="donVi" 
+                                        class="enhanced-form-input" 
+                                        placeholder="Tự động điền"
+                                        readonly
+                                    >
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Thời gian và kinh phí -->
+                        <div class="form-section">
+                            <h3 class="section-title">
+                                <i class="fas fa-calendar-alt" style="margin-right: 8px; color: #667eea;"></i>
+                                Thời gian và kinh phí
+                            </h3>
+                            
+                            <div class="enhanced-form-row">
+                                <div class="enhanced-form-group">
+                                    <label class="enhanced-form-label" for="ngayBatDau">
+                                        Ngày bắt đầu dự kiến <span class="required-asterisk">*</span>
+                                    </label>
+                                    <input 
+                                        type="date" 
+                                        id="ngayBatDau" 
+                                        name="ngayBatDau" 
+                                        class="enhanced-form-input" 
+                                        required
+                                    >
+                                </div>
+                                
+                                <div class="enhanced-form-group">
+                                    <label class="enhanced-form-label" for="ngayKetThuc">
+                                        Ngày kết thúc dự kiến <span class="required-asterisk">*</span>
+                                    </label>
+                                    <input 
+                                        type="date" 
+                                        id="ngayKetThuc" 
+                                        name="ngayKetThuc" 
+                                        class="enhanced-form-input" 
+                                        required
+                                    >
+                                </div>
+                            </div>
+                            
+                            <div class="enhanced-form-row">
+                                <div class="enhanced-form-group">
+                                    <label class="enhanced-form-label" for="thoiGianThucHien">
+                                        Thời gian thực hiện (tháng)
+                                    </label>
+                                    <input 
+                                        type="number" 
+                                        id="thoiGianThucHien" 
+                                        name="thoiGianThucHien" 
+                                        class="enhanced-form-input" 
+                                        min="1" 
+                                        max="60"
+                                        placeholder="Tự động tính"
+                                        readonly
+                                    >
+                                    <div class="form-help">Thời gian sẽ được tính tự động dựa trên ngày bắt đầu và kết thúc</div>
+                                </div>
+                                
+                                <div class="enhanced-form-group">
+                                    <label class="enhanced-form-label" for="kinhPhi">
+                                        Kinh phí dự kiến (VNĐ) <span class="required-asterisk">*</span>
+                                    </label>
+                                    <input 
+                                        type="number" 
+                                        id="kinhPhi" 
+                                        name="kinhPhi" 
+                                        class="enhanced-form-input" 
+                                        placeholder="Nhập số tiền..."
+                                        min="0"
+                                        step="1000000"
+                                        required
+                                    >
+                                    <div class="form-help">Ví dụ: 50000000 (50 triệu VNĐ)</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Mô tả đề tài -->
+                        <div class="form-section">
+                            <h3 class="section-title">
+                                <i class="fas fa-align-left" style="margin-right: 8px; color: #667eea;"></i>
+                                Mô tả đề tài
+                            </h3>
+                            
+                            <div class="enhanced-form-group">
+                                <label class="enhanced-form-label" for="tomTat">
+                                    Tóm tắt đề tài <span class="required-asterisk">*</span>
+                                </label>
+                                <textarea 
+                                    id="tomTat" 
+                                    name="tomTat" 
+                                    class="enhanced-form-textarea" 
+                                    rows="4"
+                                    placeholder="Mô tả tóm tắt nội dung, mục tiêu và ý nghĩa của đề tài..."
+                                    required
+                                ></textarea>
+                                <div class="form-help">Tối thiểu 100 từ, tối đa 500 từ</div>
+                            </div>
+                            
+                            <div class="enhanced-form-group">
+                                <label class="enhanced-form-label" for="mucTieu">
+                                    Mục tiêu nghiên cứu <span class="required-asterisk">*</span>
+                                </label>
+                                <textarea 
+                                    id="mucTieu" 
+                                    name="mucTieu" 
+                                    class="enhanced-form-textarea" 
+                                    rows="3"
+                                    placeholder="Nêu rõ các mục tiêu cụ thể của đề tài..."
+                                    required
+                                ></textarea>
+                            </div>
+                            
+                            <div class="enhanced-form-group">
+                                <label class="enhanced-form-label" for="yNghia">
+                                    Ý nghĩa khoa học và thực tiễn
+                                </label>
+                                <textarea 
+                                    id="yNghia" 
+                                    name="yNghia" 
+                                    class="enhanced-form-textarea" 
+                                    rows="3"
+                                    placeholder="Mô tả ý nghĩa khoa học và khả năng ứng dụng thực tiễn..."
+                                ></textarea>
+                            </div>
+                        </div>
+                        
+                        <!-- Các file đính kèm -->
+                        <div class="form-section">
+                            <h3 class="section-title">
+                                <i class="fas fa-paperclip" style="margin-right: 8px; color: #667eea;"></i>
+                                Tài liệu đính kèm
+                            </h3>
+                            
+                            <div class="upload-area" style="border: 2px dashed #ddd; border-radius: 10px; padding: 40px; text-align: center; background: #f9f9f9;">
+                                <i class="fas fa-cloud-upload-alt" style="font-size: 48px; color: #ccc; margin-bottom: 15px;"></i>
+                                <p style="margin: 0 0 15px; color: #666;">Kéo và thả file vào đây hoặc</p>
+                                <button type="button" class="enhanced-btn btn-secondary-enhanced" onclick="document.getElementById('fileInput').click()">
+                                    <i class="fas fa-folder-open"></i> Chọn file
+                                </button>
+                                <input type="file" id="fileInput" multiple accept=".pdf,.doc,.docx,.xls,.xlsx" style="display: none;">
+                                <div class="form-help" style="margin-top: 15px;">Chấp nhận: PDF, DOC, DOCX, XLS, XLSX. Tối đa 10MB mỗi file.</div>
+                            </div>
+                            
+                            <div id="fileList" style="margin-top: 20px;">
+                                <!-- Uploaded files will be listed here -->
+                            </div>
+                        </div>
+                        
+                        <!-- Buttons -->
+                        <div style="display: flex; gap: 15px; justify-content: flex-end; margin-top: 40px; padding-top: 30px; border-top: 2px solid #eee;">
+                            <button type="button" class="enhanced-btn btn-secondary-enhanced" onclick="resetForm()">
+                                <i class="fas fa-undo"></i> Đặt lại
                             </button>
+                            <button type="button" class="enhanced-btn btn-secondary-enhanced" onclick="saveDraft()">
+                                <i class="fas fa-save"></i> Lưu nháp
+                            </button>
+                            <button type="submit" class="enhanced-btn btn-primary-enhanced">
+                                <i class="fas fa-plus-circle"></i> Tạo hồ sơ
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </section>
+
+            <!-- Enhanced Progress Report Section -->
+            <section id="progress-report" class="content-section" style="display: none;">
+                <div class="enhanced-form">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
+                        <h2 style="margin: 0; color: #2c3e50;">Báo cáo tiến độ</h2>
+                        <button type="button" class="enhanced-btn btn-secondary-enhanced" onclick="showSection('dashboard')">
+                            <i class="fas fa-arrow-left"></i> Quay lại
+                        </button>
+                    </div>
+                    
+                    <!-- Progress Overview -->
+                    <div class="form-section">
+                        <h3 class="section-title">
+                            <i class="fas fa-chart-line" style="margin-right: 8px; color: #667eea;"></i>
+                            Tổng quan tiến độ
+                        </h3>
+                        
+                        <div class="enhanced-form-row">
+                            <div class="enhanced-form-group">
+                                <label class="enhanced-form-label">Chọn đề tài</label>
+                                <select class="enhanced-form-select" id="selectProject">
+                                    <option value="">-- Chọn đề tài --</option>
+                                    <option value="HS001">HS001 - Nghiên cứu ứng dụng AI trong giáo dục</option>
+                                    <option value="HS002">HS002 - Phát triển hệ thống quản lý thông minh</option>
+                                </select>
+                            </div>
+                            <div class="enhanced-form-group">
+                                <label class="enhanced-form-label">Tiến độ hiện tại</label>
+                                <div style="display: flex; align-items: center; gap: 15px;">
+                                    <div class="progress-ring" style="--progress: 216deg;">
+                                        <div class="progress-ring-circle">
+                                            <div class="progress-ring-text">60%</div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div style="font-weight: 600; color: #2c3e50;">60% hoàn thành</div>
+                                        <div style="font-size: 14px; color: #666;">6/10 công việc đã xong</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Task List -->
+                    <div class="form-section">
+                        <h3 class="section-title">
+                            <i class="fas fa-tasks" style="margin-right: 8px; color: #667eea;"></i>
+                            Danh sách công việc
+                        </h3>
+                        
+                        <div class="task-list">
+                            <div class="task-item completed">
+                                <div class="task-checkbox">
+                                    <i class="fas fa-check"></i>
+                                </div>
+                                <div class="task-content">
+                                    <div class="task-title">Nghiên cứu tài liệu</div>
+                                    <div class="task-meta">
+                                        <span class="task-date">Hoàn thành: 15/01/2024</span>
+                                        <span class="task-progress">100%</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="task-item in-progress">
+                                <div class="task-checkbox">
+                                    <i class="fas fa-play"></i>
+                                </div>
+                                <div class="task-content">
+                                    <div class="task-title">Phát triển mô hình</div>
+                                    <div class="task-meta">
+                                        <span class="task-date">Dự kiến: 28/01/2024</span>
+                                        <span class="task-progress">75%</span>
+                                    </div>
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" style="width: 75%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="task-item pending">
+                                <div class="task-checkbox">
+                                    <i class="fas fa-clock"></i>
+                                </div>
+                                <div class="task-content">
+                                    <div class="task-title">Kiểm tra và đánh giá</div>
+                                    <div class="task-meta">
+                                        <span class="task-date">Dự kiến: 15/02/2024</span>
+                                        <span class="task-progress">0%</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <button type="button" class="enhanced-btn btn-secondary-enhanced" style="margin-top: 20px;">
+                            <i class="fas fa-plus"></i> Thêm công việc
+                        </button>
+                    </div>
+                    
+                    <!-- Report Form -->
+                    <div class="form-section">
+                        <h3 class="section-title">
+                            <i class="fas fa-file-alt" style="margin-right: 8px; color: #667eea;"></i>
+                            Báo cáo tiến độ tháng
+                        </h3>
+                        
+                        <form id="progressReportForm">
+                            <div class="enhanced-form-row">
+                                <div class="enhanced-form-group">
+                                    <label class="enhanced-form-label">Tháng báo cáo</label>
+                                    <input type="month" class="enhanced-form-input" value="2024-01">
+                                </div>
+                                <div class="enhanced-form-group">
+                                    <label class="enhanced-form-label">Tỷ lệ hoàn thành (%)</label>
+                                    <input type="number" class="enhanced-form-input" min="0" max="100" value="60">
+                                </div>
+                            </div>
+                            
+                            <div class="enhanced-form-group">
+                                <label class="enhanced-form-label">Nội dung đã thực hiện</label>
+                                <textarea class="enhanced-form-textarea" rows="4" placeholder="Mô tả chi tiết những công việc đã hoàn thành trong tháng..."></textarea>
+                            </div>
+                            
+                            <div class="enhanced-form-group">
+                                <label class="enhanced-form-label">Khó khăn gặp phải</label>
+                                <textarea class="enhanced-form-textarea" rows="3" placeholder="Nêu rõ những khó khăn, vướng mắc trong quá trình thực hiện..."></textarea>
+                            </div>
+                            
+                            <div class="enhanced-form-group">
+                                <label class="enhanced-form-label">Kế hoạch tháng tiếp theo</label>
+                                <textarea class="enhanced-form-textarea" rows="3" placeholder="Mô tả kế hoạch công việc cho tháng tiếp theo..."></textarea>
+                            </div>
+                            
+                            <div class="enhanced-form-group">
+                                <label class="enhanced-form-label">Tài liệu đính kèm</label>
+                                <div class="upload-area" style="border: 2px dashed #ddd; border-radius: 10px; padding: 30px; text-align: center; background: #f9f9f9;">
+                                    <i class="fas fa-cloud-upload-alt" style="font-size: 32px; color: #ccc; margin-bottom: 10px;"></i>
+                                    <p style="margin: 0 0 10px; color: #666;">Tải lên báo cáo chi tiết, hình ảnh kết quả</p>
+                                    <button type="button" class="enhanced-btn btn-secondary-enhanced">
+                                        <i class="fas fa-folder-open"></i> Chọn file
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <div style="display: flex; gap: 15px; justify-content: flex-end; margin-top: 30px;">
+                                <button type="button" class="enhanced-btn btn-secondary-enhanced">
+                                    <i class="fas fa-save"></i> Lưu nháp
+                                </button>
+                                <button type="submit" class="enhanced-btn btn-primary-enhanced">
+                                    <i class="fas fa-paper-plane"></i> Gửi báo cáo
+                                </button>
+                            </div>
                         </form>
                     </div>
-                </section>
+                </div>
+            </section>
 
-                <!-- Kiểm tra hồ sơ -->
-                <section id="kiem-tra-hoso" class="content-section" style="display: none;">
-                    <div class="table-container">
-                        <div class="table-header">
-                            <h3 class="table-title">Danh sách hồ sơ chờ kiểm tra</h3>
+            <!-- Enhanced My Projects Section -->
+            <section id="my-projects" class="content-section" style="display: none;">
+                <div class="content-wrapper">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
+                        <h2 style="margin: 0; color: #2c3e50;">Hồ sơ của tôi</h2>
+                        <div style="display: flex; gap: 10px;">
+                            <button type="button" class="enhanced-btn btn-primary-enhanced" onclick="showCreateProject()">
+                                <i class="fas fa-plus"></i> Tạo hồ sơ mới
+                            </button>
+                            <button type="button" class="enhanced-btn btn-secondary-enhanced" onclick="showSection('dashboard')">
+                                <i class="fas fa-arrow-left"></i> Quay lại
+                            </button>
                         </div>
-                        <table class="data-table">
-                            <thead>
-                                <tr>
-                                    <th>Mã hồ sơ</th>
-                                    <th>Tên đề tài</th>
-                                    <th>Người đề xuất</th>
-                                    <th>Ngày tạo</th>
-                                    <th>Thao tác</th>
-                                </tr>
-                            </thead>
-                            <tbody id="kiemTraHoSoTable">
-                                <!-- Data will be loaded here -->
-                            </tbody>
-                        </table>
                     </div>
-                </section>
+                    
+                    <!-- Project Cards -->
+                    <div style="display: grid; gap: 20px;">
+                        <!-- Project Card 1 -->
+                        <div class="project-card">
+                            <div class="project-header">
+                                <div>
+                                    <h3 class="project-title">Nghiên cứu ứng dụng AI trong giáo dục</h3>
+                                    <div class="project-meta">
+                                        <div class="meta-item">
+                                            <i class="fas fa-hashtag"></i>
+                                            <span>HS001</span>
+                                        </div>
+                                        <div class="meta-item">
+                                            <i class="fas fa-user"></i>
+                                            <span>Nguyễn Văn An</span>
+                                        </div>
+                                        <div class="meta-item">
+                                            <i class="fas fa-calendar"></i>
+                                            <span>15/01/2024</span>
+                                        </div>
+                                        <div class="meta-item">
+                                            <i class="fas fa-tag"></i>
+                                            <span>Công nghệ thông tin</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <span class="enhanced-status status-cho-kiem-tra">Chờ kiểm tra</span>
+                                </div>
+                            </div>
+                            
+                            <div style="margin: 15px 0;">
+                                <p style="color: #666; line-height: 1.5;">
+                                    Nghiên cứu và phát triển các mô hình AI để hỗ trợ quá trình giảng dạy và học tập, 
+                                    tạo ra những công cụ thông minh giúp nâng cao chất lượng giáo dục...
+                                </p>
+                            </div>
+                            
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <div class="project-actions">
+                                    <button class="action-btn action-btn-primary" onclick="viewProject('HS001')">
+                                        <i class="fas fa-eye"></i> Xem chi tiết
+                                    </button>
+                                    <button class="action-btn" onclick="editProject('HS001')">
+                                        <i class="fas fa-edit"></i> Chỉnh sửa
+                                    </button>
+                                    <button class="action-btn" onclick="duplicateProject('HS001')">
+                                        <i class="fas fa-copy"></i> Sao chép
+                                    </button>
+                                </div>
+                                <div style="text-align: right; color: #666; font-size: 12px;">
+                                    <div>Cập nhật: 20/01/2024</div>
+                                    <div>Bởi: Nguyễn Văn An</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Project Card 2 -->
+                        <div class="project-card">
+                            <div class="project-header">
+                                <div>
+                                    <h3 class="project-title">Phát triển hệ thống quản lý thông minh</h3>
+                                    <div class="project-meta">
+                                        <div class="meta-item">
+                                            <i class="fas fa-hashtag"></i>
+                                            <span>HS002</span>
+                                        </div>
+                                        <div class="meta-item">
+                                            <i class="fas fa-user"></i>
+                                            <span>Lê Thị Bình</span>
+                                        </div>
+                                        <div class="meta-item">
+                                            <i class="fas fa-calendar"></i>
+                                            <span>12/01/2024</span>
+                                        </div>
+                                        <div class="meta-item">
+                                            <i class="fas fa-tag"></i>
+                                            <span>Kỹ thuật</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <span class="enhanced-status status-da-hoan-thien">Đã hoàn thiện</span>
+                                </div>
+                            </div>
+                            
+                            <div style="margin: 15px 0;">
+                                <p style="color: #666; line-height: 1.5;">
+                                    Thiết kế và xây dựng hệ thống quản lý tích hợp IoT và AI, 
+                                    ứng dụng trong các tòa nhà thông minh và quản lý đô thị...
+                                </p>
+                            </div>
+                            
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <div class="project-actions">
+                                    <button class="action-btn action-btn-primary" onclick="viewProject('HS002')">
+                                        <i class="fas fa-eye"></i> Xem chi tiết
+                                    </button>
+                                    <button class="action-btn" onclick="submitForReview('HS002')">
+                                        <i class="fas fa-paper-plane"></i> Gửi xét duyệt
+                                    </button>
+                                    <button class="action-btn" onclick="downloadProject('HS002')">
+                                        <i class="fas fa-download"></i> Tải xuống
+                                    </button>
+                                </div>
+                                <div style="text-align: right; color: #666; font-size: 12px;">
+                                    <div>Cập nhật: 18/01/2024</div>
+                                    <div>Bởi: Lê Thị Bình</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Project Card 3 -->
+                        <div class="project-card">
+                            <div class="project-header">
+                                <div>
+                                    <h3 class="project-title">Nghiên cứu vật liệu nano y sinh</h3>
+                                    <div class="project-meta">
+                                        <div class="meta-item">
+                                            <i class="fas fa-hashtag"></i>
+                                            <span>HS003</span>
+                                        </div>
+                                        <div class="meta-item">
+                                            <i class="fas fa-user"></i>
+                                            <span>Phạm Tuấn Dũng</span>
+                                        </div>
+                                        <div class="meta-item">
+                                            <i class="fas fa-calendar"></i>
+                                            <span>10/01/2024</span>
+                                        </div>
+                                        <div class="meta-item">
+                                            <i class="fas fa-tag"></i>
+                                            <span>Y học</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <span class="enhanced-status status-da-tao">Đã tạo</span>
+                                </div>
+                            </div>
+                            
+                            <div style="margin: 15px 0;">
+                                <p style="color: #666; line-height: 1.5;">
+                                    Nghiên cứu tính chất và ứng dụng của vật liệu nano trong lĩnh vực y sinh học, 
+                                    phát triển các giải pháp điều trị mới...
+                                </p>
+                            </div>
+                            
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <div class="project-actions">
+                                    <button class="action-btn action-btn-primary" onclick="viewProject('HS003')">
+                                        <i class="fas fa-eye"></i> Xem chi tiết
+                                    </button>
+                                    <button class="action-btn" onclick="editProject('HS003')">
+                                        <i class="fas fa-edit"></i> Chỉnh sửa
+                                    </button>
+                                    <button class="action-btn" onclick="deleteProject('HS003')">
+                                        <i class="fas fa-trash"></i> Xóa
+                                    </button>
+                                </div>
+                                <div style="text-align: right; color: #666; font-size: 12px;">
+                                    <div>Cập nhật: 16/01/2024</div>
+                                    <div>Bởi: Phạm Tuấn Dũng</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
 
-                <!-- Gửi xét duyệt -->
-                <section id="gui-xet-duyet" class="content-section" style="display: none;">
-                    <div class="table-container">
-                        <div class="table-header">
-                            <h3 class="table-title">Hồ sơ đã hoàn thiện - Sẵn sàng gửi xét duyệt</h3>
-                        </div>
-                        <table class="data-table">
-                            <thead>
-                                <tr>
-                                    <th>Mã hồ sơ</th>
-                                    <th>Tên đề tài</th>
-                                    <th>Người đề xuất</th>
-                                    <th>Lĩnh vực</th>
-                                    <th>Thao tác</th>
-                                </tr>
-                            </thead>
-                            <tbody id="guiXetDuyetTable">
-                                <!-- Data will be loaded here -->
-                            </tbody>
-                        </table>
+            <!-- Documents Section -->
+            <section id="documents" class="content-section" style="display: none;">
+                <div class="section-header">
+                    <h2><i class="fas fa-file-alt"></i> Tài liệu & Nghiệm thu</h2>
+                    <div class="section-actions">
+                        <button class="enhanced-btn btn-primary" onclick="uploadNewDocument()">
+                            <i class="fas fa-plus"></i> Tải lên tài liệu
+                        </button>
+                        <button class="enhanced-btn btn-secondary" onclick="downloadTemplate('all')">
+                            <i class="fas fa-download"></i> Tải mẫu biểu
+                        </button>
                     </div>
-                </section>
+                </div>
+                
+                <div class="documents-grid">
+                    <div class="document-category">
+                        <h3>📋 Hồ sơ đề xuất</h3>
+                        <div class="document-list">
+                            <div class="document-item">
+                                <div class="doc-icon">📄</div>
+                                <div class="doc-info">
+                                    <h4>Thuyết minh đề tài</h4>
+                                    <p>Phiên bản: 2.1 | Cập nhật: 15/11/2024</p>
+                                </div>
+                                <div class="doc-actions">
+                                    <button class="enhanced-btn btn-success" onclick="downloadDocument('DT001_thuyet_minh.pdf')">
+                                        <i class="fas fa-download"></i>
+                                    </button>
+                                    <button class="enhanced-btn btn-warning" onclick="editDocument('DT001_thuyet_minh.pdf')">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="document-item">
+                                <div class="doc-icon">💰</div>
+                                <div class="doc-info">
+                                    <h4>Dự toán kinh phí</h4>
+                                    <p>Phiên bản: 1.3 | Cập nhật: 12/11/2024</p>
+                                </div>
+                                <div class="doc-actions">
+                                    <button class="enhanced-btn btn-success" onclick="downloadDocument('DT001_du_toan.xlsx')">
+                                        <i class="fas fa-download"></i>
+                                    </button>
+                                    <button class="enhanced-btn btn-warning" onclick="editDocument('DT001_du_toan.xlsx')">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
-                <!-- Xác nhận phê duyệt -->
-                <section id="xac-nhan-phe-duyet" class="content-section" style="display: none;">
-                    <div class="table-container">
-                        <div class="table-header">
-                            <h3 class="table-title">Hồ sơ đã được phê duyệt</h3>
+                    <div class="document-category">
+                        <h3>📊 Báo cáo tiến độ</h3>
+                        <div class="document-list">
+                            <div class="document-item">
+                                <div class="doc-icon">📈</div>
+                                <div class="doc-info">
+                                    <h4>Báo cáo 6 tháng đầu</h4>
+                                    <p>Trạng thái: Đã duyệt | Ngày: 20/06/2024</p>
+                                </div>
+                                <div class="doc-actions">
+                                    <button class="enhanced-btn btn-success" onclick="downloadDocument('DT001_6months.pdf')">
+                                        <i class="fas fa-download"></i>
+                                    </button>
+                                    <button class="enhanced-btn btn-info" onclick="viewFeedback('DT001_6months')">
+                                        <i class="fas fa-comments"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="document-item">
+                                <div class="doc-icon">📊</div>
+                                <div class="doc-info">
+                                    <h4>Báo cáo tiến độ Q3</h4>
+                                    <p>Trạng thái: Chờ duyệt | Ngày: 25/09/2024</p>
+                                </div>
+                                <div class="doc-actions">
+                                    <button class="enhanced-btn btn-success" onclick="downloadDocument('DT001_Q3.pdf')">
+                                        <i class="fas fa-download"></i>
+                                    </button>
+                                    <button class="enhanced-btn btn-warning" onclick="editDocument('DT001_Q3.pdf')">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                </div>
+                            </div>
                         </div>
-                        <table class="data-table">
-                            <thead>
-                                <tr>
-                                    <th>Mã hồ sơ</th>
-                                    <th>Tên đề tài</th>
-                                    <th>Người đề xuất</th>
-                                    <th>Lĩnh vực</th>
-                                    <th>Thao tác</th>
-                                </tr>
-                            </thead>
-                            <tbody id="xacNhanPheDuyetTable">
-                                <!-- Data will be loaded here -->
-                            </tbody>
-                        </table>
                     </div>
-                </section>
 
-                <!-- Quản lý tiến độ -->
-                <section id="quan-ly-tien-do" class="content-section" style="display: none;">
-                    <div class="table-container">
-                        <div class="table-header">
-                            <h3 class="table-title">Đề tài đang thực hiện</h3>
+                    <div class="document-category">
+                        <h3>🏆 Nghiệm thu</h3>
+                        <div class="document-list">
+                            <div class="document-item">
+                                <div class="doc-icon">📑</div>
+                                <div class="doc-info">
+                                    <h4>Hồ sơ nghiệm thu</h4>
+                                    <p>Deadline: 31/12/2024 | Trạng thái: Đang chuẩn bị</p>
+                                </div>
+                                <div class="doc-actions">
+                                    <button class="enhanced-btn btn-primary" onclick="prepareAcceptanceFiles('DT001')">
+                                        <i class="fas fa-plus"></i> Chuẩn bị
+                                    </button>
+                                    <button class="enhanced-btn btn-secondary" onclick="downloadAcceptanceTemplate()">
+                                        <i class="fas fa-file-download"></i> Mẫu
+                                    </button>
+                                </div>
+                            </div>
                         </div>
-                        <table class="data-table">
-                            <thead>
-                                <tr>
-                                    <th>Mã hồ sơ</th>
-                                    <th>Tên đề tài</th>
-                                    <th>Chủ nhiệm</th>
-                                    <th>Tiến độ</th>
-                                    <th>Thao tác</th>
-                                </tr>
-                            </thead>
-                            <tbody id="quanLyTienDoTable">
-                                <!-- Data will be loaded here -->
-                            </tbody>
-                        </table>
                     </div>
-                </section>
+                </div>
+            </section>
 
-                <!-- Nghiệm thu -->
-                <section id="nghiem-thu" class="content-section" style="display: none;">
-                    <div class="table-container">
-                        <div class="table-header">
-                            <h3 class="table-title">Đề tài cần nghiệm thu</h3>
-                        </div>
-                        <table class="data-table">
-                            <thead>
-                                <tr>
-                                    <th>Mã hồ sơ</th>
-                                    <th>Tên đề tài</th>
-                                    <th>Chủ nhiệm</th>
-                                    <th>Trạng thái</th>
-                                    <th>Thao tác</th>
-                                </tr>
-                            </thead>
-                            <tbody id="nghiemThuTable">
-                                <!-- Data will be loaded here -->
-                            </tbody>
-                        </table>
+            <!-- Calendar Section -->
+            <section id="calendar" class="content-section" style="display: none;">
+                <div class="section-header">
+                    <h2><i class="fas fa-calendar-alt"></i> Lịch làm việc</h2>
+                    <div class="section-actions">
+                        <button class="enhanced-btn btn-primary" onclick="addNewEvent()">
+                            <i class="fas fa-plus"></i> Thêm sự kiện
+                        </button>
+                        <select class="enhanced-btn" id="calendarView">
+                            <option value="month">Tháng</option>
+                            <option value="week">Tuần</option>
+                            <option value="day">Ngày</option>
+                        </select>
                     </div>
-                </section>
+                </div>
+                
+                <div class="calendar-container">
+                    <div class="upcoming-events">
+                        <h3>📅 Sự kiện sắp tới</h3>
+                        <div class="event-list">
+                            <div class="event-item urgent">
+                                <div class="event-date">
+                                    <span class="date">25</span>
+                                    <span class="month">Th11</span>
+                                </div>
+                                <div class="event-info">
+                                    <h4>Họp hội đồng đánh giá</h4>
+                                    <p>Đánh giá đề xuất đề tài mới - Hội trường A</p>
+                                    <small>09:00 - 11:30</small>
+                                </div>
+                                <div class="event-actions">
+                                    <button class="enhanced-btn btn-warning">
+                                        <i class="fas fa-bell"></i> Nhắc nhở
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <div class="event-item normal">
+                                <div class="event-date">
+                                    <span class="date">28</span>
+                                    <span class="month">Th11</span>
+                                </div>
+                                <div class="event-info">
+                                    <h4>Deadline báo cáo tiến độ</h4>
+                                    <p>Nộp báo cáo tiến độ Q4 cho đề tài DT001</p>
+                                    <small>23:59</small>
+                                </div>
+                                <div class="event-actions">
+                                    <button class="enhanced-btn btn-success">
+                                        <i class="fas fa-check"></i> Hoàn thành
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <div class="event-item normal">
+                                <div class="event-date">
+                                    <span class="date">05</span>
+                                    <span class="month">Th12</span>
+                                </div>
+                                <div class="event-info">
+                                    <h4>Workshop nghiên cứu khoa học</h4>
+                                    <p>Hướng dẫn viết bài báo quốc tế - Online</p>
+                                    <small>14:00 - 17:00</small>
+                                </div>
+                                <div class="event-actions">
+                                    <button class="enhanced-btn btn-primary">
+                                        <i class="fas fa-link"></i> Tham gia
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="calendar-widget">
+                        <div class="calendar-header">
+                            <button class="nav-btn" onclick="previousMonth()">&lt;</button>
+                            <h3 id="currentMonth">Tháng 11, 2024</h3>
+                            <button class="nav-btn" onclick="nextMonth()">&gt;</button>
+                        </div>
+                        <div class="calendar-grid">
+                            <div class="calendar-day header">CN</div>
+                            <div class="calendar-day header">T2</div>
+                            <div class="calendar-day header">T3</div>
+                            <div class="calendar-day header">T4</div>
+                            <div class="calendar-day header">T5</div>
+                            <div class="calendar-day header">T6</div>
+                            <div class="calendar-day header">T7</div>
+                            
+                            <!-- Calendar days will be generated by JavaScript -->
+                            <div class="calendar-day">1</div>
+                            <div class="calendar-day">2</div>
+                            <div class="calendar-day">3</div>
+                            <div class="calendar-day">4</div>
+                            <div class="calendar-day">5</div>
+                            <div class="calendar-day">6</div>
+                            <div class="calendar-day">7</div>
+                            <div class="calendar-day">8</div>
+                            <div class="calendar-day">9</div>
+                            <div class="calendar-day">10</div>
+                            <div class="calendar-day">11</div>
+                            <div class="calendar-day">12</div>
+                            <div class="calendar-day">13</div>
+                            <div class="calendar-day">14</div>
+                            <div class="calendar-day">15</div>
+                            <div class="calendar-day">16</div>
+                            <div class="calendar-day">17</div>
+                            <div class="calendar-day">18</div>
+                            <div class="calendar-day">19</div>
+                            <div class="calendar-day">20</div>
+                            <div class="calendar-day">21</div>
+                            <div class="calendar-day">22</div>
+                            <div class="calendar-day">23</div>
+                            <div class="calendar-day">24</div>
+                            <div class="calendar-day today event">25</div>
+                            <div class="calendar-day">26</div>
+                            <div class="calendar-day">27</div>
+                            <div class="calendar-day event">28</div>
+                            <div class="calendar-day">29</div>
+                            <div class="calendar-day">30</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Profile Section -->
+            <section id="profile" class="content-section" style="display: none;">
+                <div class="section-header">
+                    <h2><i class="fas fa-user-circle"></i> Thông tin cá nhân</h2>
+                    <div class="section-actions">
+                        <button class="enhanced-btn btn-primary" onclick="editProfile()">
+                            <i class="fas fa-edit"></i> Chỉnh sửa
+                        </button>
+                        <button class="enhanced-btn btn-secondary" onclick="changePassword()">
+                            <i class="fas fa-key"></i> Đổi mật khẩu
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="profile-container">
+                    <div class="profile-card">
+                        <div class="profile-avatar">
+                            <img src="https://via.placeholder.com/120" alt="Avatar" id="profileAvatar">
+                            <button class="avatar-edit" onclick="changeAvatar()">
+                                <i class="fas fa-camera"></i>
+                            </button>
+                        </div>
+                        <div class="profile-info">
+                            <h3 id="profileName">TS. Nguyễn Văn A</h3>
+                            <p id="profileTitle">Nghiên cứu viên cao cấp</p>
+                            <div class="profile-stats">
+                                <div class="stat-item">
+                                    <span class="stat-value">15</span>
+                                    <span class="stat-label">Đề tài đã thực hiện</span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="stat-value">45</span>
+                                    <span class="stat-label">Bài báo đã công bố</span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="stat-value">8</span>
+                                    <span class="stat-label">Năm kinh nghiệm</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="profile-details">
+                        <div class="detail-section">
+                            <h4>📧 Thông tin liên hệ</h4>
+                            <div class="detail-grid">
+                                <div class="detail-item">
+                                    <label>Email:</label>
+                                    <span>nguyen.van.a@university.edu.vn</span>
+                                </div>
+                                <div class="detail-item">
+                                    <label>Điện thoại:</label>
+                                    <span>+84 123 456 789</span>
+                                </div>
+                                <div class="detail-item">
+                                    <label>Địa chỉ:</label>
+                                    <span>123 Đường ABC, Quận XYZ, TP.HCM</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="detail-section">
+                            <h4>🎓 Thông tin học vấn</h4>
+                            <div class="detail-grid">
+                                <div class="detail-item">
+                                    <label>Học vị:</label>
+                                    <span>Tiến sĩ Công nghệ thông tin</span>
+                                </div>
+                                <div class="detail-item">
+                                    <label>Chuyên ngành:</label>
+                                    <span>Trí tuệ nhân tạo, Machine Learning</span>
+                                </div>
+                                <div class="detail-item">
+                                    <label>Đơn vị công tác:</label>
+                                    <span>Khoa Công nghệ thông tin</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="detail-section">
+                            <h4>🔒 Bảo mật tài khoản</h4>
+                            <div class="security-options">
+                                <div class="security-item">
+                                    <div class="security-info">
+                                        <h5>Xác thực hai yếu tố</h5>
+                                        <p>Bảo vệ tài khoản với xác thực qua SMS</p>
+                                    </div>
+                                    <button class="toggle-btn active">
+                                        <span class="toggle-slider"></span>
+                                    </button>
+                                </div>
+                                <div class="security-item">
+                                    <div class="security-info">
+                                        <h5>Thông báo đăng nhập</h5>
+                                        <p>Nhận thông báo khi có đăng nhập từ thiết bị mới</p>
+                                    </div>
+                                    <button class="toggle-btn active">
+                                        <span class="toggle-slider"></span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Settings Section -->
+            <section id="settings" class="content-section" style="display: none;">
+                <div class="section-header">
+                    <h2><i class="fas fa-cog"></i> Cài đặt hệ thống</h2>
+                </div>
+                
+                <div class="settings-container">
+                    <div class="settings-category">
+                        <h3>🎨 Giao diện</h3>
+                        <div class="setting-item">
+                            <div class="setting-info">
+                                <h4>Chế độ tối</h4>
+                                <p>Sử dụng giao diện tối để bảo vệ mắt</p>
+                            </div>
+                            <button class="toggle-btn" onclick="toggleDarkMode()">
+                                <span class="toggle-slider"></span>
+                            </button>
+                        </div>
+                        <div class="setting-item">
+                            <div class="setting-info">
+                                <h4>Ngôn ngữ</h4>
+                                <p>Chọn ngôn ngữ hiển thị</p>
+                            </div>
+                            <select class="enhanced-btn">
+                                <option value="vi">Tiếng Việt</option>
+                                <option value="en">English</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="settings-category">
+                        <h3>🔔 Thông báo</h3>
+                        <div class="setting-item">
+                            <div class="setting-info">
+                                <h4>Thông báo email</h4>
+                                <p>Nhận thông báo qua email</p>
+                            </div>
+                            <button class="toggle-btn active">
+                                <span class="toggle-slider"></span>
+                            </button>
+                        </div>
+                        <div class="setting-item">
+                            <div class="setting-info">
+                                <h4>Thông báo deadline</h4>
+                                <p>Nhắc nhở trước deadline 3 ngày</p>
+                            </div>
+                            <button class="toggle-btn active">
+                                <span class="toggle-slider"></span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <!-- Enhanced Modal -->
+    <div id="enhancedModal" class="enhanced-modal">
+        <div class="enhanced-modal-content">
+            <div class="enhanced-modal-header">
+                <h3 class="enhanced-modal-title" id="modalTitle">Chi tiết hồ sơ</h3>
+                <button class="enhanced-close" onclick="hideEnhancedModal()">
+                    <i class="fas fa-times"></i>
+                </button>
             </div>
-        </main>
-    </div>
-
-    <!-- Modal kiểm tra hồ sơ -->
-    <div id="kiemTraModal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3 class="modal-title">Kiểm tra hồ sơ đề tài</h3>
-                <span class="close" onclick="hideModal('kiemTraModal')">&times;</span>
-            </div>
-            <div id="kiemTraContent">
+            <div class="enhanced-modal-body" id="modalBody">
                 <!-- Content will be loaded here -->
             </div>
         </div>
     </div>
 
-    <!-- Modal gửi xét duyệt -->
-    <div id="guiXetDuyetModal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3 class="modal-title">Gửi hồ sơ xét duyệt</h3>
-                <span class="close" onclick="hideModal('guiXetDuyetModal')">&times;</span>
-            </div>
-            <div id="guiXetDuyetContent">
-                <!-- Content will be loaded here -->
-            </div>
-        </div>
-    </div>
+    <script>
+        // Enhanced Dashboard JavaScript
+        let currentSection = 'dashboard';
+        
+        // Mock data
+        const projectData = {
+            'HS001': {
+                id: 'HS001',
+                title: 'Nghiên cứu ứng dụng AI trong giáo dục',
+                proposer: 'Nguyễn Văn An',
+                field: 'Công nghệ thông tin',
+                level: 'Cấp trường',
+                startDate: '2024-01-15',
+                endDate: '2024-12-15',
+                budget: '50000000',
+                status: 'cho-kiem-tra',
+                description: 'Nghiên cứu và phát triển các mô hình AI để hỗ trợ quá trình giảng dạy và học tập...'
+            },
+            'HS002': {
+                id: 'HS002',
+                title: 'Phát triển hệ thống quản lý thông minh',
+                proposer: 'Lê Thị Bình',
+                field: 'Kỹ thuật',
+                level: 'Cấp bộ',
+                startDate: '2024-01-12',
+                endDate: '2024-11-12',
+                budget: '75000000',
+                status: 'da-hoan-thien',
+                description: 'Thiết kế và xây dựng hệ thống quản lý tích hợp IoT và AI...'
+            }
+        };
+        
+        // Navigation
+        function showSection(sectionId) {
+            // Hide all sections
+            const sections = document.querySelectorAll('.content-section');
+            sections.forEach(section => section.style.display = 'none');
+            
+            // Show selected section
+            const targetSection = document.getElementById(sectionId);
+            if (targetSection) {
+                targetSection.style.display = 'block';
+            }
+            
+            // Update navigation
+            const navLinks = document.querySelectorAll('.enhanced-nav-link');
+            navLinks.forEach(link => link.classList.remove('active'));
+            
+            const activeLink = document.querySelector(`[data-section="${sectionId}"]`);
+            if (activeLink) {
+                activeLink.classList.add('active');
+            }
+            
+            // Update breadcrumb
+            updateBreadcrumb(sectionId);
+            currentSection = sectionId;
+        }
+        
+        function updateBreadcrumb(sectionId) {
+            const breadcrumb = document.querySelector('.breadcrumb');
+            const sectionNames = {
+                'dashboard': 'Tổng quan',
+                'create-project': 'Tạo hồ sơ mới',
+                'my-projects': 'Hồ sơ của tôi',
+                'progress-report': 'Báo cáo tiến độ'
+            };
+            
+            breadcrumb.innerHTML = `
+                <a href="#" class="breadcrumb-item" onclick="showSection('dashboard')">Trang chủ</a>
+                <i class="fas fa-chevron-right"></i>
+                <span class="breadcrumb-item">${sectionNames[sectionId] || 'Không xác định'}</span>
+            `;
+        }
+        
+        // Project Management
+        function showCreateProject() {
+            showSection('create-project');
+            // Auto-generate project ID
+            const now = new Date();
+            const id = 'HS' + String(Date.now()).slice(-3);
+            document.getElementById('maDeTai').value = id;
+        }
+        
+        function createProject(event) {
+            event.preventDefault();
+            
+            const formData = new FormData(event.target);
+            const projectData = Object.fromEntries(formData.entries());
+            
+            // Validation
+            if (!projectData.tenDeTai || !projectData.nguoiDeXuat) {
+                alert('Vui lòng điền đầy đủ thông tin bắt buộc');
+                return;
+            }
+            
+            // Simulate saving
+            showNotification('Tạo hồ sơ thành công!', 'success');
+            
+            // Reset form and go back to dashboard
+            setTimeout(() => {
+                event.target.reset();
+                showSection('dashboard');
+                updateStats();
+            }, 1500);
+        }
+        
+        function viewProject(projectId) {
+            const project = projectData[projectId];
+            if (!project) return;
+            
+            const content = `
+                <div class="enhanced-form">
+                    <div class="form-section">
+                        <h3 class="section-title">Thông tin cơ bản</h3>
+                        <div class="enhanced-form-row">
+                            <div class="enhanced-form-group">
+                                <label class="enhanced-form-label">Mã đề tài</label>
+                                <div style="padding: 12px; background: #f8f9fa; border-radius: 8px; font-weight: 600;">${project.id}</div>
+                            </div>
+                            <div class="enhanced-form-group">
+                                <label class="enhanced-form-label">Trạng thái</label>
+                                <div style="padding: 12px;">
+                                    <span class="enhanced-status status-${project.status}">
+                                        ${getStatusText(project.status)}
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="enhanced-form-group">
+                            <label class="enhanced-form-label">Tên đề tài</label>
+                            <div style="padding: 12px; background: #f8f9fa; border-radius: 8px;">${project.title}</div>
+                        </div>
+                        <div class="enhanced-form-row">
+                            <div class="enhanced-form-group">
+                                <label class="enhanced-form-label">Người đề xuất</label>
+                                <div style="padding: 12px; background: #f8f9fa; border-radius: 8px;">${project.proposer}</div>
+                            </div>
+                            <div class="enhanced-form-group">
+                                <label class="enhanced-form-label">Lĩnh vực</label>
+                                <div style="padding: 12px; background: #f8f9fa; border-radius: 8px;">${project.field}</div>
+                            </div>
+                        </div>
+                        <div class="enhanced-form-row">
+                            <div class="enhanced-form-group">
+                                <label class="enhanced-form-label">Ngày bắt đầu</label>
+                                <div style="padding: 12px; background: #f8f9fa; border-radius: 8px;">${formatDate(project.startDate)}</div>
+                            </div>
+                            <div class="enhanced-form-group">
+                                <label class="enhanced-form-label">Kinh phí</label>
+                                <div style="padding: 12px; background: #f8f9fa; border-radius: 8px;">${formatCurrency(project.budget)}</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-section">
+                        <h3 class="section-title">Mô tả đề tài</h3>
+                        <div style="padding: 15px; background: #f8f9fa; border-radius: 8px; line-height: 1.6;">
+                            ${project.description}
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            showEnhancedModal('Chi tiết hồ sơ: ' + project.id, content);
+        }
+        
+        function editProject(projectId) {
+            showCreateProject();
+            // Fill form with existing data
+            const project = projectData[projectId];
+            if (project) {
+                document.getElementById('maDeTai').value = project.id;
+                document.getElementById('tenDeTai').value = project.title;
+                document.getElementById('nguoiDeXuat').value = project.proposer;
+                document.getElementById('linhVuc').value = project.field;
+            }
+        }
+        
+        // User Search
+        function searchUser(query) {
+            const results = document.getElementById('userSearchResults');
+            if (query.length < 2) {
+                results.style.display = 'none';
+                return;
+            }
+            
+            // Mock search results
+            const users = [
+                { id: 'NV001', name: 'Nguyễn Văn An', degree: 'Tiến sĩ', email: 'nva@university.edu.vn' },
+                { id: 'NV002', name: 'Lê Thị Bình', degree: 'Thạc sĩ', email: 'ltb@university.edu.vn' },
+                { id: 'NV003', name: 'Phạm Tuấn Dũng', degree: 'Tiến sĩ', email: 'ptd@university.edu.vn' }
+            ];
+            
+            const filtered = users.filter(user => 
+                user.name.toLowerCase().includes(query.toLowerCase()) ||
+                user.id.toLowerCase().includes(query.toLowerCase())
+            );
+            
+            if (filtered.length > 0) {
+                results.innerHTML = filtered.map(user => `
+                    <div class="search-item" onclick="selectUser('${user.id}', '${user.name}', '${user.degree}', '${user.email}')">
+                        <div style="font-weight: 500;">${user.name} (${user.id})</div>
+                        <div style="font-size: 12px; color: #666;">${user.degree} - ${user.email}</div>
+                    </div>
+                `).join('');
+                results.style.display = 'block';
+            } else {
+                results.style.display = 'none';
+            }
+        }
+        
+        function selectUser(id, name, degree, email) {
+            document.getElementById('nguoiDeXuat').value = name;
+            document.getElementById('hocVi').value = degree;
+            document.getElementById('email').value = email;
+            document.getElementById('donVi').value = 'Đại học ABC - Khoa Công nghệ thông tin';
+            document.getElementById('userSearchResults').style.display = 'none';
+        }
+        
+        // Date calculation
+        document.getElementById('ngayBatDau')?.addEventListener('change', calculateDuration);
+        document.getElementById('ngayKetThuc')?.addEventListener('change', calculateDuration);
+        
+        function calculateDuration() {
+            const startDate = document.getElementById('ngayBatDau').value;
+            const endDate = document.getElementById('ngayKetThuc').value;
+            
+            if (startDate && endDate) {
+                const start = new Date(startDate);
+                const end = new Date(endDate);
+                const months = Math.ceil((end - start) / (1000 * 60 * 60 * 24 * 30));
+                document.getElementById('thoiGianThucHien').value = months;
+            }
+        }
+        
+        // Modal functions
+        function showEnhancedModal(title, content) {
+            document.getElementById('modalTitle').textContent = title;
+            document.getElementById('modalBody').innerHTML = content;
+            document.getElementById('enhancedModal').style.display = 'block';
+        }
+        
+        function hideEnhancedModal() {
+            document.getElementById('enhancedModal').style.display = 'none';
+        }
+        
+        // Utility functions
+        function getStatusText(status) {
+            const statusMap = {
+                'da-tao': 'Đã tạo',
+                'cho-kiem-tra': 'Chờ kiểm tra',
+                'da-hoan-thien': 'Đã hoàn thiện',
+                'dang-thuc-hien': 'Đang thực hiện'
+            };
+            return statusMap[status] || status;
+        }
+        
+        function formatDate(dateString) {
+            return new Date(dateString).toLocaleDateString('vi-VN');
+        }
+        
+        function formatCurrency(amount) {
+            return new Intl.NumberFormat('vi-VN', {
+                style: 'currency',
+                currency: 'VND'
+            }).format(amount);
+        }
+        
+        function showNotification(message, type = 'success') {
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: ${type === 'success' ? '#27ae60' : '#e74c3c'};
+                color: white;
+                padding: 15px 20px;
+                border-radius: 8px;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+                z-index: 9999;
+                font-weight: 500;
+            `;
+            notification.textContent = message;
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.remove();
+            }, 3000);
+        }
+        
+        function updateStats() {
+            document.getElementById('totalHoSo').textContent = '16';
+            document.getElementById('choKiemTra').textContent = '8';
+            document.getElementById('daHoanThien').textContent = '6';
+            document.getElementById('dangThucHien').textContent = '2';
+        }
+        
+        function resetForm() {
+            document.getElementById('taoHoSoForm').reset();
+            document.getElementById('userSearchResults').style.display = 'none';
+        }
+        
+        function saveDraft() {
+            showNotification('Đã lưu nháp thành công!', 'success');
+        }
+        
+        // Additional CSS for enhanced components
+        const additionalStyles = `
+            <style>
+                .search-results {
+                    position: absolute;
+                    top: 100%;
+                    left: 0;
+                    right: 0;
+                    background: white;
+                    border: 1px solid #ddd;
+                    border-radius: 8px;
+                    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+                    z-index: 1000;
+                    max-height: 200px;
+                    overflow-y: auto;
+                }
+                
+                .search-item {
+                    padding: 12px 15px;
+                    cursor: pointer;
+                    border-bottom: 1px solid #f0f0f0;
+                    transition: background 0.3s;
+                }
+                
+                .search-item:hover {
+                    background: #f8f9fa;
+                }
+                
+                .search-item:last-child {
+                    border-bottom: none;
+                }
+                
+                .task-list {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 15px;
+                }
+                
+                .task-item {
+                    display: flex;
+                    align-items: flex-start;
+                    gap: 15px;
+                    padding: 15px;
+                    border: 1px solid #e1e5e9;
+                    border-radius: 10px;
+                    background: white;
+                }
+                
+                .task-checkbox {
+                    width: 30px;
+                    height: 30px;
+                    border-radius: 50%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    color: white;
+                    font-size: 14px;
+                }
+                
+                .task-item.completed .task-checkbox {
+                    background: #27ae60;
+                }
+                
+                .task-item.in-progress .task-checkbox {
+                    background: #f39c12;
+                }
+                
+                .task-item.pending .task-checkbox {
+                    background: #95a5a6;
+                }
+                
+                .task-content {
+                    flex: 1;
+                }
+                
+                .task-title {
+                    font-weight: 600;
+                    color: #2c3e50;
+                    margin-bottom: 5px;
+                }
+                
+                .task-meta {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    font-size: 12px;
+                    color: #666;
+                    margin-bottom: 10px;
+                }
+                
+                .progress-bar {
+                    width: 100%;
+                    height: 6px;
+                    background: #e1e5e9;
+                    border-radius: 3px;
+                    overflow: hidden;
+                }
+                
+                .progress-fill {
+                    height: 100%;
+                    background: linear-gradient(90deg, #667eea, #764ba2);
+                    transition: width 0.3s;
+                }
 
-    <!-- Modal xác nhận triển khai -->
-    <div id="trienKhaiModal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3 class="modal-title">Xác nhận triển khai đề tài</h3>
-                <span class="close" onclick="hideModal('trienKhaiModal')">&times;</span>
-            </div>
-            <div id="trienKhaiContent">
-                <!-- Content will be loaded here -->
-            </div>
-        </div>
-    </div>
+                /* Enhanced styles for new sections */
+                .documents-grid {
+                    display: grid;
+                    gap: 30px;
+                    margin: 30px 0;
+                }
 
-    <script src="../js/common.js"></script>
-    <script src="../js/nhanvien.js"></script>
+                .document-category {
+                    background: white;
+                    border-radius: 12px;
+                    padding: 25px;
+                    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+                    border: 1px solid #e5e7eb;
+                }
+
+                .document-category h3 {
+                    margin: 0 0 20px 0;
+                    color: #1f2937;
+                    font-size: 18px;
+                    padding-bottom: 10px;
+                    border-bottom: 2px solid #f3f4f6;
+                }
+
+                .document-list {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 15px;
+                }
+
+                .document-item {
+                    display: flex;
+                    align-items: center;
+                    gap: 15px;
+                    padding: 15px;
+                    background: #f9fafb;
+                    border-radius: 8px;
+                    border: 1px solid #e5e7eb;
+                    transition: all 0.3s ease;
+                }
+
+                .document-item:hover {
+                    background: #f3f4f6;
+                    transform: translateY(-1px);
+                }
+
+                .doc-icon {
+                    font-size: 24px;
+                    width: 40px;
+                    text-align: center;
+                }
+
+                .doc-info {
+                    flex: 1;
+                }
+
+                .doc-info h4 {
+                    margin: 0 0 5px 0;
+                    color: #1f2937;
+                    font-size: 14px;
+                    font-weight: 600;
+                }
+
+                .doc-info p {
+                    margin: 0;
+                    color: #6b7280;
+                    font-size: 13px;
+                }
+
+                .doc-actions {
+                    display: flex;
+                    gap: 8px;
+                }
+
+                .calendar-container {
+                    display: grid;
+                    grid-template-columns: 1fr 1fr;
+                    gap: 30px;
+                    margin: 30px 0;
+                }
+
+                .upcoming-events {
+                    background: white;
+                    border-radius: 12px;
+                    padding: 25px;
+                    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+                    border: 1px solid #e5e7eb;
+                }
+
+                .upcoming-events h3 {
+                    margin: 0 0 20px 0;
+                    color: #1f2937;
+                    font-size: 18px;
+                    border-bottom: 2px solid #f3f4f6;
+                    padding-bottom: 10px;
+                }
+
+                .event-list {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 15px;
+                }
+
+                .event-item {
+                    display: flex;
+                    gap: 15px;
+                    padding: 15px;
+                    border-radius: 8px;
+                    border: 1px solid #e5e7eb;
+                    transition: all 0.3s ease;
+                }
+
+                .event-item.urgent {
+                    background: linear-gradient(135deg, #fef2f2 0%, #fecaca 20%);
+                    border-color: #fca5a5;
+                }
+
+                .event-item.normal {
+                    background: #f9fafb;
+                }
+
+                .event-item:hover {
+                    transform: translateY(-2px);
+                    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+                }
+
+                .event-date {
+                    text-align: center;
+                    min-width: 50px;
+                }
+
+                .event-date .date {
+                    display: block;
+                    font-size: 20px;
+                    font-weight: 700;
+                    color: #667eea;
+                }
+
+                .event-date .month {
+                    display: block;
+                    font-size: 12px;
+                    color: #6b7280;
+                    text-transform: uppercase;
+                }
+
+                .event-info {
+                    flex: 1;
+                }
+
+                .event-info h4 {
+                    margin: 0 0 5px 0;
+                    color: #1f2937;
+                    font-size: 14px;
+                    font-weight: 600;
+                }
+
+                .event-info p {
+                    margin: 0 0 5px 0;
+                    color: #6b7280;
+                    font-size: 13px;
+                    line-height: 1.4;
+                }
+
+                .event-info small {
+                    color: #9ca3af;
+                    font-size: 12px;
+                }
+
+                .calendar-widget {
+                    background: white;
+                    border-radius: 12px;
+                    padding: 25px;
+                    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+                    border: 1px solid #e5e7eb;
+                }
+
+                .calendar-header {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    margin-bottom: 20px;
+                }
+
+                .calendar-header h3 {
+                    margin: 0;
+                    color: #1f2937;
+                    font-size: 18px;
+                }
+
+                .nav-btn {
+                    background: none;
+                    border: none;
+                    font-size: 18px;
+                    color: #667eea;
+                    cursor: pointer;
+                    padding: 5px 10px;
+                    border-radius: 5px;
+                    transition: all 0.3s ease;
+                }
+
+                .nav-btn:hover {
+                    background: #f3f4f6;
+                }
+
+                .calendar-grid {
+                    display: grid;
+                    grid-template-columns: repeat(7, 1fr);
+                    gap: 1px;
+                    background: #e5e7eb;
+                    border-radius: 8px;
+                    overflow: hidden;
+                }
+
+                .calendar-day {
+                    background: white;
+                    padding: 10px;
+                    text-align: center;
+                    font-size: 13px;
+                    color: #374151;
+                    cursor: pointer;
+                    transition: all 0.3s ease;
+                    position: relative;
+                }
+
+                .calendar-day.header {
+                    background: #f9fafb;
+                    font-weight: 600;
+                    color: #6b7280;
+                    cursor: default;
+                }
+
+                .calendar-day:not(.header):hover {
+                    background: #f3f4f6;
+                }
+
+                .calendar-day.today {
+                    background: #667eea;
+                    color: white;
+                    font-weight: 600;
+                }
+
+                .calendar-day.event::after {
+                    content: '';
+                    position: absolute;
+                    bottom: 2px;
+                    left: 50%;
+                    transform: translateX(-50%);
+                    width: 4px;
+                    height: 4px;
+                    background: #f59e0b;
+                    border-radius: 50%;
+                }
+
+                .profile-container {
+                    display: grid;
+                    grid-template-columns: 300px 1fr;
+                    gap: 30px;
+                    margin: 30px 0;
+                }
+
+                .profile-card {
+                    background: white;
+                    border-radius: 12px;
+                    padding: 30px;
+                    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+                    border: 1px solid #e5e7eb;
+                    text-align: center;
+                    height: fit-content;
+                }
+
+                .profile-avatar {
+                    position: relative;
+                    display: inline-block;
+                    margin-bottom: 20px;
+                }
+
+                .profile-avatar img {
+                    width: 120px;
+                    height: 120px;
+                    border-radius: 50%;
+                    object-fit: cover;
+                    border: 4px solid #f3f4f6;
+                }
+
+                .avatar-edit {
+                    position: absolute;
+                    bottom: 5px;
+                    right: 5px;
+                    background: #667eea;
+                    color: white;
+                    border: none;
+                    border-radius: 50%;
+                    width: 35px;
+                    height: 35px;
+                    cursor: pointer;
+                    font-size: 14px;
+                    transition: all 0.3s ease;
+                }
+
+                .avatar-edit:hover {
+                    background: #5a67d8;
+                    transform: scale(1.1);
+                }
+
+                .profile-info h3 {
+                    margin: 0 0 5px 0;
+                    color: #1f2937;
+                    font-size: 20px;
+                    font-weight: 700;
+                }
+
+                .profile-info p {
+                    margin: 0 0 20px 0;
+                    color: #6b7280;
+                    font-size: 14px;
+                }
+
+                .profile-stats {
+                    display: flex;
+                    justify-content: space-around;
+                    padding-top: 20px;
+                    border-top: 1px solid #f3f4f6;
+                }
+
+                .stat-item {
+                    text-align: center;
+                }
+
+                .stat-item .stat-value {
+                    display: block;
+                    font-size: 24px;
+                    font-weight: 700;
+                    color: #667eea;
+                    margin-bottom: 5px;
+                }
+
+                .stat-item .stat-label {
+                    font-size: 12px;
+                    color: #6b7280;
+                    line-height: 1.2;
+                }
+
+                .profile-details {
+                    background: white;
+                    border-radius: 12px;
+                    padding: 30px;
+                    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+                    border: 1px solid #e5e7eb;
+                }
+
+                .detail-section {
+                    margin-bottom: 30px;
+                    padding-bottom: 20px;
+                    border-bottom: 1px solid #f3f4f6;
+                }
+
+                .detail-section:last-child {
+                    margin-bottom: 0;
+                    padding-bottom: 0;
+                    border-bottom: none;
+                }
+
+                .detail-section h4 {
+                    margin: 0 0 15px 0;
+                    color: #1f2937;
+                    font-size: 16px;
+                    font-weight: 600;
+                }
+
+                .detail-grid {
+                    display: grid;
+                    gap: 15px;
+                }
+
+                .detail-item {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    padding: 12px 0;
+                }
+
+                .detail-item label {
+                    font-weight: 600;
+                    color: #374151;
+                    min-width: 120px;
+                }
+
+                .detail-item span {
+                    color: #6b7280;
+                    text-align: right;
+                }
+
+                .security-options {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 15px;
+                }
+
+                .security-item {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    padding: 15px;
+                    background: #f9fafb;
+                    border-radius: 8px;
+                    border: 1px solid #e5e7eb;
+                }
+
+                .security-info h5 {
+                    margin: 0 0 5px 0;
+                    color: #1f2937;
+                    font-size: 14px;
+                    font-weight: 600;
+                }
+
+                .security-info p {
+                    margin: 0;
+                    color: #6b7280;
+                    font-size: 13px;
+                }
+
+                .toggle-btn {
+                    position: relative;
+                    width: 50px;
+                    height: 25px;
+                    background: #e5e7eb;
+                    border: none;
+                    border-radius: 15px;
+                    cursor: pointer;
+                    transition: all 0.3s ease;
+                }
+
+                .toggle-btn.active {
+                    background: #667eea;
+                }
+
+                .toggle-slider {
+                    position: absolute;
+                    top: 2px;
+                    left: 2px;
+                    width: 21px;
+                    height: 21px;
+                    background: white;
+                    border-radius: 50%;
+                    transition: all 0.3s ease;
+                    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+                }
+
+                .toggle-btn.active .toggle-slider {
+                    transform: translateX(25px);
+                }
+
+                .settings-container {
+                    margin: 30px 0;
+                }
+
+                .settings-category {
+                    background: white;
+                    border-radius: 12px;
+                    padding: 25px;
+                    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+                    border: 1px solid #e5e7eb;
+                    margin-bottom: 25px;
+                }
+
+                .settings-category h3 {
+                    margin: 0 0 20px 0;
+                    color: #1f2937;
+                    font-size: 18px;
+                    padding-bottom: 10px;
+                    border-bottom: 2px solid #f3f4f6;
+                }
+
+                .setting-item {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    padding: 15px 0;
+                    border-bottom: 1px solid #f3f4f6;
+                }
+
+                .setting-item:last-child {
+                    border-bottom: none;
+                }
+
+                .setting-info h4 {
+                    margin: 0 0 5px 0;
+                    color: #1f2937;
+                    font-size: 14px;
+                    font-weight: 600;
+                }
+
+                .setting-info p {
+                    margin: 0;
+                    color: #6b7280;
+                    font-size: 13px;
+                }
+            </style>
+        `;
+        
+        document.head.insertAdjacentHTML('beforeend', additionalStyles);
+        
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            showSection('dashboard');
+            updateStats();
+            
+            // Close modal when clicking outside
+            window.addEventListener('click', function(event) {
+                const modal = document.getElementById('enhancedModal');
+                if (event.target === modal) {
+                    hideEnhancedModal();
+                }
+            });
+        });
+    </script>
+
+    <!-- Enhanced Component Integration -->
+    <script src="../components/common-functions.js"></script>
+    <script src="../components/form-builder.js"></script>
+    <script>
+        // Enhanced JavaScript for Staff dashboard
+        class StaffDashboard extends DashboardManager {
+            constructor() {
+                super();
+                this.setupStaffSpecificHandlers();
+            }
+
+            setupStaffSpecificHandlers() {
+                // Override specific methods for staff role
+                console.log('Staff Dashboard initialized');
+                this.theme = 'staff';
+            }
+
+            loadSectionData(sectionId) {
+                switch(sectionId) {
+                    case 'dashboard':
+                        this.loadStaffDashboardData();
+                        break;
+                    case 'projects':
+                        this.loadProjectManagement();
+                        break;
+                    case 'applications':
+                        this.loadApplications();
+                        break;
+                    case 'reports':
+                        this.loadReports();
+                        break;
+                    case 'documents':
+                        this.loadDocuments();
+                        break;
+                }
+            }
+
+            loadStaffDashboardData() {
+                const projects = mockDataManager.getProjects();
+                const userProjects = projects.filter(p => p.nhanVienId === 'NV001');
+                
+                // Update statistics
+                document.getElementById('totalProjects').textContent = userProjects.length;
+                document.getElementById('activeProjects').textContent = 
+                    userProjects.filter(p => p.trangThai === 'dang-thuc-hien').length;
+                document.getElementById('completedProjects').textContent = 
+                    userProjects.filter(p => p.trangThai === 'hoan-thanh').length;
+            }
+
+            loadProjectManagement() {
+                const projects = mockDataManager.getProjects();
+                // Enhanced project management interface
+                console.log('Loading project management for staff');
+            }
+
+            createProjectApplication() {
+                const modal = document.createElement('div');
+                modal.className = 'modal';
+                modal.style.display = 'block';
+                modal.innerHTML = `
+                    <div class="modal-content">
+                        <div class="modal-header theme-staff">
+                            <h3>📝 Tạo đề xuất đề tài mới</h3>
+                            <span class="close" onclick="this.closest('.modal').remove()">&times;</span>
+                        </div>
+                        <div class="modal-body" id="staffApplicationFormContainer"></div>
+                    </div>
+                `;
+                document.body.appendChild(modal);
+                
+                // Generate project application form
+                formBuilder.createProjectApplicationForm('staffApplicationFormContainer');
+            }
+
+            submitProgressReport(projectId) {
+                const modal = document.createElement('div');
+                modal.className = 'modal';
+                modal.style.display = 'block';
+                modal.innerHTML = `
+                    <div class="modal-content">
+                        <div class="modal-header theme-staff">
+                            <h3>📊 Báo cáo tiến độ đề tài ${projectId}</h3>
+                            <span class="close" onclick="this.closest('.modal').remove()">&times;</span>
+                        </div>
+                        <div class="modal-body" id="progressReportFormContainer"></div>
+                    </div>
+                `;
+                document.body.appendChild(modal);
+                
+                // Generate progress report form
+                const project = mockDataManager.getProjects().find(p => p.id === projectId);
+                formBuilder.createProgressReportForm('progressReportFormContainer', project);
+            }
+        }
+
+        // Initialize staff dashboard
+        window.staffDashboard = new StaffDashboard();
+
+        // Enhanced global functions for staff dashboard
+        function createNewProject() {
+            window.staffDashboard.createProjectApplication();
+        }
+
+        function viewProjectDetails(projectId) {
+            showNotification(`Xem chi tiết đề tài ${projectId}`, 'info');
+        }
+
+        function submitReport(projectId) {
+            window.staffDashboard.submitProgressReport(projectId);
+        }
+
+        function uploadDocument(projectId) {
+            showNotification(`Tải lên tài liệu cho đề tài ${projectId}`, 'success');
+        }
+
+        function downloadTemplate(type) {
+            showNotification(`Tải xuống mẫu ${type}`, 'success');
+        }
+
+        function exportReport(type) {
+            showNotification(`Xuất báo cáo ${type}`, 'success');
+        }
+
+        // Override showSection to integrate with component system
+        function showSectionEnhanced(sectionId) {
+            // Use enhanced section management
+            window.staffDashboard.loadSectionData(sectionId);
+            showSection(sectionId); // Call original function
+        }
+
+        // Enhanced functions for staff dashboard new sections
+        function uploadNewDocument() {
+            showNotification('Tính năng tải lên tài liệu đang được phát triển', 'info');
+        }
+
+        function downloadDocument(filename) {
+            showNotification(`Đang tải xuống ${filename}...`, 'success');
+        }
+
+        function editDocument(filename) {
+            showNotification(`Chỉnh sửa tài liệu ${filename}`, 'info');
+        }
+
+        function viewFeedback(docId) {
+            showNotification(`Xem góp ý cho tài liệu ${docId}`, 'info');
+        }
+
+        function prepareAcceptanceFiles(projectId) {
+            showNotification(`Chuẩn bị hồ sơ nghiệm thu cho đề tài ${projectId}`, 'info');
+        }
+
+        function downloadAcceptanceTemplate() {
+            showNotification('Tải xuống mẫu hồ sơ nghiệm thu', 'success');
+        }
+
+        function addNewEvent() {
+            showNotification('Thêm sự kiện mới vào lịch', 'success');
+        }
+
+        function previousMonth() {
+            showNotification('Chuyển sang tháng trước', 'info');
+        }
+
+        function nextMonth() {
+            showNotification('Chuyển sang tháng sau', 'info');
+        }
+
+        function editProfile() {
+            showNotification('Chỉnh sửa thông tin cá nhân', 'info');
+        }
+
+        function changePassword() {
+            showNotification('Đổi mật khẩu', 'info');
+        }
+
+        function changeAvatar() {
+            showNotification('Thay đổi ảnh đại diện', 'info');
+        }
+
+        function toggleDarkMode() {
+            showNotification('Chuyển đổi chế độ tối', 'info');
+        }
+
+        // Update the enhanced nav links to use the proper showSection function
+        document.addEventListener('DOMContentLoaded', function() {
+            // Update navigation links to use proper section IDs
+            const navLinks = document.querySelectorAll('.enhanced-nav-link');
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const section = this.getAttribute('data-section');
+                    
+                    // Remove active class from all links
+                    navLinks.forEach(l => l.classList.remove('active'));
+                    // Add active class to clicked link
+                    this.classList.add('active');
+                    
+                    // Show the selected section
+                    showSection(section);
+                    window.staffDashboard.loadSectionData(section);
+                });
+            });
+        });
+    </script>
 </body>
 </html>
