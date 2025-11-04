@@ -5,35 +5,409 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard - Chủ nhiệm đề tài</title>
     <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../components/common-styles.css">
+    <link rel="stylesheet" href="../components/form-styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* Enhanced CSS for Project Leader Dashboard */
+        .enhanced-dashboard {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .enhanced-sidebar {
+            background: linear-gradient(180deg, #2c3e50 0%, #34495e 100%);
+            box-shadow: 2px 0 15px rgba(0,0,0,0.1);
+            width: 280px;
+        }
+
+        .sidebar-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 25px 20px;
+            text-align: center;
+            border-radius: 0 0 20px 20px;
+        }
+
+        .sidebar-header h3 {
+            margin: 0 0 10px;
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .user-info {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        .nav-menu {
+            padding: 20px 0;
+            list-style: none;
+            margin: 0;
+        }
+
+        .nav-item {
+            margin: 5px 15px;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            padding: 15px 20px;
+            color: #ecf0f1;
+            text-decoration: none;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .nav-link:hover {
+            background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+            transform: translateX(5px);
+            box-shadow: 0 5px 15px rgba(59, 130, 246, 0.3);
+        }
+
+        .nav-link.active {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            box-shadow: 0 5px 15px rgba(16, 185, 129, 0.3);
+        }
+
+        .nav-link i {
+            margin-right: 12px;
+            width: 20px;
+        }
+
+        .main-content {
+            flex: 1;
+            background: #f8fafc;
+        }
+
+        .top-bar {
+            background: white;
+            padding: 20px 30px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            border-radius: 15px 15px 0 0;
+            margin: 20px;
+            margin-bottom: 0;
+        }
+
+        .enhanced-stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 30px;
+        }
+
+        .enhanced-stat-card {
+            background: linear-gradient(145deg, #ffffff 0%, #f8fafc 100%);
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            border: 1px solid #e2e8f0;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .enhanced-stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #3b82f6, #10b981, #f59e0b, #ef4444);
+        }
+
+        .enhanced-stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+
+        .stat-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .stat-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: white;
+        }
+
+        .stat-number {
+            font-size: 32px;
+            font-weight: 700;
+            color: #1f2937;
+            margin: 10px 0;
+        }
+
+        .stat-label {
+            color: #6b7280;
+            font-weight: 500;
+            font-size: 14px;
+        }
+
+        .enhanced-btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+            color: white;
+        }
+
+        .btn-secondary {
+            background: linear-gradient(135deg, #6b7280 0%, #4b5563 100%);
+            color: white;
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+        }
+
+        .btn-warning {
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+            color: white;
+        }
+
+        .btn-danger {
+            background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+            color: white;
+        }
+
+        .enhanced-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .status-badge {
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .status-pending {
+            background: #fef3c7;
+            color: #d97706;
+        }
+
+        .status-approved {
+            background: #d1fae5;
+            color: #059669;
+        }
+
+        .status-in-progress {
+            background: #dbeafe;
+            color: #2563eb;
+        }
+
+        .status-completed {
+            background: #dcfce7;
+            color: #16a34a;
+        }
+
+        .status-revision {
+            background: #fee2e2;
+            color: #dc2626;
+        }
+
+        .form-grid {
+            display: grid;
+            gap: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group label {
+            font-weight: 600;
+            color: #374151;
+            margin-bottom: 8px;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            padding: 12px 16px;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
+        .progress-container {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #e5e7eb;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #3b82f6, #10b981);
+            transition: width 0.3s ease;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.6);
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            background: white;
+            margin: 2% auto;
+            padding: 0;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 800px;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+
+        .modal-header {
+            padding: 25px 30px;
+            border-bottom: 1px solid #e5e7eb;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 15px 15px 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-body {
+            padding: 30px;
+        }
+
+        .close {
+            color: white;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            line-height: 1;
+        }
+
+        .close:hover {
+            opacity: 0.7;
+        }
+
+        .alert {
+            padding: 15px 20px;
+            border-radius: 10px;
+            margin: 15px 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .alert.info {
+            background: #dbeafe;
+            border-left: 4px solid #3b82f6;
+            color: #1e40af;
+        }
+
+        .alert.warning {
+            background: #fef3c7;
+            border-left: 4px solid #f59e0b;
+            color: #92400e;
+        }
+
+        .alert.success {
+            background: #d1fae5;
+            border-left: 4px solid #10b981;
+            color: #065f46;
+        }
+
+        .alert.error {
+            background: #fee2e2;
+            border-left: 4px solid #ef4444;
+            color: #991b1b;
+        }
+    </style>
 </head>
 <body>
-    <div class="dashboard">
-        <!-- Sidebar -->
-        <nav class="sidebar">
+    <div class="enhanced-dashboard" style="display: flex;">
+        <!-- Enhanced Sidebar -->
+        <nav class="enhanced-sidebar">
             <div class="sidebar-header">
-                <h3>Chủ nhiệm đề tài</h3>
-                <div class="user-info" id="userInfo">Đang tải...</div>
+                <h3><i class="fas fa-user-tie"></i> Chủ nhiệm đề tài</h3>
+                <div class="user-info" id="userInfo">
+                    <i class="fas fa-circle" style="color: #10b981; font-size: 8px;"></i>
+                    Đang tải...
+                </div>
             </div>
             <ul class="nav-menu">
                 <li class="nav-item">
                     <a href="#dashboard" class="nav-link active" onclick="showSection('dashboard')">
-                        <i class="fas fa-tachometer-alt"></i> Dashboard
+                        <i class="fas fa-tachometer-alt"></i> Tổng quan
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="#ho-so-cua-toi" class="nav-link" onclick="showSection('ho-so-cua-toi')">
-                        <i class="fas fa-folder"></i> Hồ sơ của tôi
+                    <a href="#hoso" class="nav-link" onclick="showSection('hoso')">
+                        <i class="fas fa-folder-open"></i> Hồ sơ của tôi
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="#tien-do-de-tai" class="nav-link" onclick="showSection('tien-do-de-tai')">
+                    <a href="#tiendo" class="nav-link" onclick="showSection('tiendo')">
                         <i class="fas fa-chart-line"></i> Tiến độ đề tài
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="#nghiem-thu" class="nav-link" onclick="showSection('nghiem-thu')">
+                    <a href="#nghiemthu" class="nav-link" onclick="showSection('nghiemthu')">
                         <i class="fas fa-clipboard-check"></i> Nghiệm thu
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#baocao" class="nav-link" onclick="showSection('baocao')">
+                        <i class="fas fa-chart-pie"></i> Báo cáo
                     </a>
                 </li>
             </ul>
@@ -42,147 +416,445 @@
         <!-- Main Content -->
         <main class="main-content">
             <!-- Top Bar -->
-            <div class="top-bar">
-                <h2 class="page-title">Quản lý đề tài nghiên cứu</h2>
-                <div class="user-menu">
-                    <button onclick="logout()" class="logout-btn">
+            <div class="top-bar" style="display: flex; justify-content: space-between; align-items: center;">
+                <div>
+                    <h2 style="margin: 0; color: #1f2937;">Quản lý đề tài nghiên cứu</h2>
+                    <p style="margin: 5px 0 0; color: #6b7280;">Hệ thống quản lý và theo dõi đề tài nghiên cứu khoa học</p>
+                </div>
+                <div style="display: flex; align-items: center; gap: 15px;">
+                    <div style="text-align: right; font-size: 14px; color: #6b7280;">
+                        <div>Hôm nay: <strong>07/11/2025</strong></div>
+                        <div>Đề tài của tôi: <strong style="color: #3b82f6;" id="myProjectsCount">3</strong></div>
+                    </div>
+                    <button class="enhanced-btn btn-danger" onclick="logout()">
                         <i class="fas fa-sign-out-alt"></i> Đăng xuất
                     </button>
                 </div>
             </div>
 
-            <!-- Content Area -->
-            <div class="content">
-                <!-- Dashboard Section -->
-                <section id="dashboard" class="content-section">
-                    <div class="stats-grid">
-                        <div class="stat-card">
-                            <div class="stat-icon blue">
+            <!-- Enhanced Dashboard Overview -->
+            <section id="dashboard" class="content-section">
+                <div class="enhanced-stats-grid">
+                    <div class="enhanced-stat-card">
+                        <div class="stat-header">
+                            <div class="stat-icon" style="background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);">
                                 <i class="fas fa-file-alt"></i>
                             </div>
-                            <div class="stat-content">
-                                <h3 id="totalDeTai">0</h3>
-                                <p>Tổng đề tài</p>
-                            </div>
                         </div>
-                        <div class="stat-card">
-                            <div class="stat-icon green">
+                        <div class="stat-number" id="totalDeTai">3</div>
+                        <div class="stat-label">Tổng đề tài</div>
+                    </div>
+                    
+                    <div class="enhanced-stat-card">
+                        <div class="stat-header">
+                            <div class="stat-icon" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%);">
                                 <i class="fas fa-play"></i>
                             </div>
-                            <div class="stat-content">
-                                <h3 id="dangThucHien">0</h3>
-                                <p>Đang thực hiện</p>
-                            </div>
                         </div>
-                        <div class="stat-card">
-                            <div class="stat-icon orange">
+                        <div class="stat-number" id="dangThucHien">2</div>
+                        <div class="stat-label">Đang thực hiện</div>
+                    </div>
+                    
+                    <div class="enhanced-stat-card">
+                        <div class="stat-header">
+                            <div class="stat-icon" style="background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);">
                                 <i class="fas fa-clock"></i>
                             </div>
-                            <div class="stat-content">
-                                <h3 id="choXuLy">0</h3>
-                                <p>Chờ xử lý</p>
-                            </div>
                         </div>
-                        <div class="stat-card">
-                            <div class="stat-icon red">
+                        <div class="stat-number" id="choXuLy">1</div>
+                        <div class="stat-label">Chờ xử lý</div>
+                    </div>
+                    
+                    <div class="enhanced-stat-card">
+                        <div class="stat-header">
+                            <div class="stat-icon" style="background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);">
                                 <i class="fas fa-check-circle"></i>
                             </div>
-                            <div class="stat-content">
-                                <h3 id="hoanTat">0</h3>
-                                <p>Hoàn tất</p>
+                        </div>
+                        <div class="stat-number" id="hoanTat">0</div>
+                        <div class="stat-label">Hoàn tất</div>
+                    </div>
+                </div>
+
+                <!-- Recent Projects Table -->
+                <div style="background: white; border-radius: 15px; padding: 25px; margin: 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.08);">
+                    <h3 style="margin-bottom: 20px; color: #1f2937;">Đề tài của tôi</h3>
+                    
+                    <div class="project-list" style="display: grid; gap: 15px;">
+                        <div class="project-item" style="display: flex; justify-content: space-between; align-items: center; padding: 20px; background: #f9fafb; border-radius: 10px; border-left: 4px solid #3b82f6;">
+                            <div>
+                                <h4 style="margin: 0 0 8px; color: #1f2937; font-size: 16px;">Phát triển ứng dụng học tập thông minh</h4>
+                                <div style="display: flex; gap: 20px; color: #6b7280; font-size: 14px;">
+                                    <span><i class="fas fa-hashtag"></i> DT2025101</span>
+                                    <span><i class="fas fa-layer-group"></i> Công nghệ thông tin</span>
+                                    <span><i class="fas fa-calendar"></i> 15/10/2025</span>
+                                </div>
+                            </div>
+                            <div style="display: flex; gap: 10px; align-items: center;">
+                                <span class="status-badge status-in-progress">
+                                    <i class="fas fa-play"></i> Đang thực hiện
+                                </span>
+                                <button class="enhanced-btn btn-primary" onclick="viewProjectDetails('DT2025101')">
+                                    <i class="fas fa-eye"></i> Chi tiết
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="project-item" style="display: flex; justify-content: space-between; align-items: center; padding: 20px; background: #f9fafb; border-radius: 10px; border-left: 4px solid #10b981;">
+                            <div>
+                                <h4 style="margin: 0 0 8px; color: #1f2937; font-size: 16px;">Nghiên cứu thuật toán tối ưu hóa</h4>
+                                <div style="display: flex; gap: 20px; color: #6b7280; font-size: 14px;">
+                                    <span><i class="fas fa-hashtag"></i> DT2025102</span>
+                                    <span><i class="fas fa-layer-group"></i> Toán - Tin học</span>
+                                    <span><i class="fas fa-calendar"></i> 20/10/2025</span>
+                                </div>
+                            </div>
+                            <div style="display: flex; gap: 10px; align-items: center;">
+                                <span class="status-badge status-in-progress">
+                                    <i class="fas fa-play"></i> Đang thực hiện
+                                </span>
+                                <button class="enhanced-btn btn-primary" onclick="viewProjectDetails('DT2025102')">
+                                    <i class="fas fa-eye"></i> Chi tiết
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="project-item" style="display: flex; justify-content: space-between; align-items: center; padding: 20px; background: #f9fafb; border-radius: 10px; border-left: 4px solid #f59e0b;">
+                            <div>
+                                <h4 style="margin: 0 0 8px; color: #1f2937; font-size: 16px;">Ứng dụng IoT trong nông nghiệp</h4>
+                                <div style="display: flex; gap: 20px; color: #6b7280; font-size: 14px;">
+                                    <span><i class="fas fa-hashtag"></i> DT2025103</span>
+                                    <span><i class="fas fa-layer-group"></i> Kỹ thuật</span>
+                                    <span><i class="fas fa-calendar"></i> 25/10/2025</span>
+                                </div>
+                            </div>
+                            <div style="display: flex; gap: 10px; align-items: center;">
+                                <span class="status-badge status-pending">
+                                    <i class="fas fa-clock"></i> Chờ phê duyệt
+                                </span>
+                                <button class="enhanced-btn btn-warning" onclick="editProject('DT2025103')">
+                                    <i class="fas fa-edit"></i> Chỉnh sửa
+                                </button>
                             </div>
                         </div>
                     </div>
+                </div>
+            </section>
 
-                    <div class="table-container">
-                        <div class="table-header">
-                            <h3 class="table-title">Đề tài của tôi</h3>
-                        </div>
-                        <table class="data-table">
-                            <thead>
-                                <tr>
-                                    <th>Mã đề tài</th>
-                                    <th>Tên đề tài</th>
-                                    <th>Lĩnh vực</th>
-                                    <th>Trạng thái</th>
-                                    <th>Ngày tạo</th>
-                                </tr>
-                            </thead>
-                            <tbody id="myProjectsTable">
-                                <!-- Data will be loaded here -->
-                            </tbody>
-                        </table>
+            <!-- File Management Section -->
+            <section id="hoso" class="content-section" style="display: none;">
+                <div style="background: white; border-radius: 15px; padding: 30px; margin: 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.08);">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px;">
+                        <h2 style="margin: 0; color: #1f2937;">Hồ sơ đề tài của tôi</h2>
+                        <button class="enhanced-btn btn-success" onclick="createNewApplication()">
+                            <i class="fas fa-plus"></i> Tạo hồ sơ mới
+                        </button>
                     </div>
-                </section>
+                    
+                    <div class="application-list" style="display: grid; gap: 20px;">
+                        <!-- Application Card 1 -->
+                        <div class="application-card" style="border: 1px solid #e5e7eb; border-radius: 12px; padding: 25px; background: linear-gradient(145deg, #ffffff 0%, #f9fafb 100%);">
+                            <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 20px;">
+                                <div style="flex: 1;">
+                                    <h4 style="margin: 0 0 8px; color: #1f2937; font-size: 18px;">Phát triển ứng dụng học tập thông minh</h4>
+                                    <div style="display: flex; gap: 20px; color: #6b7280; font-size: 14px; margin-bottom: 15px;">
+                                        <span><i class="fas fa-hashtag"></i> DT2025101</span>
+                                        <span><i class="fas fa-calendar"></i> Tạo: 15/10/2025</span>
+                                        <span><i class="fas fa-clock"></i> Cập nhật: 02/11/2025</span>
+                                    </div>
+                                </div>
+                                <span class="status-badge status-in-progress">
+                                    <i class="fas fa-play"></i> Đang thực hiện
+                                </span>
+                            </div>
+                            
+                            <div class="document-status" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 20px;">
+                                <div class="doc-item" style="display: flex; align-items: center; gap: 10px;">
+                                    <i class="fas fa-check-circle" style="color: #10b981;"></i>
+                                    <span style="font-size: 14px;">Đề cương nghiên cứu</span>
+                                </div>
+                                <div class="doc-item" style="display: flex; align-items: center; gap: 10px;">
+                                    <i class="fas fa-check-circle" style="color: #10b981;"></i>
+                                    <span style="font-size: 14px;">Thuyết minh đề tài</span>
+                                </div>
+                                <div class="doc-item" style="display: flex; align-items: center; gap: 10px;">
+                                    <i class="fas fa-check-circle" style="color: #10b981;"></i>
+                                    <span style="font-size: 14px;">Kế hoạch triển khai</span>
+                                </div>
+                                <div class="doc-item" style="display: flex; align-items: center; gap: 10px;">
+                                    <i class="fas fa-check-circle" style="color: #10b981;"></i>
+                                    <span style="font-size: 14px;">Danh sách thành viên</span>
+                                </div>
+                            </div>
 
-                <!-- Hồ sơ của tôi -->
-                <section id="ho-so-cua-toi" class="content-section" style="display: none;">
-                    <div class="table-container">
-                        <div class="table-header">
-                            <h3 class="table-title">Danh sách hồ sơ của tôi</h3>
+                            <div class="application-actions" style="display: flex; gap: 10px;">
+                                <button class="enhanced-btn btn-primary" onclick="viewApplication('DT2025101')">
+                                    <i class="fas fa-eye"></i> Xem chi tiết
+                                </button>
+                                <button class="enhanced-btn btn-secondary" onclick="downloadDocuments('DT2025101')">
+                                    <i class="fas fa-download"></i> Tải tài liệu
+                                </button>
+                            </div>
                         </div>
-                        <table class="data-table">
-                            <thead>
-                                <tr>
-                                    <th>Mã hồ sơ</th>
-                                    <th>Tên đề tài</th>
-                                    <th>Trạng thái</th>
-                                    <th>Ngày tạo</th>
-                                    <th>Thao tác</th>
-                                </tr>
-                            </thead>
-                            <tbody id="hoSoCuaToiTable">
-                                <!-- Data will be loaded here -->
-                            </tbody>
-                        </table>
-                    </div>
-                </section>
 
-                <!-- Tiến độ đề tài -->
-                <section id="tien-do-de-tai" class="content-section" style="display: none;">
-                    <div class="table-container">
-                        <div class="table-header">
-                            <h3 class="table-title">Tiến độ các đề tài đang thực hiện</h3>
-                        </div>
-                        <table class="data-table">
-                            <thead>
-                                <tr>
-                                    <th>Mã đề tài</th>
-                                    <th>Tên đề tài</th>
-                                    <th>Tiến độ</th>
-                                    <th>Kỳ báo cáo tiếp theo</th>
-                                    <th>Thao tác</th>
-                                </tr>
-                            </thead>
-                            <tbody id="tienDoTable">
-                                <!-- Data will be loaded here -->
-                            </tbody>
-                        </table>
-                    </div>
-                </section>
+                        <!-- Application Card 2 -->
+                        <div class="application-card" style="border: 1px solid #e5e7eb; border-radius: 12px; padding: 25px; background: linear-gradient(145deg, #ffffff 0%, #f9fafb 100%);">
+                            <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 20px;">
+                                <div style="flex: 1;">
+                                    <h4 style="margin: 0 0 8px; color: #1f2937; font-size: 18px;">Ứng dụng IoT trong nông nghiệp</h4>
+                                    <div style="display: flex; gap: 20px; color: #6b7280; font-size: 14px; margin-bottom: 15px;">
+                                        <span><i class="fas fa-hashtag"></i> DT2025103</span>
+                                        <span><i class="fas fa-calendar"></i> Tạo: 25/10/2025</span>
+                                        <span><i class="fas fa-exclamation-triangle" style="color: #f59e0b;"></i> Cần chỉnh sửa</span>
+                                    </div>
+                                </div>
+                                <span class="status-badge status-revision">
+                                    <i class="fas fa-edit"></i> Cần sửa
+                                </span>
+                            </div>
+                            
+                            <div class="revision-notice" style="background: #fef3c7; border-left: 4px solid #f59e0b; padding: 15px; margin-bottom: 15px; border-radius: 8px;">
+                                <p style="margin: 0; color: #92400e; font-size: 14px;">
+                                    <strong>Yêu cầu chỉnh sửa:</strong> Cần bổ sung chi tiết về phương pháp nghiên cứu và điều chỉnh ngân sách.
+                                </p>
+                            </div>
 
-                <!-- Nghiệm thu -->
-                <section id="nghiem-thu" class="content-section" style="display: none;">
-                    <div class="table-container">
-                        <div class="table-header">
-                            <h3 class="table-title">Đề tài cần nghiệm thu</h3>
+                            <div class="application-actions" style="display: flex; gap: 10px;">
+                                <button class="enhanced-btn btn-warning" onclick="editApplication('DT2025103')">
+                                    <i class="fas fa-edit"></i> Chỉnh sửa
+                                </button>
+                                <button class="enhanced-btn btn-secondary" onclick="viewApplication('DT2025103')">
+                                    <i class="fas fa-eye"></i> Xem chi tiết
+                                </button>
+                            </div>
                         </div>
-                        <table class="data-table">
-                            <thead>
-                                <tr>
-                                    <th>Mã đề tài</th>
-                                    <th>Tên đề tài</th>
-                                    <th>Tiến độ</th>
-                                    <th>Hạn nghiệm thu</th>
-                                    <th>Thao tác</th>
-                                </tr>
-                            </thead>
-                            <tbody id="nghiemThuTable">
-                                <!-- Data will be loaded here -->
-                            </tbody>
-                        </table>
                     </div>
-                </section>
+                </div>
+            </section>
+
+            <!-- Progress Tracking Section -->
+            <section id="tiendo" class="content-section" style="display: none;">
+                <div style="background: white; border-radius: 15px; padding: 30px; margin: 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.08);">
+                    <h2 style="margin-bottom: 25px; color: #1f2937;">Tiến độ đề tài đang thực hiện</h2>
+                    
+                    <div class="progress-projects" style="display: grid; gap: 25px;">
+                        <!-- Project Progress Card 1 -->
+                        <div class="progress-card" style="border: 1px solid #d1fae5; background: linear-gradient(145deg, #ffffff 0%, #f0fdf4 100%); border-radius: 12px; padding: 25px;">
+                            <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 20px;">
+                                <div>
+                                    <h4 style="margin: 0 0 8px; color: #1f2937; font-size: 18px;">Phát triển ứng dụng học tập thông minh</h4>
+                                    <div style="display: flex; gap: 20px; color: #6b7280; font-size: 14px;">
+                                        <span><i class="fas fa-hashtag"></i> DT2025101</span>
+                                        <span><i class="fas fa-calendar"></i> Bắt đầu: 01/11/2025</span>
+                                        <span><i class="fas fa-clock"></i> Thời hạn: 01/11/2027</span>
+                                    </div>
+                                </div>
+                                <div class="progress-percentage" style="text-align: center; background: #10b981; color: white; padding: 10px; border-radius: 8px; min-width: 60px;">
+                                    <div style="font-size: 18px; font-weight: 700;">15%</div>
+                                </div>
+                            </div>
+                            
+                            <div class="progress-details" style="margin-bottom: 20px;">
+                                <div class="progress-bar" style="width: 100%; height: 10px; background: #e5e7eb; border-radius: 5px; overflow: hidden;">
+                                    <div class="progress-fill" style="width: 15%; height: 100%; background: linear-gradient(90deg, #3b82f6, #10b981);"></div>
+                                </div>
+                                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 15px; font-size: 14px;">
+                                    <div><strong>Báo cáo đã nộp:</strong> 1/4 kỳ</div>
+                                    <div><strong>Kỳ báo cáo tiếp theo:</strong> Kỳ 2 (01/03/2026)</div>
+                                </div>
+                            </div>
+
+                            <div class="progress-actions" style="display: flex; gap: 10px;">
+                                <button class="enhanced-btn btn-primary" onclick="submitProgressReport('DT2025101', 2)">
+                                    <i class="fas fa-upload"></i> Nộp báo cáo kỳ 2
+                                </button>
+                                <button class="enhanced-btn btn-secondary" onclick="viewProgressDetails('DT2025101')">
+                                    <i class="fas fa-chart-line"></i> Chi tiết tiến độ
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Project Progress Card 2 -->
+                        <div class="progress-card" style="border: 1px solid #dbeafe; background: linear-gradient(145deg, #ffffff 0%, #f0f9ff 100%); border-radius: 12px; padding: 25px;">
+                            <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 20px;">
+                                <div>
+                                    <h4 style="margin: 0 0 8px; color: #1f2937; font-size: 18px;">Nghiên cứu thuật toán tối ưu hóa</h4>
+                                    <div style="display: flex; gap: 20px; color: #6b7280; font-size: 14px;">
+                                        <span><i class="fas fa-hashtag"></i> DT2025102</span>
+                                        <span><i class="fas fa-calendar"></i> Bắt đầu: 15/10/2025</span>
+                                        <span><i class="fas fa-clock"></i> Thời hạn: 15/10/2026</span>
+                                    </div>
+                                </div>
+                                <div class="progress-percentage" style="text-align: center; background: #3b82f6; color: white; padding: 10px; border-radius: 8px; min-width: 60px;">
+                                    <div style="font-size: 18px; font-weight: 700;">25%</div>
+                                </div>
+                            </div>
+                            
+                            <div class="progress-details" style="margin-bottom: 20px;">
+                                <div class="progress-bar" style="width: 100%; height: 10px; background: #e5e7eb; border-radius: 5px; overflow: hidden;">
+                                    <div class="progress-fill" style="width: 25%; height: 100%; background: linear-gradient(90deg, #3b82f6, #1d4ed8);"></div>
+                                </div>
+                                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 15px; font-size: 14px;">
+                                    <div><strong>Báo cáo đã nộp:</strong> 1/4 kỳ</div>
+                                    <div><strong>Kỳ báo cáo tiếp theo:</strong> Kỳ 2 (15/01/2026)</div>
+                                </div>
+                            </div>
+
+                            <div class="progress-actions" style="display: flex; gap: 10px;">
+                                <button class="enhanced-btn btn-primary" onclick="submitProgressReport('DT2025102', 2)">
+                                    <i class="fas fa-upload"></i> Nộp báo cáo kỳ 2
+                                </button>
+                                <button class="enhanced-btn btn-secondary" onclick="viewProgressDetails('DT2025102')">
+                                    <i class="fas fa-chart-line"></i> Chi tiết tiến độ
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Acceptance Testing Section -->
+            <section id="nghiemthu" class="content-section" style="display: none;">
+                <div style="background: white; border-radius: 15px; padding: 30px; margin: 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.08);">
+                    <h2 style="margin-bottom: 25px; color: #1f2937;">Nghiệm thu đề tài</h2>
+                    
+                    <div class="acceptance-info" style="background: #dbeafe; border-left: 4px solid #3b82f6; padding: 20px; border-radius: 8px; margin-bottom: 25px;">
+                        <p style="margin: 0; color: #1e40af; font-size: 14px;">
+                            <i class="fas fa-info-circle"></i>
+                            <strong>Lưu ý:</strong> Đề tài cần hoàn thành ít nhất 75% tiến độ và có báo cáo kỳ 3 để có thể nộp hồ sơ nghiệm thu.
+                        </p>
+                    </div>
+
+                    <div class="acceptance-list" style="display: grid; gap: 20px;">
+                        <!-- Ready for Acceptance Project -->
+                        <div class="acceptance-card" style="border: 1px solid #fef3c7; background: linear-gradient(145deg, #ffffff 0%, #fffbeb 100%); border-radius: 12px; padding: 25px;">
+                            <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 20px;">
+                                <div>
+                                    <h4 style="margin: 0 0 8px; color: #1f2937; font-size: 18px;">Nghiên cứu thuật toán tối ưu hóa</h4>
+                                    <div style="display: flex; gap: 20px; color: #6b7280; font-size: 14px;">
+                                        <span><i class="fas fa-hashtag"></i> DT2025102</span>
+                                        <span><i class="fas fa-calendar"></i> Dự kiến nghiệm thu: 15/08/2026</span>
+                                        <span><i class="fas fa-chart-line"></i> Tiến độ: 75%</span>
+                                    </div>
+                                </div>
+                                <span class="status-badge" style="background: #fef3c7; color: #d97706;">
+                                    <i class="fas fa-hourglass-half"></i> Sắp nghiệm thu
+                                </span>
+                            </div>
+                            
+                            <div class="acceptance-requirements" style="margin-bottom: 20px;">
+                                <h5 style="margin: 0 0 10px; color: #374151;">Tài liệu nghiệm thu cần chuẩn bị:</h5>
+                                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 10px; font-size: 14px;">
+                                    <div style="display: flex; align-items: center; gap: 8px;">
+                                        <i class="fas fa-circle-notch" style="color: #f59e0b;"></i>
+                                        <span>Báo cáo tổng kết</span>
+                                    </div>
+                                    <div style="display: flex; align-items: center; gap: 8px;">
+                                        <i class="fas fa-circle-notch" style="color: #f59e0b;"></i>
+                                        <span>Sản phẩm nghiên cứu</span>
+                                    </div>
+                                    <div style="display: flex; align-items: center; gap: 8px;">
+                                        <i class="fas fa-circle-notch" style="color: #f59e0b;"></i>
+                                        <span>Tài liệu minh chứng</span>
+                                    </div>
+                                    <div style="display: flex; align-items: center; gap: 8px;">
+                                        <i class="fas fa-circle-notch" style="color: #f59e0b;"></i>
+                                        <span>Bảng tự đánh giá</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="acceptance-actions" style="display: flex; gap: 10px;">
+                                <button class="enhanced-btn btn-warning" onclick="prepareAcceptance('DT2025102')">
+                                    <i class="fas fa-upload"></i> Chuẩn bị nghiệm thu
+                                </button>
+                                <button class="enhanced-btn btn-secondary" onclick="viewAcceptanceGuide('DT2025102')">
+                                    <i class="fas fa-book"></i> Hướng dẫn nghiệm thu
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Not Ready Project -->
+                        <div class="acceptance-card" style="border: 1px solid #fee2e2; background: linear-gradient(145deg, #ffffff 0%, #fef2f2 100%); border-radius: 12px; padding: 25px;">
+                            <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 20px;">
+                                <div>
+                                    <h4 style="margin: 0 0 8px; color: #1f2937; font-size: 18px;">Phát triển ứng dụng học tập thông minh</h4>
+                                    <div style="display: flex; gap: 20px; color: #6b7280; font-size: 14px;">
+                                        <span><i class="fas fa-hashtag"></i> DT2025101</span>
+                                        <span><i class="fas fa-calendar"></i> Dự kiến nghiệm thu: 01/09/2027</span>
+                                        <span><i class="fas fa-chart-line"></i> Tiến độ: 15%</span>
+                                    </div>
+                                </div>
+                                <span class="status-badge" style="background: #fee2e2; color: #dc2626;">
+                                    <i class="fas fa-clock"></i> Chưa đủ điều kiện
+                                </span>
+                            </div>
+                            
+                            <div class="not-ready-notice" style="background: #fee2e2; border-left: 4px solid #ef4444; padding: 15px; border-radius: 8px; margin-bottom: 15px;">
+                                <p style="margin: 0; color: #991b1b; font-size: 14px;">
+                                    <strong>Chưa đủ điều kiện nghiệm thu:</strong> Cần hoàn thành ít nhất 75% tiến độ và nộp đủ 3 báo cáo kỳ.
+                                </p>
+                            </div>
+
+                            <div class="acceptance-actions" style="display: flex; gap: 10px;">
+                                <button class="enhanced-btn btn-secondary" disabled>
+                                    <i class="fas fa-lock"></i> Chưa thể nghiệm thu
+                                </button>
+                                <button class="enhanced-btn btn-primary" onclick="viewProgressDetails('DT2025101')">
+                                    <i class="fas fa-chart-line"></i> Xem tiến độ
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Reports Section -->
+            <section id="baocao" class="content-section" style="display: none;">
+                <div style="background: white; border-radius: 15px; padding: 30px; margin: 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.08);">
+                    <h2 style="margin-bottom: 25px; color: #1f2937;">Báo cáo và thống kê</h2>
+                    
+                    <div class="report-sections" style="display: grid; gap: 25px;">
+                        <!-- Statistics Section -->
+                        <div class="stats-section">
+                            <h3 style="margin-bottom: 20px; color: #374151;">Thống kê đề tài cá nhân</h3>
+                            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px;">
+                                <div style="background: #f8fafc; padding: 20px; border-radius: 10px; text-align: center;">
+                                    <div style="font-size: 24px; font-weight: 700; color: #3b82f6;">3</div>
+                                    <div style="color: #6b7280; margin-top: 5px;">Tổng đề tài</div>
+                                </div>
+                                <div style="background: #f8fafc; padding: 20px; border-radius: 10px; text-align: center;">
+                                    <div style="font-size: 24px; font-weight: 700; color: #10b981;">2</div>
+                                    <div style="color: #6b7280; margin-top: 5px;">Đang thực hiện</div>
+                                </div>
+                                <div style="background: #f8fafc; padding: 20px; border-radius: 10px; text-align: center;">
+                                    <div style="font-size: 24px; font-weight: 700; color: #f59e0b;">1</div>
+                                    <div style="color: #6b7280; margin-top: 5px;">Chờ phê duyệt</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Export Options -->
+                        <div class="export-section">
+                            <h3 style="margin-bottom: 20px; color: #374151;">Xuất báo cáo</h3>
+                            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
+                                <button class="export-btn" onclick="exportMyProjects()" style="display: flex; flex-direction: column; align-items: center; padding: 20px; border: 2px solid #e5e7eb; border-radius: 10px; background: white; cursor: pointer; transition: all 0.3s;">
+                                    <i class="fas fa-file-pdf" style="font-size: 24px; color: #dc2626; margin-bottom: 10px;"></i>
+                                    <span style="font-weight: 600;">Báo cáo đề tài</span>
+                                </button>
+                                <button class="export-btn" onclick="exportProgressReport()" style="display: flex; flex-direction: column; align-items: center; padding: 20px; border: 2px solid #e5e7eb; border-radius: 10px; background: white; cursor: pointer; transition: all 0.3s;">
+                                    <i class="fas fa-chart-line" style="font-size: 24px; color: #3b82f6; margin-bottom: 10px;"></i>
+                                    <span style="font-weight: 600;">Báo cáo tiến độ</span>
+                                </button>
+                                <button class="export-btn" onclick="exportDocumentList()" style="display: flex; flex-direction: column; align-items: center; padding: 20px; border: 2px solid #e5e7eb; border-radius: 10px; background: white; cursor: pointer; transition: all 0.3s;">
+                                    <i class="fas fa-file-excel" style="font-size: 24px; color: #059669; margin-bottom: 10px;"></i>
+                                    <span style="font-weight: 600;">Danh sách tài liệu</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
             </div>
         </main>
     </div>
@@ -239,7 +911,207 @@
         </div>
     </div>
 
-    <script src="../js/common.js"></script>
-    <script src="../js/chunhiem.js"></script>
+    <script src="../components/common-functions.js"></script>
+    <script src="../components/form-builder.js"></script>
+    <script>
+        // Enhanced JavaScript for Project Leader dashboard
+        function showSection(sectionId) {
+            // Hide all sections
+            const sections = document.querySelectorAll('.content-section');
+            sections.forEach(section => section.style.display = 'none');
+            
+            // Show selected section
+            const selectedSection = document.getElementById(sectionId);
+            if (selectedSection) {
+                selectedSection.style.display = 'block';
+            }
+
+            // Update active sidebar item
+            const sidebarItems = document.querySelectorAll('.nav-link');
+            sidebarItems.forEach(item => item.classList.remove('active'));
+            
+            const activeItem = document.querySelector(`[onclick="showSection('${sectionId}')"]`);
+            if (activeItem) {
+                activeItem.classList.add('active');
+            }
+        }
+
+        // Project Management Functions
+        function viewProjectDetails(projectId) {
+            alert(`Xem chi tiết đề tài ${projectId}`);
+        }
+
+        function editProject(projectId) {
+            alert(`Chỉnh sửa đề tài ${projectId}`);
+        }
+
+        function createNewApplication() {
+            alert('Tạo hồ sơ đề tài mới');
+        }
+
+        function viewApplication(applicationId) {
+            alert(`Xem chi tiết hồ sơ ${applicationId}`);
+        }
+
+        function editApplication(applicationId) {
+            alert(`Chỉnh sửa hồ sơ ${applicationId}`);
+        }
+
+        function downloadDocuments(applicationId) {
+            alert(`Tải tài liệu của hồ sơ ${applicationId}`);
+        }
+
+        // Progress Management Functions
+        function submitProgressReport(projectId, period) {
+            const modal = document.createElement('div');
+            modal.className = 'modal';
+            modal.style.display = 'block';
+            modal.innerHTML = `
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3>Nộp báo cáo tiến độ kỳ ${period}</h3>
+                        <span class="close" onclick="this.closest('.modal').remove()">&times;</span>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label>Các công việc đã hoàn thành:</label>
+                                <textarea placeholder="Mô tả chi tiết các công việc đã thực hiện..." rows="4"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label>Kết quả đạt được:</label>
+                                <textarea placeholder="Liệt kê các kết quả cụ thể đã đạt được..." rows="3"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label>Khó khăn phát sinh:</label>
+                                <textarea placeholder="Mô tả các khó khăn gặp phải (nếu có)..." rows="3"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label>Kế hoạch tiếp theo:</label>
+                                <textarea placeholder="Kế hoạch công việc cho kỳ tiếp theo..." rows="3"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label>Tài liệu báo cáo:</label>
+                                <input type="file" accept=".pdf,.doc,.docx" multiple>
+                            </div>
+                            <div style="display: flex; gap: 10px; justify-content: flex-end; margin-top: 20px;">
+                                <button class="enhanced-btn btn-secondary" onclick="this.closest('.modal').remove()">Hủy</button>
+                                <button class="enhanced-btn btn-primary" onclick="alert('Đã gửi báo cáo thành công!'); this.closest('.modal').remove();">Gửi báo cáo</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(modal);
+        }
+
+        function viewProgressDetails(projectId) {
+            alert(`Xem chi tiết tiến độ đề tài ${projectId}`);
+        }
+
+        // Acceptance Testing Functions
+        function prepareAcceptance(projectId) {
+            const modal = document.createElement('div');
+            modal.className = 'modal';
+            modal.style.display = 'block';
+            modal.innerHTML = `
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3>Chuẩn bị hồ sơ nghiệm thu</h3>
+                        <span class="close" onclick="this.closest('.modal').remove()">&times;</span>
+                    </div>
+                    <div class="modal-body">
+                        <div class="alert info">
+                            <i class="fas fa-info-circle"></i>
+                            Vui lòng tải lên đầy đủ hồ sơ nghiệm thu theo danh mục yêu cầu
+                        </div>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label>Báo cáo tổng kết *</label>
+                                <input type="file" accept=".pdf,.doc,.docx" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Sản phẩm nghiên cứu *</label>
+                                <input type="file" accept=".pdf,.doc,.docx,.zip" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Tài liệu minh chứng *</label>
+                                <input type="file" accept=".pdf,.doc,.docx,.zip" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Bảng tự đánh giá *</label>
+                                <input type="file" accept=".pdf,.doc,.docx" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Tài liệu khác</label>
+                                <input type="file" accept=".pdf,.doc,.docx,.zip" multiple>
+                            </div>
+                            <div class="form-group">
+                                <label>Tóm tắt kết quả nghiên cứu:</label>
+                                <textarea placeholder="Tóm tắt các kết quả chính đã đạt được..." rows="4"></textarea>
+                            </div>
+                            <div style="display: flex; gap: 10px; justify-content: flex-end; margin-top: 20px;">
+                                <button class="enhanced-btn btn-secondary" onclick="this.closest('.modal').remove()">Hủy</button>
+                                <button class="enhanced-btn btn-primary" onclick="alert('Đã gửi hồ sơ nghiệm thu thành công!'); this.closest('.modal').remove();">Gửi hồ sơ</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(modal);
+        }
+
+        function viewAcceptanceGuide(projectId) {
+            alert(`Xem hướng dẫn nghiệm thu cho đề tài ${projectId}`);
+        }
+
+        // Report Export Functions
+        function exportMyProjects() {
+            alert('Xuất báo cáo đề tài của tôi');
+        }
+
+        function exportProgressReport() {
+            alert('Xuất báo cáo tiến độ');
+        }
+
+        function exportDocumentList() {
+            alert('Xuất danh sách tài liệu');
+        }
+
+        // Common Functions
+        function logout() {
+            if (confirm('Bạn có chắc chắn muốn đăng xuất?')) {
+                window.location.href = '../index.html';
+            }
+        }
+
+        // Initialize dashboard
+        document.addEventListener('DOMContentLoaded', function() {
+            // Show dashboard by default
+            showSection('dashboard');
+            
+            // Set user info
+            document.getElementById('userInfo').innerHTML = `
+                <i class="fas fa-circle" style="color: #10b981; font-size: 8px;"></i>
+                TS. Đặng Văn Nam
+            `;
+
+            // Add hover effects for export buttons
+            const exportButtons = document.querySelectorAll('.export-btn');
+            exportButtons.forEach(btn => {
+                btn.addEventListener('mouseenter', function() {
+                    this.style.borderColor = '#3b82f6';
+                    this.style.backgroundColor = '#f8fafc';
+                    this.style.transform = 'translateY(-2px)';
+                });
+                
+                btn.addEventListener('mouseleave', function() {
+                    this.style.borderColor = '#e5e7eb';
+                    this.style.backgroundColor = 'white';
+                    this.style.transform = 'none';
+                });
+            });
+        });
+    </script>
 </body>
 </html>
