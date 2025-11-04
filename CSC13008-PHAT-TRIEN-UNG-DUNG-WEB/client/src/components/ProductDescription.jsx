@@ -139,8 +139,8 @@ export default function ProductDescription() {
                                                             <div className="media-body">
                                                                 <h4>{r.User.firstName} {r.User.lastName}</h4>
                                                                 <StarRating rating={r.rating} />
-                                                            </div>
-                                                        </div>
+                                                                    </div>
+                                                                </div>
                                                         <p>{r.comment}</p>
                                                     </div>
                                                 ))}

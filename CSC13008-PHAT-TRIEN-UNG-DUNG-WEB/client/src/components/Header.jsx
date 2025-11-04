@@ -1,4 +1,5 @@
 import { use, useEffect } from 'react';
+import SearchForm from './SearchForm';
 
 export default function Header() {
     useEffect(() => {
@@ -46,11 +47,7 @@ export default function Header() {
             </div>
             <div className="search_input" id="search_input_box">
                 <div className="container">
-                    <form className="d-flex justify-content-between">
-                        <input type="text" className="form-control" id="search_input" placeholder="Search Here" />
-                        <button type="submit" className="btn" />
-                        <span className="lnr lnr-cross" id="close_search" title="Close Search" />
-                    </form>
+                    <SearchForm />
                 </div>
             </div>
         </header>

@@ -21,6 +21,7 @@ export default function ProductList() {
     const page = searchParams.get("page") || 1;
     const min = Number(searchParams.get("min")) || 0;
     const max = Number(searchParams.get("max")) || 4000;
+    const q = searchParams.get("q") || "";
 
     const [priceRange, setPriceRange] = useState([min, max]);
 
@@ -29,6 +30,9 @@ export default function ProductList() {
         const params = new URLSearchParams();
         params.set("limit", limit);
         params.set("page", page);
+        if (q) {
+            params.set("search", q);
+        }
         if (category) {
             params.set("categoryId", category);
         }
@@ -42,7 +46,7 @@ export default function ProductList() {
             params.set("maxPrice", max);
         }
         return params.toString();
-    }, [category, sort, limit, page, min, max]);
+    }, [q, category, sort, limit, page, min, max]);
 
     useEffect(() => {
         let canceled = false;
@@ -150,7 +154,15 @@ export default function ProductList() {
                                     )}
                                 </div>
                             </section>
-                            <FilterBar />
+                            <FilterBar
+                                sort={sort}
+                                onSortChange={handleSortChange}
+                                limit={limit}
+                                onLimitChange={handleLimitChange}
+                                page={page}
+                                totalPages={totalPages}
+                                onPageChange={handlePageChange}
+                            />
                         </>
                     )}
                 </div>
