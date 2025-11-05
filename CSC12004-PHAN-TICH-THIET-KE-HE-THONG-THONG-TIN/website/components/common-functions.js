@@ -13,12 +13,13 @@ class DashboardManager {
     }
 
     checkAuth() {
-        const user = localStorage.getItem('currentUser');
+        const user = sessionStorage.getItem('currentUser');
         if (user) {
             this.currentUser = JSON.parse(user);
             this.updateUserInfo();
         } else {
-            window.location.href = '../index.html';
+            // Don't redirect - will be handled by main auth check
+            console.log('No user in session');
         }
     }
 
@@ -241,7 +242,7 @@ class DashboardManager {
 
     logout() {
         if (confirm('Bạn có chắc chắn muốn đăng xuất?')) {
-            localStorage.removeItem('currentUser');
+            sessionStorage.removeItem('currentUser');
             window.location.href = '../index.html';
         }
     }

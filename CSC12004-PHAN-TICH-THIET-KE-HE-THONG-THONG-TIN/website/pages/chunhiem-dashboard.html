@@ -911,9 +911,19 @@
         </div>
     </div>
 
+    <script src="../js/common.js"></script>
     <script src="../components/common-functions.js"></script>
     <script src="../components/form-builder.js"></script>
     <script>
+        // Check authentication
+        const currentUser = checkAuth();
+        if (!currentUser) {
+            // Already redirected by checkAuth
+        } else if (currentUser.role !== 'chunhiem') {
+            alert('Bạn không có quyền truy cập trang này!');
+            logout();
+        }
+
         // Enhanced JavaScript for Project Leader dashboard
         function showSection(sectionId) {
             // Hide all sections

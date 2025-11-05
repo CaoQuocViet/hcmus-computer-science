@@ -3165,9 +3165,19 @@
     </script>
 
     <!-- Enhanced Component Integration -->
+    <script src="../js/common.js"></script>
     <script src="../components/common-functions.js"></script>
     <script src="../components/form-builder.js"></script>
     <script>
+        // Check authentication
+        const currentUser = checkAuth();
+        if (!currentUser) {
+            // Already redirected by checkAuth
+        } else if (currentUser.role !== 'nhanvien') {
+            alert('Bạn không có quyền truy cập trang này!');
+            logout();
+        }
+
         // Enhanced JavaScript for Staff dashboard
         class StaffDashboard extends DashboardManager {
             constructor() {

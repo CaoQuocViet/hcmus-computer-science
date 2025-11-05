@@ -1288,9 +1288,19 @@
         </div>
     </div>
 
+    <script src="../js/common.js"></script>
     <script src="../components/common-functions.js"></script>
     <script src="../components/form-builder.js"></script>
     <script>
+        // Check authentication
+        const currentUser = checkAuth();
+        if (!currentUser) {
+            // Already redirected by checkAuth
+        } else if (currentUser.role !== 'nghiemthu') {
+            alert('Bạn không có quyền truy cập trang này!');
+            logout();
+        }
+        
         // Enhanced JavaScript for Acceptance Testing dashboard
         class AcceptanceTestingDashboard extends DashboardManager {
             constructor() {

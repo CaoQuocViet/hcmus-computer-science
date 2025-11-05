@@ -1153,6 +1153,17 @@
 
         // Initialize dashboard
         document.addEventListener('DOMContentLoaded', function() {
+            // Check authentication
+            const currentUser = checkAuth();
+            if (!currentUser) {
+                // Already redirected by checkAuth
+                return;
+            } else if (currentUser.role !== 'hoidong') {
+                alert('Bạn không có quyền truy cập trang này!');
+                logout();
+                return;
+            }
+
             // Show dashboard by default
             showSection('dashboard');
             
@@ -1202,5 +1213,7 @@
             });
         });
     </script>
+
+    <script src="../js/common.js"></script>
 </body>
 </html>

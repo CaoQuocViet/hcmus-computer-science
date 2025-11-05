@@ -7,8 +7,9 @@ function getCurrentUser() {
 function checkAuth() {
     const user = getCurrentUser();
     if (!user) {
+        alert('Vui lòng đăng nhập!');
         window.location.href = '../index.html';
-        return false;
+        return null;
     }
     return user;
 }
