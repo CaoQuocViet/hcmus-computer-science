@@ -9,24 +9,51 @@
     <link rel="stylesheet" href="../components/form-styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
+        * {
+            font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
         /* Enhanced CSS for Acceptance Testing Dashboard */
         .enhanced-dashboard {
-            background: #f5576c;
+            background: #764ba2;
             min-height: 100vh;
         }
 
         .enhanced-sidebar {
             background: #34495e;
-            box-shadow: 2px 0 15px rgba(0,0,0,0.1);
+            
             width: 280px;
         }
 
-        .sidebar-header {
-            background: #f5576c;
-            color: white;
+                .sidebar-brand {
             padding: 25px 20px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
             text-align: center;
-            border-radius: 0 0 20px 20px;
+        }
+        
+        .brand-logo {
+            width: 50px;
+            height: 50px;
+            background: #1d4ed8;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 15px;
+            color: white;
+            font-size: 24px;
+        }
+        
+        .brand-title {
+            color: white;
+            font-size: 16px;
+            font-weight: 600;
+            margin: 0;
+        }
+        
+        .brand-subtitle {
+            color: rgba(255,255,255,0.7);
+            font-size: 12px;
+            margin: 5px 0 0;
         }
 
         .sidebar-header h3 {
@@ -40,17 +67,11 @@
             opacity: 0.9;
         }
 
-        .nav-menu {
-            padding: 20px 0;
-            list-style: none;
-            margin: 0;
-        }
+        
 
-        .nav-item {
-            margin: 5px 15px;
-        }
+        
 
-        .nav-link {
+        .nav-link, .enhanced-nav-link {
             display: flex;
             align-items: center;
             padding: 15px 20px;
@@ -64,12 +85,12 @@
         .nav-link:hover {
             background: #ad1457;
             transform: translateX(5px);
-            box-shadow: 0 5px 15px rgba(233, 30, 99, 0.3);
+            
         }
 
         .nav-link.active {
             background: #d84315;
-            box-shadow: 0 5px 15px rgba(255, 87, 34, 0.3);
+            
         }
 
         .nav-link i {
@@ -85,8 +106,7 @@
         .top-bar {
             background: white;
             padding: 20px 30px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-            border-radius: 15px 15px 0 0;
+
             margin: 20px;
             margin-bottom: 0;
         }
@@ -102,7 +122,7 @@
             background: #f8fafc;
             border-radius: 15px;
             padding: 25px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            
             border: 1px solid #e2e8f0;
             transition: all 0.3s ease;
             position: relative;
@@ -121,7 +141,7 @@
 
         .enhanced-stat-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+            
         }
 
         .stat-header {
@@ -195,7 +215,7 @@
 
         .enhanced-btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            
         }
 
         .status-badge {
@@ -316,7 +336,7 @@
             max-width: 900px;
             max-height: 90vh;
             overflow-y: auto;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            
         }
 
         .modal-header {
@@ -378,7 +398,7 @@
         .form-group textarea:focus {
             outline: none;
             border-color: #e91e63;
-            box-shadow: 0 0 0 3px rgba(233, 30, 99, 0.1);
+            
         }
 
         /* Enhanced styles for nghiem thu dashboard */
@@ -393,7 +413,7 @@
             background: #f8fafc;
             border-radius: 15px;
             padding: 25px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            
             border: 1px solid #e2e8f0;
             transition: all 0.3s ease;
             position: relative;
@@ -412,7 +432,7 @@
 
         .project-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+            
         }
 
         .project-header {
@@ -497,7 +517,7 @@
             padding: 30px;
             background: #f8fafc;
             border-radius: 15px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            
         }
 
         .acceptance-criteria-section h3 {
@@ -518,7 +538,7 @@
             background: white;
             padding: 25px;
             border-radius: 12px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            
             border: 1px solid #e5e7eb;
             text-align: center;
             transition: all 0.3s ease;
@@ -526,7 +546,7 @@
 
         .criteria-card:hover {
             transform: translateY(-3px);
-            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            
         }
 
         .criteria-icon {
@@ -637,19 +657,19 @@
             background: #4caf50;
             border-radius: 50%;
             border: 3px solid white;
-            box-shadow: 0 0 0 3px #4caf50;
+            
         }
 
         .timeline-item.failed .timeline-marker {
             background: #f44336;
-            box-shadow: 0 0 0 3px #f44336;
+            
         }
 
         .timeline-content {
             background: white;
             padding: 25px;
             border-radius: 12px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            
             border: 1px solid #e5e7eb;
         }
 
@@ -750,7 +770,7 @@
             background: white;
             padding: 25px;
             border-radius: 12px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            
             border: 1px solid #e5e7eb;
             display: flex;
             gap: 20px;
@@ -785,41 +805,78 @@
             flex-wrap: wrap;
             justify-content: center;
         }
+    
+        .enhanced-nav-link {
+            display: flex;
+            align-items: center;
+            padding: 12px 20px;
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            transition: all 0.3s;
+            border-radius: 8px;
+            margin: 2px 10px;
+        }
+        
+        .enhanced-nav-link:hover {
+            background: rgba(255,255,255,0.1);
+            color: white;
+        }
+        
+        .enhanced-nav-link.active {
+            background: rgba(255,255,255,0.2);
+            color: white;
+        }
+        
+        .enhanced-nav-link i {
+            width: 20px;
+            margin-right: 15px;
+            font-size: 16px;
+        }
+        
+        .nav-badge {
+            background: #ef4444;
+            color: white;
+            font-size: 10px;
+            padding: 2px 6px;
+            border-radius: 10px;
+            margin-left: auto;
+        }
     </style>
 </head>
 <body>
     <div class="enhanced-dashboard" style="display: flex;">
         <!-- Enhanced Sidebar -->
         <nav class="enhanced-sidebar">
-            <div class="sidebar-header">
-                <h3><i class="fas fa-award"></i> Hội đồng nghiệm thu</h3>
-                <div class="user-info" id="userInfo">
-                    <i class="fas fa-circle" style="color: #4caf50; font-size: 8px;"></i>
-                    Đang tải...
-                </div>
+            <div class="sidebar-brand">
+            <div class="brand-logo">
+                <i class="fas fa-clipboard-check"></i>
             </div>
-            <ul class="nav-menu">
-                <li class="nav-item">
-                    <a href="#dashboard" class="nav-link active" onclick="showSection('dashboard')">
-                        <i class="fas fa-tachometer-alt"></i> Tổng quan
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="#danhgia" class="nav-link" onclick="showSection('danhgia')">
-                        <i class="fas fa-clipboard-check"></i> Đánh giá nghiệm thu
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="#lichsu" class="nav-link" onclick="showSection('lichsu')">
-                        <i class="fas fa-history"></i> Lịch sử đánh giá
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="#baocao" class="nav-link" onclick="showSection('baocao')">
-                        <i class="fas fa-chart-pie"></i> Báo cáo
-                    </a>
-                </li>
-            </ul>
+            <h3 class="brand-title">Nghiệm thu</h3>
+            <p class="brand-subtitle">Đánh giá Kết quả Nghiên cứu</p>
+        </div>
+            
+        <nav style="padding: 20px 0;">
+            <a href="#dashboard" class="enhanced-nav-link active" onclick="showSection('dashboard')">
+                <i class="fas fa-tachometer-alt"></i>
+                <span>Tổng quan</span>
+            </a>
+            <a href="#danhgia" class="enhanced-nav-link" onclick="showSection('danhgia')">
+                <i class="fas fa-clipboard-check"></i>
+                <span>Đánh giá nghiệm thu</span>
+            </a>
+            <a href="#lichsu" class="enhanced-nav-link" onclick="showSection('lichsu')">
+                <i class="fas fa-history"></i>
+                <span>Lịch sử đánh giá</span>
+            </a>
+            <a href="#baocao" class="enhanced-nav-link" onclick="showSection('baocao')">
+                <i class="fas fa-chart-pie"></i>
+                <span>Báo cáo</span>
+            </a>
+            <a href="../index.html" class="enhanced-nav-link" onclick="logout(); return false;">
+                <i class="fas fa-sign-out-alt"></i>
+                <span>Đăng xuất</span>
+            </a>
+        </nav>
         </nav>
 
         <!-- Main Content -->

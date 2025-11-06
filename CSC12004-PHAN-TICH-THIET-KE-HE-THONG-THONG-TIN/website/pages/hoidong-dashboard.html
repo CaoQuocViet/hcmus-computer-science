@@ -7,19 +7,22 @@
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
+        * {
+            font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
         /* Enhanced Council Dashboard Styles */
         .council-dashboard {
-            background: #224abe;
+            background: #764ba2;
             min-height: 100vh;
         }
         
         .enhanced-sidebar {
             width: 280px;
-            background: #1e40af;
+            background: #34495e;
             position: fixed;
             height: 100vh;
             overflow-y: auto;
-            box-shadow: 4px 0 20px rgba(0,0,0,0.15);
+            
             z-index: 1000;
         }
         
@@ -65,7 +68,7 @@
         .dashboard-header {
             background: rgba(255,255,255,0.95);
             backdrop-filter: blur(10px);
-            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            
             padding: 20px 30px;
         }
         
@@ -87,7 +90,7 @@
             background: white;
             border-radius: 15px;
             padding: 30px;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+            
             margin-bottom: 30px;
         }
         
@@ -254,7 +257,7 @@
         .enhanced-textarea:focus {
             outline: none;
             border-color: #3b82f6;
-            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+            
         }
         
         .form-actions {
@@ -285,7 +288,7 @@
         
         .btn-primary:hover {
             transform: translateY(-1px);
-            box-shadow: 0 5px 15px rgba(59, 130, 246, 0.4);
+            
         }
         
         .btn-secondary {
@@ -311,7 +314,7 @@
             background: white;
             border-radius: 12px;
             padding: 20px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            
             border-left: 4px solid var(--accent-color);
             transition: transform 0.3s;
         }
@@ -535,7 +538,7 @@
                 </div>
 
                 <!-- Recent Projects Table -->
-                <div style="background: white; border-radius: 15px; padding: 25px; box-shadow: 0 4px 15px rgba(0,0,0,0.08);">
+                <div style="background: white; border-radius: 15px; padding: 25px; ">
                     <h3 style="margin-bottom: 20px; color: #1f2937;">Đề tài cần xét duyệt khẩn cấp</h3>
                     
                     <div class="project-list" style="display: grid; gap: 15px;">
@@ -601,7 +604,7 @@
 
             <!-- Review Projects Section -->
             <section id="xetduyet" class="content-section" style="display: none;">
-                <div style="background: white; border-radius: 15px; padding: 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.08);">
+                <div style="background: white; border-radius: 15px; padding: 30px; ">
                     <div class="review-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; padding-bottom: 20px; border-bottom: 2px solid #f1f5f9;">
                         <div>
                             <h2 style="margin: 0; color: #1f2937;">Xét duyệt đề tài nghiên cứu</h2>
@@ -827,7 +830,7 @@
 
             <!-- Approved Projects Section -->
             <section id="dapheduyet" class="content-section" style="display: none;">
-                <div style="background: white; border-radius: 15px; padding: 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.08);">
+                <div style="background: white; border-radius: 15px; padding: 30px; ">
                     <h2 style="margin-bottom: 25px; color: #1f2937;">Đề tài đã phê duyệt</h2>
                     
                     <div class="approved-projects-list" style="display: grid; gap: 20px;">
@@ -878,7 +881,7 @@
 
             <!-- History Section -->
             <section id="lichsu" class="content-section" style="display: none;">
-                <div style="background: white; border-radius: 15px; padding: 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.08);">
+                <div style="background: white; border-radius: 15px; padding: 30px; ">
                     <h2 style="margin-bottom: 25px; color: #1f2937;">Lịch sử đánh giá</h2>
                     
                     <div class="history-filters" style="margin-bottom: 25px; display: flex; gap: 15px;">
