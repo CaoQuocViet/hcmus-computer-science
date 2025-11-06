@@ -1551,8 +1551,8 @@
             const sections = document.querySelectorAll('.content-section');
             sections.forEach(section => section.style.display = 'none');
             
-            // Remove active class from all nav links
-            const navLinks = document.querySelectorAll('.nav-link');
+            // Remove active class from all nav links - fix to enhanced-nav-link
+            const navLinks = document.querySelectorAll('.enhanced-nav-link');
             navLinks.forEach(link => link.classList.remove('active'));
             
             // Show selected section

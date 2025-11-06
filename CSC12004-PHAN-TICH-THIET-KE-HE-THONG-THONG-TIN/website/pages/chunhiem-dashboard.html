@@ -992,8 +992,8 @@
                 selectedSection.style.display = 'block';
             }
 
-            // Update active sidebar item
-            const sidebarItems = document.querySelectorAll('.nav-link');
+            // Update active sidebar item - fix to use enhanced-nav-link
+            const sidebarItems = document.querySelectorAll('.enhanced-nav-link');
             sidebarItems.forEach(item => item.classList.remove('active'));
             
             const activeItem = document.querySelector(`[onclick="showSection('${sectionId}')"]`);

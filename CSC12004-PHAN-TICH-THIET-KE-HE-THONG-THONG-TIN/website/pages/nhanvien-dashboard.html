@@ -864,15 +864,15 @@
         
         <nav class="nav-section">
             <div class="nav-section-title">CHÍNH</div>
-            <a href="#" class="enhanced-nav-link active" data-section="dashboard">
+            <a href="#dashboard" class="enhanced-nav-link active" onclick="showSection('dashboard'); return false;">
                 <i class="fas fa-tachometer-alt"></i>
                 <span>Tổng quan</span>
             </a>
-            <a href="#" class="enhanced-nav-link" data-section="create-project">
+            <a href="#create-project" class="enhanced-nav-link" onclick="showSection('create-project'); return false;">
                 <i class="fas fa-plus-circle"></i>
                 <span>Tạo hồ sơ sơ bộ</span>
             </a>
-            <a href="#" class="enhanced-nav-link" data-section="my-projects">
+            <a href="#my-projects" class="enhanced-nav-link" onclick="showSection('my-projects'); return false;">
                 <i class="fas fa-folder-open"></i>
                 <span>Hồ sơ của tôi</span>
                 <span class="nav-badge">3</span>
@@ -881,15 +881,15 @@
         
         <nav class="nav-section">
             <div class="nav-section-title">QUẢN LÝ</div>
-            <a href="#" class="enhanced-nav-link" data-section="progress-report">
+            <a href="#progress-report" class="enhanced-nav-link" onclick="showSection('progress-report'); return false;">
                 <i class="fas fa-chart-line"></i>
                 <span>Báo cáo tiến độ</span>
             </a>
-            <a href="#" class="enhanced-nav-link" data-section="documents">
+            <a href="#documents" class="enhanced-nav-link" onclick="showSection('documents'); return false;">
                 <i class="fas fa-file-alt"></i>
                 <span>Tài liệu & Nghiệm thu</span>
             </a>
-            <a href="#" class="enhanced-nav-link" data-section="calendar">
+            <a href="#calendar" class="enhanced-nav-link" onclick="showSection('calendar'); return false;">
                 <i class="fas fa-calendar-alt"></i>
                 <span>Lịch làm việc</span>
                 <span class="nav-badge">2</span>
@@ -898,15 +898,15 @@
         
         <nav class="nav-section">
             <div class="nav-section-title">CÁ NHÂN</div>
-            <a href="#" class="enhanced-nav-link" data-section="profile">
+            <a href="#profile" class="enhanced-nav-link" onclick="showSection('profile'); return false;">
                 <i class="fas fa-user-circle"></i>
                 <span>Thông tin cá nhân</span>
             </a>
-            <a href="#" class="enhanced-nav-link" data-section="settings">
+            <a href="#settings" class="enhanced-nav-link" onclick="showSection('settings'); return false;">
                 <i class="fas fa-cog"></i>
                 <span>Cài đặt</span>
             </a>
-            <a href="../index.html" class="enhanced-nav-link">
+            <a href="../index.html" class="enhanced-nav-link" onclick="logout(); return false;">
                 <i class="fas fa-sign-out-alt"></i>
                 <span>Đăng xuất</span>
             </a>
@@ -2286,11 +2286,11 @@
                 targetSection.style.display = 'block';
             }
             
-            // Update navigation
+            // Update navigation - fix to use onclick instead of data-section
             const navLinks = document.querySelectorAll('.enhanced-nav-link');
             navLinks.forEach(link => link.classList.remove('active'));
             
-            const activeLink = document.querySelector(`[data-section="${sectionId}"]`);
+            const activeLink = document.querySelector(`[onclick="showSection('${sectionId}'); return false;"]`);
             if (activeLink) {
                 activeLink.classList.add('active');
             }

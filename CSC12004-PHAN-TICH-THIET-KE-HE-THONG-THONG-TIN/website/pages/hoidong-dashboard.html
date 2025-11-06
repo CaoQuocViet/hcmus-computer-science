@@ -448,24 +448,20 @@
         </div>
         
         <nav style="padding: 20px 0;">
-            <a href="#" class="enhanced-nav-link active" data-section="dashboard">
+            <a href="#dashboard" class="enhanced-nav-link active" onclick="showSection('dashboard')">
                 <i class="fas fa-tachometer-alt"></i>
                 <span>Tổng quan</span>
             </a>
-            <a href="#" class="enhanced-nav-link" data-section="xet-duyet">
+            <a href="#xetduyet" class="enhanced-nav-link" onclick="showSection('xetduyet')">
                 <i class="fas fa-clipboard-list"></i>
                 <span>Xét duyệt đề tài</span>
                 <span class="nav-badge">5</span>
             </a>
-            <a href="#" class="enhanced-nav-link" data-section="lich-su-danh-gia">
+            <a href="#lichsu" class="enhanced-nav-link" onclick="showSection('lichsu')">
                 <i class="fas fa-history"></i>
                 <span>Lịch sử đánh giá</span>
             </a>
-            <a href="#" class="enhanced-nav-link" data-section="thong-ke">
-                <i class="fas fa-chart-bar"></i>
-                <span>Thống kê</span>
-            </a>
-            <a href="../index.html" class="enhanced-nav-link">
+            <a href="../index.html" class="enhanced-nav-link" onclick="logout(); return false;">
                 <i class="fas fa-sign-out-alt"></i>
                 <span>Đăng xuất</span>
             </a>
@@ -985,8 +981,8 @@
                 selectedSection.style.display = 'block';
             }
 
-            // Update active sidebar item
-            const sidebarItems = document.querySelectorAll('.sidebar-item');
+            // Update active sidebar item - fix to use enhanced-nav-link
+            const sidebarItems = document.querySelectorAll('.enhanced-nav-link');
             sidebarItems.forEach(item => item.classList.remove('active'));
             
             const activeItem = document.querySelector(`[onclick="showSection('${sectionId}')"]`);
