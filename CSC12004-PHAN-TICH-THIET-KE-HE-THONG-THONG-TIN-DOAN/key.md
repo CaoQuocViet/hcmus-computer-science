@@ -1,2 +1,0 @@
-- Sang véc‑tơ thực có số chiều cố định
-- Cấu trúc được học từ chinh dữ liệu
