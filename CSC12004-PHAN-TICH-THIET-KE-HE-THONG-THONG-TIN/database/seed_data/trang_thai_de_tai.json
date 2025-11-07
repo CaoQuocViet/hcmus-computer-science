@@ -1,0 +1,72 @@
+[
+  {
+    "ma_trang_thai": 1,
+    "ma_code": "da_tao",
+    "ten_trang_thai": "Đã Tạo",
+    "mo_ta": "Đề tài đã được tạo trong hệ thống",
+    "thu_tu_hien_thi": 1
+  },
+  {
+    "ma_trang_thai": 2,
+    "ma_code": "cho_kiem_tra",
+    "ten_trang_thai": "Chờ Kiểm Tra",
+    "mo_ta": "Đề tài đang chờ nhân viên kiểm tra",
+    "thu_tu_hien_thi": 2
+  },
+  {
+    "ma_trang_thai": 3,
+    "ma_code": "da_hoan_thien",
+    "ten_trang_thai": "Đã Hoàn Thiện",
+    "mo_ta": "Hồ sơ đề tài đã hoàn thiện và hợp lệ",
+    "thu_tu_hien_thi": 3
+  },
+  {
+    "ma_trang_thai": 4,
+    "ma_code": "cho_xet_duyet",
+    "ten_trang_thai": "Chờ Xét Duyệt",
+    "mo_ta": "Đề tài đang chờ hội đồng xét duyệt",
+    "thu_tu_hien_thi": 4
+  },
+  {
+    "ma_trang_thai": 5,
+    "ma_code": "cho_chinh_sua",
+    "ten_trang_thai": "Chờ Chỉnh Sửa",
+    "mo_ta": "Đề tài cần chỉnh sửa theo yêu cầu",
+    "thu_tu_hien_thi": 5
+  },
+  {
+    "ma_trang_thai": 6,
+    "ma_code": "da_phe_duyet",
+    "ten_trang_thai": "Đã Phê Duyệt",
+    "mo_ta": "Đề tài đã được hội đồng phê duyệt",
+    "thu_tu_hien_thi": 6
+  },
+  {
+    "ma_trang_thai": 7,
+    "ma_code": "dang_thuc_hien",
+    "ten_trang_thai": "Đang Thực Hiện",
+    "mo_ta": "Đề tài đang trong quá trình thực hiện",
+    "thu_tu_hien_thi": 7
+  },
+  {
+    "ma_trang_thai": 8,
+    "ma_code": "cho_nghiem_thu",
+    "ten_trang_thai": "Chờ Nghiệm Thu",
+    "mo_ta": "Đề tài đang chờ nghiệm thu",
+    "thu_tu_hien_thi": 8
+  },
+  {
+    "ma_trang_thai": 9,
+    "ma_code": "hoan_tat",
+    "ten_trang_thai": "Hoàn Tất",
+    "mo_ta": "Đề tài đã hoàn thành và nghiệm thu thành công",
+    "thu_tu_hien_thi": 9
+  },
+  {
+    "ma_trang_thai": 10,
+    "ma_code": "khong_dat",
+    "ten_trang_thai": "Không Đạt",
+    "mo_ta": "Đề tài không đạt yêu cầu",
+    "thu_tu_hien_thi": 10
+  }
+]

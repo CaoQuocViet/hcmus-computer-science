@@ -1,0 +1,122 @@
+[
+  {
+    "ma_nguoi_dung": 1,
+    "ten_dang_nhap": "admin",
+    "mat_khau_hash": "$2b$10$XqJY8Y8vZ0YcvZ0YcvZ0YO5rQx8Z0YcvZ0YcvZ0YcvZ0YcvZ0Ycv",
+    "ho_ten": "Quản Trị Viên",
+    "email": "admin@university.edu.vn",
+    "so_dien_thoai": "0901234567",
+    "vai_tro": "quan_tri",
+    "don_vi": "Phòng Quản lý Khoa học",
+    "chuc_danh": "Quản trị hệ thống",
+    "trang_thai_hoat_dong": true
+  },
+  {
+    "ma_nguoi_dung": 2,
+    "ten_dang_nhap": "nhanvien01",
+    "mat_khau_hash": "$2b$10$XqJY8Y8vZ0YcvZ0YcvZ0YO5rQx8Z0YcvZ0YcvZ0YcvZ0YcvZ0Ycv",
+    "ho_ten": "Nguyễn Văn An",
+    "email": "nvanản@university.edu.vn",
+    "so_dien_thoai": "0902345678",
+    "vai_tro": "nhan_vien",
+    "don_vi": "Phòng Quản lý Khoa học",
+    "chuc_danh": "Nhân viên quản lý đề tài",
+    "trang_thai_hoat_dong": true
+  },
+  {
+    "ma_nguoi_dung": 3,
+    "ten_dang_nhap": "nhanvien02",
+    "mat_khau_hash": "$2b$10$XqJY8Y8vZ0YcvZ0YcvZ0YO5rQx8Z0YcvZ0YcvZ0YcvZ0YcvZ0Ycv",
+    "ho_ten": "Trần Thị Bình",
+    "email": "tthbinh@university.edu.vn",
+    "so_dien_thoai": "0903456789",
+    "vai_tro": "nhan_vien",
+    "don_vi": "Phòng Quản lý Khoa học",
+    "chuc_danh": "Trưởng phòng",
+    "trang_thai_hoat_dong": true
+  },
+  {
+    "ma_nguoi_dung": 4,
+    "ten_dang_nhap": "chunhiem01",
+    "mat_khau_hash": "$2b$10$XqJY8Y8vZ0YcvZ0YcvZ0YO5rQx8Z0YcvZ0YcvZ0YcvZ0YcvZ0Ycv",
+    "ho_ten": "TS. Lê Văn Chiến",
+    "email": "lvchien@university.edu.vn",
+    "so_dien_thoai": "0904567890",
+    "vai_tro": "chu_nhiem",
+    "don_vi": "Khoa Công nghệ Thông tin",
+    "chuc_danh": "Phó Giáo sư",
+    "trang_thai_hoat_dong": true
+  },
+  {
+    "ma_nguoi_dung": 5,
+    "ten_dang_nhap": "chunhiem02",
+    "mat_khau_hash": "$2b$10$XqJY8Y8vZ0YcvZ0YcvZ0YO5rQx8Z0YcvZ0YcvZ0YcvZ0YcvZ0Ycv",
+    "ho_ten": "TS. Phạm Thị Dung",
+    "email": "ptdung@university.edu.vn",
+    "so_dien_thoai": "0905678901",
+    "vai_tro": "chu_nhiem",
+    "don_vi": "Khoa Kỹ thuật",
+    "chuc_danh": "Giáo sư",
+    "trang_thai_hoat_dong": true
+  },
+  {
+    "ma_nguoi_dung": 6,
+    "ten_dang_nhap": "hoidong01",
+    "mat_khau_hash": "$2b$10$XqJY8Y8vZ0YcvZ0YcvZ0YO5rQx8Z0YcvZ0YcvZ0YcvZ0YcvZ0Ycv",
+    "ho_ten": "GS. Hoàng Văn Em",
+    "email": "hvem@university.edu.vn",
+    "so_dien_thoai": "0906789012",
+    "vai_tro": "thanh_vien_hoi_dong",
+    "don_vi": "Khoa Công nghệ Thông tin",
+    "chuc_danh": "Giáo sư",
+    "trang_thai_hoat_dong": true
+  },
+  {
+    "ma_nguoi_dung": 7,
+    "ten_dang_nhap": "hoidong02",
+    "mat_khau_hash": "$2b$10$XqJY8Y8vZ0YcvZ0YcvZ0YO5rQx8Z0YcvZ0YcvZ0YcvZ0YcvZ0Ycv",
+    "ho_ten": "GS. Nguyễn Thị Phương",
+    "email": "ntphuong@university.edu.vn",
+    "so_dien_thoai": "0907890123",
+    "vai_tro": "thanh_vien_hoi_dong",
+    "don_vi": "Khoa Kỹ thuật",
+    "chuc_danh": "Giáo sư",
+    "trang_thai_hoat_dong": true
+  },
+  {
+    "ma_nguoi_dung": 8,
+    "ten_dang_nhap": "hoidong03",
+    "mat_khau_hash": "$2b$10$XqJY8Y8vZ0YcvZ0YcvZ0YO5rQx8Z0YcvZ0YcvZ0YcvZ0YcvZ0Ycv",
+    "ho_ten": "TS. Trần Văn Giang",
+    "email": "tvgiang@university.edu.vn",
+    "so_dien_thoai": "0908901234",
+    "vai_tro": "thanh_vien_hoi_dong",
+    "don_vi": "Khoa Vật lý",
+    "chuc_danh": "Phó Giáo sư",
+    "trang_thai_hoat_dong": true
+  },
+  {
+    "ma_nguoi_dung": 9,
+    "ten_dang_nhap": "nghiencuu01",
+    "mat_khau_hash": "$2b$10$XqJY8Y8vZ0YcvZ0YcvZ0YO5rQx8Z0YcvZ0YcvZ0YcvZ0YcvZ0Ycv",
+    "ho_ten": "Lê Thị Hoa",
+    "email": "lthoa@university.edu.vn",
+    "so_dien_thoai": "0909012345",
+    "vai_tro": "nghien_cuu_vien",
+    "don_vi": "Khoa Công nghệ Thông tin",
+    "chuc_danh": "Giảng viên",
+    "trang_thai_hoat_dong": true
+  },
+  {
+    "ma_nguoi_dung": 10,
+    "ten_dang_nhap": "nghiencuu02",
+    "mat_khau_hash": "$2b$10$XqJY8Y8vZ0YcvZ0YcvZ0YO5rQx8Z0YcvZ0YcvZ0YcvZ0YcvZ0Ycv",
+    "ho_ten": "Phạm Văn Ích",
+    "email": "pvich@university.edu.vn",
+    "so_dien_thoai": "0910123456",
+    "vai_tro": "nghien_cuu_vien",
+    "don_vi": "Khoa Kỹ thuật",
+    "chuc_danh": "Trợ lý nghiên cứu",
+    "trang_thai_hoat_dong": true
+  }
+]

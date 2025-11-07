@@ -1,0 +1,58 @@
+[
+  {
+    "ma_thanh_vien_hoi_dong": 1,
+    "ma_hoi_dong": 1,
+    "ma_nguoi_dung": 6,
+    "chuc_vu": "Chủ tịch hội đồng",
+    "ngay_tham_gia": "2024-01-15",
+    "trang_thai_hoat_dong": true
+  },
+  {
+    "ma_thanh_vien_hoi_dong": 2,
+    "ma_hoi_dong": 1,
+    "ma_nguoi_dung": 7,
+    "chuc_vu": "Ủy viên thư ký",
+    "ngay_tham_gia": "2024-01-15",
+    "trang_thai_hoat_dong": true
+  },
+  {
+    "ma_thanh_vien_hoi_dong": 3,
+    "ma_hoi_dong": 1,
+    "ma_nguoi_dung": 8,
+    "chuc_vu": "Ủy viên phản biện",
+    "ngay_tham_gia": "2024-01-15",
+    "trang_thai_hoat_dong": true
+  },
+  {
+    "ma_thanh_vien_hoi_dong": 4,
+    "ma_hoi_dong": 2,
+    "ma_nguoi_dung": 6,
+    "chuc_vu": "Chủ tịch hội đồng",
+    "ngay_tham_gia": "2024-02-01",
+    "trang_thai_hoat_dong": true
+  },
+  {
+    "ma_thanh_vien_hoi_dong": 5,
+    "ma_hoi_dong": 2,
+    "ma_nguoi_dung": 7,
+    "chuc_vu": "Ủy viên",
+    "ngay_tham_gia": "2024-02-01",
+    "trang_thai_hoat_dong": true
+  },
+  {
+    "ma_thanh_vien_hoi_dong": 6,
+    "ma_hoi_dong": 3,
+    "ma_nguoi_dung": 8,
+    "chuc_vu": "Chủ tịch hội đồng",
+    "ngay_tham_gia": "2024-03-01",
+    "trang_thai_hoat_dong": true
+  },
+  {
+    "ma_thanh_vien_hoi_dong": 7,
+    "ma_hoi_dong": 3,
+    "ma_nguoi_dung": 6,
+    "chuc_vu": "Ủy viên phản biện",
+    "ngay_tham_gia": "2024-03-01",
+    "trang_thai_hoat_dong": true
+  }
+]

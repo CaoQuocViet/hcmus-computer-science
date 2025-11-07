@@ -1,0 +1,26 @@
+[
+  {
+    "ma_hoi_dong": 1,
+    "ten_hoi_dong": "Hội đồng nghiệm thu đề tài CNTT 2024",
+    "loai_hoi_dong": "Hội đồng nghiệm thu",
+    "mo_ta": "Hội đồng nghiệm thu các đề tài thuộc lĩnh vực Công nghệ thông tin năm 2024",
+    "ngay_thanh_lap": "2024-01-15",
+    "trang_thai": "hoat_dong"
+  },
+  {
+    "ma_hoi_dong": 2,
+    "ten_hoi_dong": "Hội đồng đánh giá giữa kỳ KTDN 2024",
+    "loai_hoi_dong": "Hội đồng đánh giá giữa kỳ",
+    "mo_ta": "Hội đồng đánh giá tiến độ các đề tài Kinh tế - Doanh nghiệp",
+    "ngay_thanh_lap": "2024-02-01",
+    "trang_thai": "hoat_dong"
+  },
+  {
+    "ma_hoi_dong": 3,
+    "ten_hoi_dong": "Hội đồng xét duyệt đề xuất đề tài mới 2024",
+    "loai_hoi_dong": "Hội đồng xét duyệt",
+    "mo_ta": "Hội đồng xét duyệt các đề xuất đề tài nghiên cứu mới năm 2024",
+    "ngay_thanh_lap": "2024-03-01",
+    "trang_thai": "hoat_dong"
+  }
+]

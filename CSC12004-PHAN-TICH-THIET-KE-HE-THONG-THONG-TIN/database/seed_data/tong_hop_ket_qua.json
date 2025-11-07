@@ -1,0 +1,34 @@
+[
+  {
+    "ma_tong_hop": 1,
+    "ma_de_tai": 1,
+    "ma_dot_danh_gia": 1,
+    "tong_so_nhan_xet": 3,
+    "diem_trung_binh": 8.0,
+    "so_phieu_phe_duyet": 3,
+    "so_phieu_tu_choi": 0,
+    "so_phieu_can_sua": 0,
+    "quyet_dinh_cuoi_cung": "phe_duyet",
+    "xep_loai": "tot",
+    "tom_tat_ket_qua": "Đề tài được hội đồng đánh giá cao với điểm trung bình 8.0/10. Tất cả thành viên hội đồng đều đồng ý phê duyệt. Một số góp ý nhỏ về phương pháp và timeline đã được ghi nhận.",
+    "nguoi_tong_hop": 2,
+    "ngay_tong_hop": "2024-01-15T16:00:00",
+    "ngay_thong_bao": "2024-01-15T16:30:00"
+  },
+  {
+    "ma_tong_hop": 2,
+    "ma_de_tai": 2,
+    "ma_dot_danh_gia": 2,
+    "tong_so_nhan_xet": 2,
+    "diem_trung_binh": 8.55,
+    "so_phieu_phe_duyet": 2,
+    "so_phieu_tu_choi": 0,
+    "so_phieu_can_sua": 0,
+    "quyet_dinh_cuoi_cung": "phe_duyet",
+    "xep_loai": "tot",
+    "tom_tat_ket_qua": "Đề tài IoT nông nghiệp nhận được đánh giá rất tích cực với điểm trung bình 8.55/10. Hội đồng đánh giá cao tính thực tiễn và khả năng ứng dụng của đề tài. Một số lưu ý về bảo mật và maintenance đã được đề cập.",
+    "nguoi_tong_hop": 3,
+    "ngay_tong_hop": "2024-02-20T14:00:00",
+    "ngay_thong_bao": "2024-02-20T14:30:00"
+  }
+]
