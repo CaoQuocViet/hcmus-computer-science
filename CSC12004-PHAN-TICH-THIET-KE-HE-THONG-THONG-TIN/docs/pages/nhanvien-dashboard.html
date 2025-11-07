@@ -13,7 +13,7 @@
         }
         /* Advanced Dashboard Styles */
         .advanced-dashboard {
-            background: #764ba2;
+            background: #f8f9fa;
             min-height: 100vh;
         }
         
@@ -151,7 +151,6 @@
             background: #34495e;
             position: fixed;
             height: 100vh;
-            overflow-y: auto;
             
             z-index: 1000;
         }
@@ -217,9 +216,8 @@
         }
         
         .enhanced-nav-link.active {
-            background: rgba(102, 126, 234, 0.2);
+            background: rgba(255,255,255,0.2);
             color: white;
-            border-right: 3px solid #667eea;
         }
         
         .enhanced-nav-link i {
@@ -245,7 +243,7 @@
         }
         
         .content-wrapper {
-            padding: 30px;
+            padding: 0;
         }
         
         /* Enhanced Stats Cards */
@@ -2699,16 +2697,16 @@
                 .doc-icon {
                     font-size: 24px;
                     width: 40px;
-                    text-align: center;
-                }
-
+                document.getElementById('thoiGianThucHien').value = months;
+            }   }
+        }
                 .doc-info {
-                    flex: 1;
-                }
-
-                .doc-info h4 {
-                    margin: 0 0 5px 0;
-                    color: #1f2937;
+        // Modal functions1;
+        function showEnhancedModal(title, content) {
+            document.getElementById('modalTitle').textContent = title;
+            document.getElementById('modalBody').innerHTML = content;
+            document.getElementById('enhancedModal').style.display = 'block';
+        }           color: #1f2937;
                     font-size: 14px;
                     font-weight: 600;
                 }

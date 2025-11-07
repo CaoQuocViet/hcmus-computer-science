@@ -12,7 +12,7 @@
         }
         /* Enhanced Council Dashboard Styles */
         .council-dashboard {
-            background: #764ba2;
+            background: #f8f9fa;
             min-height: 100vh;
         }
         
@@ -21,7 +21,6 @@
             background: #34495e;
             position: fixed;
             height: 100vh;
-            overflow-y: auto;
             
             z-index: 1000;
         }
@@ -360,6 +359,19 @@
         .enhanced-stat-card:nth-child(4) { --accent-color: #ef4444; }
         
         /* Enhanced Navigation */
+        .nav-section {
+            padding: 20px 0;
+        }
+        
+        .nav-section-title {
+            color: rgba(255,255,255,0.6);
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            padding: 0 20px 10px;
+            letter-spacing: 1px;
+        }
+        
         .enhanced-nav-link {
             display: flex;
             align-items: center;
@@ -447,7 +459,8 @@
             <p class="brand-subtitle">Xét duyệt Đề tài Nghiên cứu</p>
         </div>
         
-        <nav style="padding: 20px 0;">
+        <nav class="nav-section">
+            <div class="nav-section-title">XÉT DUYỆT</div>
             <a href="#dashboard" class="enhanced-nav-link active" onclick="showSection('dashboard')">
                 <i class="fas fa-tachometer-alt"></i>
                 <span>Tổng quan</span>
@@ -461,6 +474,10 @@
                 <i class="fas fa-history"></i>
                 <span>Lịch sử đánh giá</span>
             </a>
+        </nav>
+        
+        <nav class="nav-section">
+            <div class="nav-section-title">HỆ THỐNG</div>
             <a href="../index.html" class="enhanced-nav-link" onclick="logout(); return false;">
                 <i class="fas fa-sign-out-alt"></i>
                 <span>Đăng xuất</span>
