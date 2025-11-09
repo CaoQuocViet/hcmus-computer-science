@@ -112,6 +112,142 @@
             font-size: 14px;
         }
         
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        
+        /* Hệ thống thông báo theo đặc tả UC */
+        .notification-center {
+            position: relative;
+        }
+        
+        .notification-btn {
+            background: none;
+            border: none;
+            position: relative;
+            padding: 10px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        
+        .notification-btn:hover {
+            background-color: #f8f9fa;
+        }
+        
+        .notification-btn i {
+            font-size: 18px;
+            color: #666;
+        }
+        
+        .notification-count {
+            position: absolute;
+            top: 2px;
+            right: 2px;
+            background: #e74c3c;
+            color: white;
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            font-size: 11px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+        }
+        
+        .notification-dropdown {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+            width: 350px;
+            max-height: 400px;
+            overflow-y: auto;
+            z-index: 1000;
+            display: none;
+        }
+        
+        .notification-dropdown.show {
+            display: block;
+        }
+        
+        .notification-header {
+            padding: 15px 20px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .notification-header h4 {
+            margin: 0;
+            font-size: 16px;
+            color: #2c3e50;
+        }
+        
+        .mark-read-btn {
+            background: none;
+            border: none;
+            color: #3498db;
+            font-size: 12px;
+            cursor: pointer;
+            padding: 4px 8px;
+            border-radius: 4px;
+        }
+        
+        .notification-item {
+            padding: 15px 20px;
+            border-bottom: 1px solid #f5f5f5;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            position: relative;
+        }
+        
+        .notification-item:hover {
+            background-color: #f8f9fa;
+        }
+        
+        .notification-item.unread::before {
+            content: '';
+            position: absolute;
+            left: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 6px;
+            height: 6px;
+            background: #3498db;
+            border-radius: 50%;
+        }
+        
+        .notification-item.unread {
+            padding-left: 30px;
+            background-color: #f8fafc;
+        }
+        
+        .notification-title {
+            font-weight: 600;
+            font-size: 13px;
+            color: #2c3e50;
+            margin-bottom: 4px;
+        }
+        
+        .notification-message {
+            font-size: 12px;
+            color: #666;
+            line-height: 1.4;
+            margin-bottom: 4px;
+        }
+        
+        .notification-time {
+            font-size: 11px;
+            color: #999;
+        }
+        
         .user-info {
             display: flex;
             align-items: center;
@@ -526,11 +662,30 @@
                         <span>Trang chủ > <span id="currentPage">Hồ sơ của tôi</span></span>
                     </div>
                 </div>
-                <div class="user-info">
-                    <div class="user-avatar">CN</div>
-                    <div>
-                        <div style="font-weight: 600;">TS. Nguyễn Văn A</div>
-                        <div style="font-size: 12px; color: #666;">Chủ nhiệm đề tài</div>
+                <div class="header-actions">
+                    <!-- Hệ thống thông báo theo UC -->
+                    <div class="notification-center">
+                        <button class="notification-btn" onclick="toggleNotifications()">
+                            <i class="fas fa-bell"></i>
+                            <span class="notification-count" id="notificationCount">3</span>
+                        </button>
+                        <div class="notification-dropdown" id="notificationDropdown">
+                            <div class="notification-header">
+                                <h4>Thông báo hệ thống</h4>
+                                <button onclick="markAllAsRead()" class="mark-read-btn">Đánh dấu đã đọc</button>
+                            </div>
+                            <div class="notification-list" id="notificationList">
+                                <!-- Notifications sẽ được load động -->
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="user-info">
+                        <div class="user-avatar">CN</div>
+                        <div>
+                            <div style="font-weight: 600;">TS. Nguyễn Văn A</div>
+                            <div style="font-size: 12px; color: #666;">Chủ nhiệm đề tài</div>
+                        </div>
                     </div>
                 </div>
             </header>
@@ -566,7 +721,7 @@
                 <section id="tai-len-tai-lieu" class="content-section">
                     <div class="table-container">
                         <div class="table-header">
-                            <h2 class="table-title">📤 TẢI LÊN TÀI LIỆU HỒ SƠ</h2>
+                            <h2 class="table-title">TẢI LÊN TÀI LIỆU HỒ SƠ</h2>
                         </div>
                         
                         <div style="padding: 25px;">
@@ -690,7 +845,7 @@
                 <section id="tai-len-tien-do" class="content-section">
                     <div class="table-container">
                         <div class="table-header">
-                            <h2 class="table-title">📊 TẢI LÊN BÁO CÁO TIẾN ĐỘ</h2>
+                            <h2 class="table-title">TẢI LÊN BÁO CÁO TIẾN ĐỘ</h2>
                         </div>
                         
                         <table>
@@ -766,7 +921,7 @@
     <div id="uploadModal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
-                <h3 class="modal-title">📤 HOÀN THIỆN HỒ SƠ</h3>
+                <h3 class="modal-title">HOÀN THIỆN HỒ SƠ</h3>
                 <button class="close" onclick="hideModal('uploadModal')">&times;</button>
             </div>
             <div class="modal-body" id="uploadContent">
