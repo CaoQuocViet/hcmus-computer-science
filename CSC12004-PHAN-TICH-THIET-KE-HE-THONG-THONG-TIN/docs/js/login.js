@@ -1,9 +1,9 @@
 // Mock data và authentication
 const users = {
-    'nhanvien01': { password: '123456', role: 'nhanvien', name: 'Nguyễn Văn A' },
-    'chunhiem01': { password: '123456', role: 'chunhiem', name: 'Trần Thị B' },
-    'hoidong01': { password: '123456', role: 'hoidong', name: 'Lê Văn C' },
-    'nghiemthu01': { password: '123456', role: 'nghiemthu', name: 'Phạm Thị D' }
+    'nhanvien01': { password: '123456', role: 'nhanvien', name: 'Nhân viên X' },
+    'chunhiem01': { password: '123456', role: 'chunhiem', name: 'TS. Nguyễn Văn A' },
+    'hoidong01': { password: '123456', role: 'hoidong-khoahoc', name: 'PGS.TS. Trần Văn B' },
+    'nghiemthu01': { password: '123456', role: 'hoidong-nghiemthu', name: 'PGS.TS. Phạm Văn D' }
 };
 
 function fillDemo(username, password, role) {
@@ -45,11 +45,11 @@ document.getElementById('loginForm').addEventListener('submit', function(e) {
         case 'chunhiem':
             window.location.href = 'pages/chunhiem-dashboard.html';
             break;
-        case 'hoidong':
-            window.location.href = 'pages/hoidong-dashboard.html';
+        case 'hoidong-khoahoc':
+            window.location.href = 'pages/hoidong-khoahoc-dashboard.html';
             break;
-        case 'nghiemthu':
-            window.location.href = 'pages/nghiemthu-dashboard.html';
+        case 'hoidong-nghiemthu':
+            window.location.href = 'pages/hoidong-nghiemthu-dashboard.html';
             break;
     }
 });
