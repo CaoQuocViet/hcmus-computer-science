@@ -127,7 +127,7 @@ function danhGiaNghiemThu(deTaiId) {
     
     modalContent.innerHTML = `
         <div style="margin-bottom: 20px;">
-            <h4 style="color: #2c3e50; margin-bottom: 15px;">📋 THÔNG TIN ĐỀ TÀI</h4>
+            <h4 style="color: #2c3e50; margin-bottom: 15px;">THÔNG TIN ĐỀ TÀI</h4>
             <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin-bottom: 20px;">
                 <p><strong>Mã đề tài:</strong> ${currentDeTai.maDeTai}</p>
                 <p><strong>Tên đề tài:</strong> ${currentDeTai.tenDeTai}</p>
@@ -137,7 +137,7 @@ function danhGiaNghiemThu(deTaiId) {
         </div>
 
         <div style="margin-bottom: 20px;">
-            <h4 style="color: #2c3e50; margin-bottom: 15px;">📂 HỒ SƠ NGHIỆM THU</h4>
+            <h4 style="color: #2c3e50; margin-bottom: 15px;">HỒ SƠ NGHIỆM THU</h4>
             <div class="document-list">
                 ${currentDeTai.documents.map((doc, index) => `
                     <div class="document-item ${index === 0 ? 'active' : ''}" 
@@ -156,7 +156,7 @@ function danhGiaNghiemThu(deTaiId) {
         </div>
 
         <div class="evaluation-section">
-            <h4 style="color: #2c3e50; margin-bottom: 15px;">📝 PHIẾU ĐÁNH GIÁ</h4>
+            <h4 style="color: #2c3e50; margin-bottom: 15px;">PHIẾU ĐÁNH GIÁ</h4>
             
             <div class="score-group">
                 <div class="score-item">
@@ -351,12 +351,12 @@ function getDocumentPreview(docId) {
 }
 
 function downloadDocument(fileName) {
-    showNotification(`📥 Đang tải xuống file: ${fileName}`, 'info');
+    showNotification(`Đang tải xuống file: ${fileName}`, 'info');
     // TODO: Implement actual download functionality
 }
 
 function playVideo(fileName) {
-    showNotification(`🎬 Đang phát video: ${fileName}`, 'info');
+    showNotification(`Đang phát video: ${fileName}`, 'info');
     // TODO: Implement actual video player
 }
 

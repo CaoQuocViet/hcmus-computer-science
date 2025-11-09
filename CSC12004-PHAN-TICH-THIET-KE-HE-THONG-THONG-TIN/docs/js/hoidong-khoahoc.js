@@ -143,7 +143,7 @@ function xetDuyetHoSo(hoSoId) {
         </div>
 
         <div style="margin-bottom: 20px;">
-            <h4 style="color: #2c3e50; margin-bottom: 15px;">📂 TÀI LIỆU HỒ SƠ</h4>
+            <h4 style="color: #2c3e50; margin-bottom: 15px;">TÀI LIỆU HỒ SƠ</h4>
             <div class="document-list">
                 ${currentHoSo.documents.map((doc, index) => `
                     <div class="document-item ${index === 0 ? 'active' : ''}" 
@@ -162,7 +162,7 @@ function xetDuyetHoSo(hoSoId) {
         </div>
 
         <div class="evaluation-section">
-            <h4 style="color: #2c3e50; margin-bottom: 15px;">📝 ĐÁNH GIÁ</h4>
+            <h4 style="color: #2c3e50; margin-bottom: 15px;">ĐÁNH GIÁ</h4>
             
             <div class="form-group">
                 <label class="form-label">Quyết định: <span class="required">*</span></label>
@@ -173,7 +173,7 @@ function xetDuyetHoSo(hoSoId) {
                     </div>
                     <div class="radio-item">
                         <input type="radio" name="decision" value="yeu-cau-chinh-sua" id="yeuCauChinhSua">
-                        <label for="yeuCauChinhSua">📝 Yêu cầu chỉnh sửa</label>
+                        <label for="yeuCauChinhSua">Yêu cầu chỉnh sửa</label>
                     </div>
                 </div>
             </div>
@@ -258,7 +258,7 @@ function getDocumentPreview(docId) {
 }
 
 function downloadDocument(fileName) {
-    showNotification(`📥 Đang tải xuống file: ${fileName}`, 'info');
+    showNotification(`Đang tải xuống file: ${fileName}`, 'info');
     // TODO: Implement actual download functionality
 }
 
@@ -295,7 +295,7 @@ function luuDanhGia() {
             showNotification('Đã phê duyệt đề tài thành công!', 'success');
         } else {
             currentHoSo.trangThai = 'yeu-cau-chinh-sua';
-            showNotification('📝 Đã gửi yêu cầu chỉnh sửa!', 'success');
+            showNotification('Đã gửi yêu cầu chỉnh sửa!', 'success');
         }
         
         // Refresh table

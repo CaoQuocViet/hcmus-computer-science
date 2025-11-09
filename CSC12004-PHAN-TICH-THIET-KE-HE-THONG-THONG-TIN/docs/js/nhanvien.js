@@ -356,7 +356,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         
         // Show confirmation
-        if (confirm(`Xác nhận tạo hồ sơ:\n\n• Tên đề tài: ${tenDeTai}\n• Người đề xuất: ${nguoiDeXuat}\n• Lĩnh vực: ${linhVuc}\n• Thời gian: ${ngayBatDau} - ${ngayKetThuc}\n\nSau khi tạo:\n✓ Hệ thống sẽ tạo mã hồ sơ tự động\n✓ Gửi email thông báo cho người đề xuất\n✓ Hướng dẫn người đề xuất hoàn thiện hồ sơ`)) {
+        if (confirm(`Xác nhận tạo hồ sơ:\n\n• Tên đề tài: ${tenDeTai}\n• Người đề xuất: ${nguoiDeXuat}\n• Lĩnh vực: ${linhVuc}\n• Thời gian: ${ngayBatDau} - ${ngayKetThuc}\n\nSau khi tạo:\n• Hệ thống sẽ tạo mã hồ sơ tự động\n• Gửi email thông báo cho người đề xuất\n• Hướng dẫn người đề xuất hoàn thiện hồ sơ`)) {
             
             // Create new record
             const newId = `DT${new Date().getFullYear()}${String(hoSoData.length + 1).padStart(3, '0')}`;
@@ -378,7 +378,7 @@ document.addEventListener('DOMContentLoaded', function() {
             
             // Show success
             hideModal('createModal');
-            showNotification('Tạo hồ sơ thành công!\n\n📋 Mã hồ sơ: ' + newId + '\n📧 Đã gửi email cho: ' + nguoiDeXuat + '\n\nTrạng thái hiện tại: 🟡 Đã tạo', 'success');
+            showNotification('Tạo hồ sơ thành công!\n\nMã hồ sơ: ' + newId + '\nĐã gửi email cho: ' + nguoiDeXuat + '\n\nTrạng thái hiện tại: 🟡 Đã tạo', 'success');
             
             // Update display
             updateStats();
@@ -498,7 +498,7 @@ function kiemTraHoSo(hoSoId) {
                 <label>
                     <input type="checkbox" ${checked} ${disabled} data-category="${category.key}">
                     ${category.name}
-                    ${doc ? `<span style="color: green;"> ✓ Đã tải lên: ${doc.name}</span>` : '<span style="color: red;"> ✗ Chưa có</span>'}
+                    ${doc ? `<span style="color: green;"> Đã tải lên: ${doc.name}</span>` : '<span style="color: red;"> Chưa có</span>'}
                 </label>
             </div>
         `;
@@ -764,7 +764,7 @@ function hoanTatXacNhanTrienKhai(hoSoId) {
             };
             hoSo.progressReports = [];
             
-            showNotification('Đã xác nhận triển khai thành công!\n\n📋 Mã đề tài: ' + hoSo.id + '\n📧 Đã gửi email cho: ' + hoSo.nguoiDeXuat + '\n\n✓ Đã tạo lịch nhắc nhở đánh giá định kỳ\n✓ Đã tạo lịch báo cáo tiến độ\n✓ Đã tạo deadline', 'success');
+            showNotification('Đã xác nhận triển khai thành công!\n\nMã đề tài: ' + hoSo.id + '\nĐã gửi email cho: ' + hoSo.nguoiDeXuat + '\n\n• Đã tạo lịch nhắc nhở đánh giá định kỳ\n• Đã tạo lịch báo cáo tiến độ\n• Đã tạo deadline', 'success');
             hideModal('kiemTraModal');
             loadPheDuyetTable();
             updateStats();
@@ -837,9 +837,9 @@ function loadLichBaoCaoTable() {
                 </td>
                 <td>Kỳ ${kyHienTai}/4 (Quý ${kyHienTai}/2025)</td>
                 <td>
-                    ${daysToDeadline <= 0 ? '⚠️ Quá hạn' : 
-                      daysToDeadline <= 3 ? '⚠️ Cần báo cáo' : 
-                      daysToDeadline <= 7 ? '⚠️ Sắp đến hạn' : 
+                    ${daysToDeadline <= 0 ? 'Quá hạn' : 
+                      daysToDeadline <= 3 ? 'Cần báo cáo' : 
+                      daysToDeadline <= 7 ? 'Sắp đến hạn' : 
                       'Bình thường'}
                     <br><small>Đã nhắc: ${soLanNhac} lần</small>
                 </td>
@@ -867,15 +867,15 @@ function xemLichChiTiet(hoSoId) {
     if (!hoSo) return;
     
     const content = `
-        <h4>📅 LỊCH BÁO CÁO CHI TIẾT</h4>
+        <h4>LỊCH BÁO CÁO CHI TIẾT</h4>
         
         <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin-bottom: 20px;">
             <h5>THÔNG TIN ĐỀ TÀI</h5>
             <p><strong>Tên đề tài:</strong> ${hoSo.ten}</p>
             <p><strong>Mã:</strong> ${hoSo.id}</p>
             <p><strong>Chủ nhiệm:</strong> ${hoSo.nguoiDeXuat}</p>
-            <p><strong>📧 Email:</strong> ${hoSo.email}</p>
-            <p><strong>📱 SĐT:</strong> ${hoSo.sdt}</p>
+            <p><strong>Email:</strong> ${hoSo.email}</p>
+            <p><strong>SĐT:</strong> ${hoSo.sdt}</p>
             <p><strong>Thời gian thực hiện:</strong> ${hoSo.ngayBatDau} - ${hoSo.ngayKetThuc}</p>
             <p><strong>Trạng thái:</strong> 🟢 Đang thực hiện</p>
         </div>
@@ -883,7 +883,7 @@ function xemLichChiTiet(hoSoId) {
         <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin-bottom: 20px;">
             <h5>LỊCH BÁO CÁO TIẾN ĐỘ</h5>
             <div style="border-left: 3px solid #27ae60; padding-left: 15px; margin: 10px 0;">
-                <strong>Kỳ 1 - Quý 1/2025</strong> - ✓ Đã hoàn thành<br>
+                <strong>Kỳ 1 - Quý 1/2025</strong> - • Đã hoàn thành<br>
                 <small>Hạn nộp: 31/03/2025 | Ngày nộp: 28/03/2025 (sớm 3 ngày)</small>
             </div>
             <div style="border-left: 3px solid #e74c3c; padding-left: 15px; margin: 10px 0;">
@@ -973,7 +973,7 @@ function xacNhanGuiEmail(hoSoId) {
     const hoSo = hoSoData.find(h => h.id === hoSoId);
     if (!hoSo) return;
     
-    showNotification('Gửi nhắc nhở thành công!\n\n📧 Người nhận: ' + hoSo.nguoiDeXuat + '\n📧 Email: ' + hoSo.email + '\n⏰ Thời gian: ' + new Date().toLocaleString('vi-VN') + '\n\nHệ thống đã ghi nhận lần nhắc nhở', 'success');
+    showNotification('Gửi nhắc nhở thành công!\n\n📧 Người nhận: ' + hoSo.nguoiDeXuat + '\n📧 Email: ' + hoSo.email + '\nThời gian: ' + new Date().toLocaleString('vi-VN') + '\n\nHệ thống đã ghi nhận lần nhắc nhở', 'success');
     hideModal('kiemTraModal');
     loadLichBaoCaoTable();
 }
@@ -1034,7 +1034,7 @@ function kiemTraBaoCaoTienDo(hoSoId, ky) {
         </div>
         
         <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin-bottom: 20px;">
-            <h5>📈 TIẾN ĐỘ THỰC HIỆN</h5>
+            <h5>TIẾN ĐỘ THỰC HIỆN</h5>
             <div style="background: #fff; padding: 10px; border-radius: 5px;">
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
                     <span>Tổng quan tiến độ:</span>
@@ -1044,7 +1044,7 @@ function kiemTraBaoCaoTienDo(hoSoId, ky) {
                     <div style="width: ${report.tienDo}%; background: #4CAF50; border-radius: 10px; height: 8px;"></div>
                 </div>
                 <p style="margin-top: 10px; color: #666;">• Hoàn thành: ${Math.floor(report.tienDo/10)} công việc chính</p>
-                <p style="color: #666;">• Đánh giá: ${report.tienDo >= 75 ? 'Vượt kế hoạch' : report.tienDo >= 25 ? 'Đúng kế hoạch ✓' : 'Chậm tiến độ'}</p>
+                <p style="color: #666;">• Đánh giá: ${report.tienDo >= 75 ? 'Vượt kế hoạch' : report.tienDo >= 25 ? 'Đúng kế hoạch •' : 'Chậm tiến độ'}</p>
             </div>
         </div>
         
@@ -1184,10 +1184,10 @@ function xacNhanTienDo(hoSoId, ky) {
         
         <div style="background: #fff3cd; border: 1px solid #ffeaa7; padding: 15px; border-radius: 8px; margin-bottom: 20px;">
             <h5>Sau khi xác nhận:</h5>
-            <p>✓ Đánh dấu giai đoạn tiến độ Quý ${ky} đã nộp</p>
-            <p>✓ Cập nhật thanh tiến trình tổng thể của đề tài</p>
-            <p>✓ Gửi email xác nhận cho chủ nhiệm đề tài</p>
-            <p>✓ Tạo nhắc nhở cho kỳ báo cáo tiếp theo</p>
+            <p>• Đánh dấu giai đoạn tiến độ Quý ${ky} đã nộp</p>
+            <p>• Cập nhật thanh tiến trình tổng thể của đề tài</p>
+            <p>• Gửi email xác nhận cho chủ nhiệm đề tài</p>
+            <p>• Tạo nhắc nhở cho kỳ báo cáo tiếp theo</p>
         </div>
         
         <div class="form-group">
@@ -1237,7 +1237,7 @@ function hoanTatXacNhanTienDo(hoSoId, ky) {
         report.daXacNhan = true;
         report.ngayXacNhan = new Date().toISOString().split('T')[0];
         
-        showNotification('Xác nhận tiến độ thành công!\n\n📋 Mã đề tài: ' + hoSo.id + '\nKỳ báo cáo: Quý ' + ky + '/2025\n📈 Tiến độ: ' + report.tienDo + '%\n⏰ Thời gian: ' + new Date().toLocaleString('vi-VN') + '\n\n✓ Đã đánh dấu giai đoạn hoàn thành\n✓ Đã gửi email cho ' + hoSo.nguoiDeXuat + '\n✓ Đã tạo nhắc nhở cho Quý ' + (ky + 1) + '/2025', 'success');
+        showNotification('Xác nhận tiến độ thành công!\n\nMã đề tài: ' + hoSo.id + '\nKỳ báo cáo: Quý ' + ky + '/2025\nTiến độ: ' + report.tienDo + '%\nThời gian: ' + new Date().toLocaleString('vi-VN') + '\n\n• Đã đánh dấu giai đoạn hoàn thành\n• Đã gửi email cho ' + hoSo.nguoiDeXuat + '\n• Đã tạo nhắc nhở cho Quý ' + (ky + 1) + '/2025', 'success');
         hideModal('kiemTraModal');
         loadCapNhatTienDoTable();
     }
@@ -1639,7 +1639,7 @@ function loadChinhSuaTable() {
             </td>
             <td>
                 <button class="btn btn-sm btn-warning" onclick="guiYeuCauChinhSua('${hs.id}')">
-                    ✏️ Yêu cầu chỉnh sửa
+                    Yêu cầu chỉnh sửa
                 </button>
             </td>
         </tr>

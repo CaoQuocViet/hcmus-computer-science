@@ -472,7 +472,7 @@ function chinhSuaHoSo(hoSoId) {
         <div class="modal" id="chinhSuaModal" style="display: block;">
             <div class="modal-content" style="max-width: 600px; margin: 3% auto;">
                 <div class="modal-header">
-                    <h3 class="modal-title">✏️ CẬP NHẬT HỒ SƠ ĐÃ CHỈNH SỬA</h3>
+                    <h3 class="modal-title">CẬP NHẬT HỒ SƠ ĐÃ CHỈNH SỬA</h3>
                     <button class="close" onclick="hideModal('chinhSuaModal')">&times;</button>
                 </div>
                 <div class="modal-body">
@@ -794,7 +794,7 @@ function taiLenNghiemThu(deTaiId) {
         <div class="modal" id="nghiemThuModal" style="display: block;">
             <div class="modal-content" style="max-width: 650px; margin: 3% auto;">
                 <div class="modal-header">
-                    <h3 class="modal-title">🏁 TẢI LÊN HỒ SƠ NGHIỆM THU</h3>
+                    <h3 class="modal-title">TẢI LÊN HỒ SƠ NGHIỆM THU</h3>
                     <button class="close" onclick="hideModal('nghiemThuModal')">&times;</button>
                 </div>
                 <div class="modal-body">
@@ -833,7 +833,7 @@ function taiLenNghiemThu(deTaiId) {
                         
                         <div class="document-category" style="margin-bottom: 15px;">
                             <div class="document-header" style="background: #fff3e0; padding: 10px; border-radius: 6px 6px 0 0; font-weight: 600;">
-                                🔬 3. Sản phẩm/Kết quả nghiên cứu
+                                3. Sản phẩm/Kết quả nghiên cứu
                             </div>
                             <div class="upload-area-nt" style="border: 1px solid #ddd; padding: 15px; border-radius: 0 0 6px 6px;">
                                 <input type="file" id="file_nt_3" accept=".pdf,.doc,.docx,.zip,.rar" onchange="handleNghiemThuFile(3, this)" style="margin-bottom: 10px;">
@@ -843,7 +843,7 @@ function taiLenNghiemThu(deTaiId) {
                         
                         <div class="document-category" style="margin-bottom: 15px;">
                             <div class="document-header" style="background: #fce4ec; padding: 10px; border-radius: 6px 6px 0 0; font-weight: 600;">
-                                📊 4. Tài liệu đánh giá tự đánh giá
+                                4. Tài liệu đánh giá tự đánh giá
                             </div>
                             <div class="upload-area-nt" style="border: 1px solid #ddd; padding: 15px; border-radius: 0 0 6px 6px;">
                                 <input type="file" id="file_nt_4" accept=".pdf,.doc,.docx" onchange="handleNghiemThuFile(4, this)" style="margin-bottom: 10px;">
@@ -861,7 +861,7 @@ function taiLenNghiemThu(deTaiId) {
                     <div style="text-align: right; margin-top: 20px; gap: 10px; display: flex; justify-content: flex-end;">
                         <button type="button" class="btn btn-secondary" onclick="hideModal('nghiemThuModal')">Hủy</button>
                         <button type="button" class="btn btn-primary" onclick="guiHoSoNghiemThu('${deTaiId}')" id="guiNghiemThuBtn" disabled>
-                            🏁 Gửi hồ sơ nghiệm thu
+                            Gửi hồ sơ nghiệm thu
                         </button>
                     </div>
                 </div>
@@ -948,7 +948,7 @@ function guiHoSoNghiemThu(deTaiId) {
         loadNghiemThuData(); // Refresh danh sách
         selectedNghiemThuFiles = {}; // Reset
         
-        showNotification('🏁 Đã nộp hồ sơ nghiệm thu thành công!', 'success');
+        showNotification('Đã nộp hồ sơ nghiệm thu thành công!', 'success');
     }
 }
 
@@ -1003,7 +1003,7 @@ function hoanThienHoSo(hoSoId) {
         }
     }, 100);
     
-    showNotification('📝 Vui lòng tải lên đầy đủ 5 tài liệu bắt buộc để hoàn thiện hồ sơ', 'info');
+    showNotification('Vui lòng tải lên đầy đủ 5 tài liệu bắt buộc để hoàn thiện hồ sơ', 'info');
 }
 
 function xemTienDo(deTaiId) {
@@ -1018,7 +1018,7 @@ function xemTienDo(deTaiId) {
         <div class="modal" id="xemTienDoModal" style="display: block;">
             <div class="modal-content" style="max-width: 500px; margin: 5% auto;">
                 <div class="modal-header">
-                    <h3 class="modal-title">📊 CHI TIẾT TIẾN ĐỘ ĐỀ TÀI</h3>
+                    <h3 class="modal-title">CHI TIẾT TIẾN ĐỘ ĐỀ TÀI</h3>
                     <button class="close" onclick="hideModal('xemTienDoModal')">&times;</button>
                 </div>
                 <div class="modal-body">
