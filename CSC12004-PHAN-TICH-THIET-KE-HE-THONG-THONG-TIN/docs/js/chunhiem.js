@@ -1,698 +1,488 @@
-// Chủ nhiệm đề tài dashboard functionality
+// CHỦ NHIỆM ĐỀ TÀI - Dashboard Functionality
+// Theo đặc tả UC 1.3, 1.8, 1.10, 1.15
+
+// Mock Data
+const hoSoData = [
+    {
+        id: 'HS001',
+        maHoSo: 'HS001',
+        tenDeTai: 'Nghiên cứu ứng dụng AI trong giáo dục',
+        linhVuc: 'Công nghệ thông tin',
+        trangThai: 'da-tao',
+        ngayTao: '2024-10-15',
+        chuNhiem: 'TS. Nguyễn Văn A',
+        yeuCauChinhSua: '',
+        documents: {
+            1: null, 2: null, 3: null, 4: null, 5: null
+        },
+        thanhVienList: ''
+    },
+    {
+        id: 'HS003',
+        maHoSo: 'HS003',
+        tenDeTai: 'Phát triển hệ thống quản lý thông minh',
+        linhVuc: 'Công nghệ thông tin',
+        trangThai: 'dang-chinh-sua',
+        ngayTao: '2024-09-20',
+        chuNhiem: 'TS. Nguyễn Văn A',
+        yeuCauChinhSua: 'Cần bổ sung thêm tài liệu tham khảo và làm rõ phương pháp nghiên cứu',
+        ngayYeuCau: '2024-11-01',
+        documents: {
+            1: 'de-cuong-v1.pdf', 2: 'cv-chunhiem.pdf', 3: null, 4: null, 5: null
+        },
+        thanhVienList: ''
+    }
+];
+
+const tienDoData = [
+    {
+        id: 'DT001',
+        maDeTai: 'DT001',
+        tenDeTai: 'Nghiên cứu ứng dụng AI trong giáo dục',
+        kyBaoCao: 'Quý 1/2025',
+        hanNop: '2025-01-15',
+        trangThai: 'can-nop',
+        chuNhiem: 'TS. Nguyễn Văn A'
+    },
+    {
+        id: 'DT002', 
+        maDeTai: 'DT002',
+        tenDeTai: 'Hệ thống IoT cho nông nghiệp thông minh',
+        kyBaoCao: 'Quý 4/2024',
+        hanNop: '2024-12-31',
+        trangThai: 'da-nop',
+        chuNhiem: 'TS. Nguyễn Văn A'
+    }
+];
+
+const nghiemThuData = [
+    {
+        id: 'DT002',
+        maDeTai: 'DT002', 
+        tenDeTai: 'Hệ thống IoT cho nông nghiệp thông minh',
+        hanNopNghiemThu: '2025-02-28',
+        trangThai: 'can-nop-nghiem-thu',
+        chuNhiem: 'TS. Nguyễn Vă A'
+    }
+];
+
+// Global variables
+let selectedFiles = {};
+let uploadProgress = {};
 
 document.addEventListener('DOMContentLoaded', function() {
-    const user = checkAuth();
-    if (user && user.role === 'chunhiem') {
-        document.getElementById('userInfo').textContent = user.name;
-        loadDashboard();
-    } else {
-        window.location.href = '../index.html';
-    }
+    loadHoSoCuaToi();
+    loadUploadOptions();
+    loadChinhSuaHoSo();
+    loadTienDoData();
+    loadLichBaoCao();
+    loadNghiemThuData();
+    
+    // Setup drag and drop functionality
+    setupDragAndDrop();
 });
 
 function showSection(sectionId) {
     // Hide all sections
-    const sections = document.querySelectorAll('.content-section');
-    sections.forEach(section => {
-        section.style.display = 'none';
+    document.querySelectorAll('.content-section').forEach(section => {
+        section.classList.remove('active');
     });
     
     // Remove active class from all nav links
-    const navLinks = document.querySelectorAll('.nav-link');
-    navLinks.forEach(link => {
+    document.querySelectorAll('.nav-link').forEach(link => {
         link.classList.remove('active');
     });
     
     // Show selected section
-    document.getElementById(sectionId).style.display = 'block';
+    document.getElementById(sectionId).classList.add('active');
     
     // Add active class to clicked nav link
     event.target.classList.add('active');
     
-    // Load section data
-    switch(sectionId) {
-        case 'dashboard':
-            loadDashboard();
-            break;
-        case 'ho-so-cua-toi':
-            loadHoSoCuaToi();
-            break;
-        case 'tien-do-de-tai':
-            loadTienDoDeTai();
-            break;
-        case 'nghiem-thu':
-            loadNghiemThuCuaToi();
-            break;
+    // Update breadcrumb
+    const pageNames = {
+        'ho-so-cua-toi': 'Hồ sơ của tôi',
+        'tai-len-tai-lieu': 'Tải lên tài liệu',
+        'chinh-sua-ho-so': 'Chỉnh sửa hồ sơ',
+        'tai-len-tien-do': 'Tải lên tiến độ',
+        'lich-bao-cao': 'Lịch báo cáo',
+        'tai-len-nghiem-thu': 'Tải lên nghiệm thu'
+    };
+    document.getElementById('currentPage').textContent = pageNames[sectionId] || sectionId;
+}
+
+// UC 1.3: Hồ sơ của tôi
+function loadHoSoCuaToi() {
+    const tbody = document.getElementById('hoSoTable');
+    if (!tbody) return;
+    
+    tbody.innerHTML = hoSoData.map(hs => `
+        <tr>
+            <td>${hs.maHoSo}</td>
+            <td>${hs.tenDeTai}</td>
+            <td>${hs.linhVuc}</td>
+            <td><span class="status status-${hs.trangThai}">${getStatusText(hs.trangThai)}</span></td>
+            <td>${formatDate(hs.ngayTao)}</td>
+            <td>
+                <button class="btn btn-info btn-sm" onclick="xemChiTiet('${hs.id}')">
+                    <i class="fas fa-eye"></i> Xem
+                </button>
+                ${hs.trangThai === 'da-tao' ? `
+                    <button class="btn btn-primary btn-sm" onclick="hoanThienHoSo('${hs.id}')">
+                        <i class="fas fa-upload"></i> Hoàn thiện
+                    </button>
+                ` : ''}
+            </td>
+        </tr>
+    `).join('');
+}
+
+// Load upload options
+function loadUploadOptions() {
+    const select = document.getElementById('hoSoSelect');
+    if (!select) return;
+    
+    // Chỉ hiển thị hồ sơ trạng thái "đã tạo"
+    const availableHoSo = hoSoData.filter(hs => hs.trangThai === 'da-tao');
+    
+    select.innerHTML = '<option value="">Chọn hồ sơ...</option>' + 
+        availableHoSo.map(hs => `<option value="${hs.id}">${hs.maHoSo} - ${hs.tenDeTai}</option>`).join('');
+}
+
+function loadUploadForm() {
+    const select = document.getElementById('hoSoSelect');
+    const uploadForm = document.getElementById('uploadForm');
+    
+    if (select.value) {
+        uploadForm.style.display = 'block';
+        resetUploadForm();
+    } else {
+        uploadForm.style.display = 'none';
     }
 }
 
-function loadDashboard() {
-    const user = getCurrentUser();
-    const hoSoData = getHoSoData();
+function resetUploadForm() {
+    selectedFiles = {};
+    uploadProgress = {};
     
-    // Filter projects by current user (mock - in real app would use user ID)
-    const myProjects = hoSoData.filter(h => 
-        h.nguoiDeXuat === user.name || 
-        h.nguoiDeXuat.includes('Nguyễn') // Mock condition for demo
-    );
+    // Reset all upload areas
+    for (let i = 1; i <= 5; i++) {
+        const status = document.querySelector(`#uploadForm .document-section:nth-child(${i}) .upload-status`);
+        if (status) {
+            status.textContent = 'Chưa tải lên';
+            status.className = 'upload-status pending';
+        }
+        const fileInput = document.getElementById(`file${i}`);
+        if (fileInput) {
+            fileInput.value = '';
+        }
+    }
     
-    // Update statistics
-    document.getElementById('totalDeTai').textContent = myProjects.length;
-    document.getElementById('dangThucHien').textContent = myProjects.filter(h => h.trangThai === 'dang-thuc-hien').length;
-    document.getElementById('choXuLy').textContent = myProjects.filter(h => 
-        ['da-tao', 'cho-kiem-tra', 'can-bo-sung', 'cho-chinh-sua'].includes(h.trangThai)
-    ).length;
-    document.getElementById('hoanTat').textContent = myProjects.filter(h => h.trangThai === 'hoan-tat').length;
+    const thanhVienInput = document.getElementById('thanhVienList');
+    if (thanhVienInput) {
+        thanhVienInput.value = '';
+    }
     
-    // Load projects table
-    const tableBody = document.getElementById('myProjectsTable');
-    tableBody.innerHTML = '';
-    
-    myProjects.forEach(hoSo => {
-        const row = `
-            <tr>
-                <td>${hoSo.id}</td>
-                <td>${hoSo.ten}</td>
-                <td>${hoSo.linhVuc}</td>
-                <td><span class="status ${hoSo.trangThai}">${getStatusText(hoSo.trangThai)}</span></td>
-                <td>${formatDate(hoSo.ngayTao)}</td>
-            </tr>
-        `;
-        tableBody.innerHTML += row;
-    });
+    const guiBtn = document.getElementById('guiBtn');
+    if (guiBtn) {
+        guiBtn.disabled = true;
+    }
 }
 
-// UC 1.3: Tải lên tài liệu hồ sơ
-function loadHoSoCuaToi() {
-    const user = getCurrentUser();
-    const hoSoData = getHoSoData();
+function selectFile(docType) {
+    document.getElementById(`file${docType}`).click();
+}
+
+function uploadFile(docType) {
+    const fileInput = document.getElementById(`file${docType}`);
+    const file = fileInput.files[0];
     
-    // Filter projects by current user
-    const myProjects = hoSoData.filter(h => 
-        h.nguoiDeXuat === user.name || 
-        h.nguoiDeXuat.includes('Trần') // Mock condition for demo
-    );
+    if (!file) return;
     
-    const tableBody = document.getElementById('hoSoCuaToiTable');
-    tableBody.innerHTML = '';
+    // Validate file
+    const maxSizes = {1: 10, 2: 5, 3: 5, 4: 5, 5: 20}; // MB
+    const allowedTypes = {
+        1: ['.pdf', '.doc', '.docx'],
+        2: ['.pdf', '.doc', '.docx'],
+        3: ['.pdf', '.doc', '.docx', '.xls', '.xlsx'],
+        4: ['.pdf', '.xls', '.xlsx'],
+        5: ['.pdf', '.doc', '.docx']
+    };
     
-    myProjects.forEach(hoSo => {
-        let actionButton = '';
-        
-        if (hoSo.trangThai === 'da-tao') {
-            actionButton = `<button class="btn btn-primary" onclick="hoanThienHoSo('${hoSo.id}')">
-                <i class="fas fa-upload"></i> Hoàn thiện hồ sơ
-            </button>`;
-        } else if (hoSo.trangThai === 'dang-chinh-sua') {
-            actionButton = `<button class="btn btn-warning" onclick="capNhatHoSo('${hoSo.id}')">
-                <i class="fas fa-edit"></i> Cập nhật hồ sơ
-            </button>`;
-        } else {
-            actionButton = `<button class="btn btn-secondary" onclick="xemHoSo('${hoSo.id}')">
-                <i class="fas fa-eye"></i> Xem hồ sơ
-            </button>`;
+    const fileSizeMB = file.size / (1024 * 1024);
+    const fileExt = '.' + file.name.split('.').pop().toLowerCase();
+    
+    if (fileSizeMB > maxSizes[docType]) {
+        showNotification(`File quá lớn! Kích thước tối đa cho tài liệu này là ${maxSizes[docType]}MB`, 'error');
+        fileInput.value = '';
+        return;
+    }
+    
+    if (!allowedTypes[docType].includes(fileExt)) {
+        showNotification(`Định dạng file không hợp lệ! Chỉ chấp nhận: ${allowedTypes[docType].join(', ')}`, 'error');
+        fileInput.value = '';
+        return;
+    }
+    
+    // Simulate upload process
+    selectedFiles[docType] = file;
+    simulateFileUpload(docType, file);
+}
+
+function simulateFileUpload(docType, file) {
+    const status = document.querySelector(`#uploadForm .document-section:nth-child(${docType}) .upload-status`);
+    const uploadArea = document.querySelector(`#uploadForm .document-section:nth-child(${docType}) .upload-area`);
+    
+    if (!status || !uploadArea) return;
+    
+    status.textContent = 'Đang tải lên...';
+    status.className = 'upload-status pending';
+    
+    // Add progress bar
+    const progressBar = document.createElement('div');
+    progressBar.className = 'progress-bar';
+    progressBar.innerHTML = '<div class="progress" style="width: 0%"></div>';
+    uploadArea.appendChild(progressBar);
+    
+    let progress = 0;
+    const interval = setInterval(() => {
+        progress += Math.random() * 15;
+        if (progress >= 100) {
+            progress = 100;
+            clearInterval(interval);
+            
+            // Upload completed
+            status.textContent = `✅ ${file.name}`;
+            status.className = 'upload-status completed';
+            uploadArea.removeChild(progressBar);
+            
+            // Check if all files uploaded
+            checkUploadCompletion();
         }
         
-        const row = `
-            <tr>
-                <td>${hoSo.id}</td>
-                <td>${hoSo.ten}</td>
-                <td><span class="status ${hoSo.trangThai}">${getStatusText(hoSo.trangThai)}</span></td>
-                <td>${formatDate(hoSo.ngayTao)}</td>
-                <td>${actionButton}</td>
-            </tr>
-        `;
-        tableBody.innerHTML += row;
-    });
+        progressBar.querySelector('.progress').style.width = progress + '%';
+    }, 200);
+}
+
+function checkUploadCompletion() {
+    const completedCount = Object.keys(selectedFiles).length;
+    const thanhVienList = document.getElementById('thanhVienList').value.trim();
+    
+    // Cần đủ 5 tài liệu và danh sách thành viên
+    if (completedCount >= 5 && thanhVienList) {
+        const guiBtn = document.getElementById('guiBtn');
+        if (guiBtn) {
+            guiBtn.disabled = false;
+        }
+    }
+}
+
+// UC 1.3: Gửi hồ sơ hoàn thiện
+function guiHoSo() {
+    const hoSoId = document.getElementById('hoSoSelect').value;
+    const thanhVienList = document.getElementById('thanhVienList').value;
+    
+    if (!hoSoId || Object.keys(selectedFiles).length < 5 || !thanhVienList.trim()) {
+        showNotification('Vui lòng hoàn thiện đầy đủ 5 tài liệu bắt buộc và danh sách thành viên!', 'error');
+        return;
+    }
+    
+    // Update hồ sơ trạng thái
+    const hoSo = hoSoData.find(hs => hs.id === hoSoId);
+    if (hoSo) {
+        hoSo.trangThai = 'cho-kiem-tra';
+        hoSo.documents = {...selectedFiles};
+        hoSo.thanhVienList = thanhVienList;
+        
+        showNotification('✅ Đã gửi hồ sơ thành công! Hồ sơ chuyển sang trạng thái "Chờ kiểm tra"', 'success');
+        
+        // Reset form
+        document.getElementById('hoSoSelect').value = '';
+        document.getElementById('uploadForm').style.display = 'none';
+        
+        // Refresh data
+        loadHoSoCuaToi();
+        loadUploadOptions();
+    }
+}
+
+// UC 1.8: Load danh sách hồ sơ cần chỉnh sửa
+function loadChinhSuaHoSo() {
+    const tbody = document.getElementById('chinhSuaTable');
+    if (!tbody) return;
+    
+    const chinhSuaHoSo = hoSoData.filter(hs => hs.trangThai === 'dang-chinh-sua');
+    
+    tbody.innerHTML = chinhSuaHoSo.map(hs => `
+        <tr>
+            <td>${hs.maHoSo}</td>
+            <td>${hs.tenDeTai}</td>
+            <td style="max-width: 300px;">${hs.yeuCauChinhSua}</td>
+            <td>${formatDate(hs.ngayYeuCau)}</td>
+            <td>
+                <button class="btn btn-warning btn-sm" onclick="chinhSuaHoSo('${hs.id}')">
+                    <i class="fas fa-edit"></i> Chỉnh sửa
+                </button>
+            </td>
+        </tr>
+    `).join('');
+}
+
+function chinhSuaHoSo(hoSoId) {
+    showNotification('🔧 Chức năng chỉnh sửa hồ sơ đang được phát triển', 'info');
+    // TODO: Implement UC 1.8 - Cập nhật hồ sơ đã chỉnh sửa
+}
+
+// UC 1.10: Load dữ liệu tiến độ 
+function loadTienDoData() {
+    const tbody = document.getElementById('tienDoTable');
+    if (!tbody) return;
+    
+    tbody.innerHTML = tienDoData.map(td => `
+        <tr>
+            <td>${td.maDeTai}</td>
+            <td>${td.tenDeTai}</td>
+            <td>${td.kyBaoCao}</td>
+            <td>${formatDate(td.hanNop)}</td>
+            <td><span class="status status-${td.trangThai === 'can-nop' ? 'can-bo-sung' : 'da-hoan-thien'}">${td.trangThai === 'can-nop' ? 'Cần nộp' : 'Đã nộp'}</span></td>
+            <td>
+                ${td.trangThai === 'can-nop' ? `
+                    <button class="btn btn-primary btn-sm" onclick="taiLenTienDo('${td.id}')">
+                        <i class="fas fa-upload"></i> Tải lên
+                    </button>
+                ` : `
+                    <button class="btn btn-info btn-sm" onclick="xemTienDo('${td.id}')">
+                        <i class="fas fa-eye"></i> Xem
+                    </button>
+                `}
+            </td>
+        </tr>
+    `).join('');
+}
+
+function taiLenTienDo(deTaiId) {
+    showNotification('📊 Chức năng tải lên báo cáo tiến độ đang được phát triển', 'info');
+    // TODO: Implement UC 1.10 - Tải dữ liệu định kỳ trên hệ thống
+}
+
+function loadLichBaoCao() {
+    const tbody = document.getElementById('lichBaoCaoTable');
+    if (!tbody) return;
+    
+    tbody.innerHTML = tienDoData.map(td => `
+        <tr>
+            <td>${td.maDeTai}</td>
+            <td>${td.tenDeTai}</td>
+            <td>${td.kyBaoCao}</td>
+            <td>${formatDate(td.hanNop)}</td>
+            <td><span class="status status-${td.trangThai === 'can-nop' ? 'can-bo-sung' : 'da-hoan-thien'}">${td.trangThai === 'can-nop' ? 'Sắp đến hạn' : 'Đã hoàn thành'}</span></td>
+        </tr>
+    `).join('');
+}
+
+// UC 1.15: Load dữ liệu nghiệm thu
+function loadNghiemThuData() {
+    const tbody = document.getElementById('nghiemThuTable');
+    if (!tbody) return;
+    
+    tbody.innerHTML = nghiemThuData.map(nt => `
+        <tr>
+            <td>${nt.maDeTai}</td>
+            <td>${nt.tenDeTai}</td>
+            <td>${formatDate(nt.hanNopNghiemThu)}</td>
+            <td><span class="status status-can-bo-sung">Cần nộp</span></td>
+            <td>
+                <button class="btn btn-primary btn-sm" onclick="taiLenNghiemThu('${nt.id}')">
+                    <i class="fas fa-upload"></i> Tải lên
+                </button>
+            </td>
+        </tr>
+    `).join('');
+}
+
+function taiLenNghiemThu(deTaiId) {
+    showNotification('🏁 Chức năng tải lên hồ sơ nghiệm thu đang được phát triển', 'info');
+    // TODO: Implement UC 1.15 - Tải lên hồ sơ nghiệm thu
+}
+
+// Helper functions
+function getStatusText(status) {
+    const statusMap = {
+        'da-tao': 'Đã tạo',
+        'cho-kiem-tra': 'Chờ kiểm tra', 
+        'da-hoan-thien': 'Đã hoàn thiện',
+        'can-bo-sung': 'Cần bổ sung',
+        'dang-chinh-sua': 'Đang chỉnh sửa',
+        'cho-xet-duyet': 'Chờ xét duyệt',
+        'da-phe-duyet': 'Đã phê duyệt',
+        'dang-thuc-hien': 'Đang thực hiện'
+    };
+    return statusMap[status] || status;
+}
+
+function formatDate(dateStr) {
+    const date = new Date(dateStr);
+    return date.toLocaleDateString('vi-VN');
+}
+
+function xemChiTiet(hoSoId) {
+    const hoSo = hoSoData.find(hs => hs.id === hoSoId);
+    if (hoSo) {
+        alert(`Thông tin chi tiết hồ sơ:\n\nMã: ${hoSo.maHoSo}\nTên đề tài: ${hoSo.tenDeTai}\nLĩnh vực: ${hoSo.linhVuc}\nTrạng thái: ${getStatusText(hoSo.trangThai)}\nNgày tạo: ${formatDate(hoSo.ngayTao)}`);
+    }
 }
 
 function hoanThienHoSo(hoSoId) {
-    const hoSoData = getHoSoData();
-    const hoSo = hoSoData.find(h => h.id === hoSoId);
-    
-    if (!hoSo) return;
-    
-    const documentCategories = [
-        { key: 'decuong', name: 'Đề cương nghiên cứu', required: true },
-        { key: 'muctieu', name: 'Mục tiêu nghiên cứu', required: true },
-        { key: 'thuyetminh', name: 'Thuyết minh đề tài', required: true },
-        { key: 'kehoach', name: 'Kế hoạch triển khai', required: true },
-        { key: 'thanhvien', name: 'Danh sách thành viên', required: true }
-    ];
-    
-    let content = `
-        <h4>Hoàn thiện hồ sơ: ${hoSo.ten}</h4>
-        <p class="alert info">
-            <i class="fas fa-info-circle"></i>
-            Vui lòng tải lên đầy đủ 5 tài liệu bắt buộc để hoàn thiện hồ sơ
-        </p>
-        
-        <form id="hoanThienForm">
-    `;
-    
-    documentCategories.forEach(category => {
-        const existingDoc = hoSo.documents ? hoSo.documents.find(d => d.category === category.key) : null;
-        
-        content += `
-            <div class="form-group">
-                <label for="${category.key}">
-                    ${category.name} ${category.required ? '*' : ''}
-                    ${existingDoc ? '<span style="color: green;">✓ Đã tải lên</span>' : ''}
-                </label>
-                <input type="file" id="${category.key}" name="${category.key}" 
-                       accept=".pdf,.doc,.docx" ${category.required ? 'required' : ''}>
-                ${existingDoc ? `<small>File hiện tại: ${existingDoc.name}</small>` : ''}
-            </div>
-        `;
-    });
-    
-    content += `
-            <div class="form-group">
-                <label for="thanhVienList">Danh sách thành viên tham gia:</label>
-                <textarea id="thanhVienList" name="thanhVienList" rows="4" 
-                         placeholder="Nhập danh sách thành viên (mỗi người một dòng)...">${hoSo.thanhVien || ''}</textarea>
-            </div>
-            
-            <div style="margin-top: 20px;">
-                <button type="button" class="btn btn-primary" onclick="xuLyHoanThienHoSo('${hoSoId}')">
-                    <i class="fas fa-upload"></i> Gửi hồ sơ
-                </button>
-            </div>
-        </form>
-    `;
-    
-    document.getElementById('hoanThienContent').innerHTML = content;
-    showModal('hoanThienHoSoModal');
+    // Switch to upload section
+    showSection('tai-len-tai-lieu');
+    document.getElementById('hoSoSelect').value = hoSoId;
+    loadUploadForm();
 }
 
-function xuLyHoanThienHoSo(hoSoId) {
-    const form = document.getElementById('hoanThienForm');
-    const formData = new FormData(form);
-    
-    // Validate required files
-    const requiredCategories = ['decuong', 'muctieu', 'thuyetminh', 'kehoach', 'thanhvien'];
-    const missingFiles = [];
-    
-    requiredCategories.forEach(category => {
-        const fileInput = document.getElementById(category);
-        if (!fileInput.files.length) {
-            // Check if file already exists
-            const hoSoData = getHoSoData();
-            const hoSo = hoSoData.find(h => h.id === hoSoId);
-            const existingDoc = hoSo.documents ? hoSo.documents.find(d => d.category === category) : null;
-            
-            if (!existingDoc) {
-                missingFiles.push(category);
-            }
-        }
-    });
-    
-    if (missingFiles.length > 0) {
-        showNotification('Vui lòng tải đủ tài liệu bắt buộc!', 'error');
-        
-        // Highlight missing fields
-        missingFiles.forEach(category => {
-            document.getElementById(category).parentElement.classList.add('error');
-        });
-        return;
-    }
-    
-    // Process file uploads (mock)
-    const hoSoData = getHoSoData();
-    const hoSo = hoSoData.find(h => h.id === hoSoId);
-    
-    if (!hoSo.documents) hoSo.documents = [];
-    
-    requiredCategories.forEach(category => {
-        const fileInput = document.getElementById(category);
-        if (fileInput.files.length > 0) {
-            const file = fileInput.files[0];
-            
-            // Remove existing document of same category
-            hoSo.documents = hoSo.documents.filter(d => d.category !== category);
-            
-            // Add new document
-            hoSo.documents.push({
-                name: file.name,
-                category: category,
-                uploaded: true,
-                size: file.size,
-                uploadDate: new Date().toISOString()
-            });
-        }
-    });
-    
-    // Update team members
-    hoSo.thanhVien = formData.get('thanhVienList');
-    
-    // Check if all 5 documents are present
-    const docCount = hoSo.documents.length;
-    if (docCount >= 5) {
-        hoSo.trangThai = 'cho-kiem-tra';
-        showNotification('Hồ sơ đã được gửi để kiểm tra!', 'success');
-        
-        // Simulate sending notification to staff
-        setTimeout(() => {
-            showNotification('Đã gửi thông báo cho nhân viên', 'info');
-        }, 1000);
-    } else {
-        showNotification('Đã lưu tiến trình tải tài liệu', 'info');
-    }
-    
-    saveHoSoData(hoSoData);
-    hideModal('hoanThienHoSoModal');
-    loadHoSoCuaToi();
+function xemTienDo(deTaiId) {
+    showNotification('📊 Xem chi tiết báo cáo tiến độ', 'info');
 }
 
-// UC 1.8: Cập nhật hồ sơ đã chỉnh sửa
-function capNhatHoSo(hoSoId) {
-    const hoSoData = getHoSoData();
-    const hoSo = hoSoData.find(h => h.id === hoSoId);
+function showNotification(message, type = 'info') {
+    const notification = document.createElement('div');
+    notification.className = `notification ${type}`;
+    notification.textContent = message;
+    document.body.appendChild(notification);
     
-    if (!hoSo) return;
-    
-    let content = `
-        <h4>Cập nhật hồ sơ: ${hoSo.ten}</h4>
-        
-        ${hoSo.yeuCauChinhSua ? `
-        <div class="alert warning">
-            <i class="fas fa-exclamation-triangle"></i>
-            <strong>Yêu cầu chỉnh sửa:</strong><br>
-            ${hoSo.yeuCauChinhSua}
-        </div>
-        ` : ''}
-        
-        <form id="capNhatForm">
-            <div class="form-group">
-                <label for="taiLieuDaChinhSua">Tải lên tài liệu đã chỉnh sửa:</label>
-                <input type="file" id="taiLieuDaChinhSua" name="taiLieuDaChinhSua" 
-                       accept=".pdf,.doc,.docx" multiple required>
-                <small>Có thể chọn nhiều file cùng lúc</small>
-            </div>
-            
-            <div class="form-group">
-                <label for="ghiChuChinhSua">Ghi chú về việc chỉnh sửa:</label>
-                <textarea id="ghiChuChinhSua" name="ghiChuChinhSua" rows="3" 
-                         placeholder="Mô tả những thay đổi đã thực hiện..."></textarea>
-            </div>
-            
-            <div style="margin-top: 20px;">
-                <button type="button" class="btn btn-primary" onclick="xuLyCapNhatHoSo('${hoSoId}')">
-                    <i class="fas fa-paper-plane"></i> Gửi lại
-                </button>
-            </div>
-        </form>
-    `;
-    
-    document.getElementById('capNhatContent').innerHTML = content;
-    showModal('capNhatHoSoModal');
-}
-
-function xuLyCapNhatHoSo(hoSoId) {
-    const fileInput = document.getElementById('taiLieuDaChinhSua');
-    const ghiChu = document.getElementById('ghiChuChinhSua').value;
-    
-    if (fileInput.files.length === 0) {
-        showNotification('Vui lòng chọn ít nhất một file!', 'error');
-        return;
-    }
-    
-    const hoSoData = getHoSoData();
-    const hoSo = hoSoData.find(h => h.id === hoSoId);
-    
-    if (hoSo) {
-        // Update documents (mock)
-        Array.from(fileInput.files).forEach(file => {
-            if (!hoSo.documents) hoSo.documents = [];
-            
-            hoSo.documents.push({
-                name: file.name,
-                category: 'updated',
-                uploaded: true,
-                size: file.size,
-                uploadDate: new Date().toISOString()
-            });
-        });
-        
-        hoSo.ghiChuChinhSua = ghiChu;
-        hoSo.trangThai = 'cho-xet-duyet-lai';
-        hoSo.ngayCapNhat = new Date().toISOString().split('T')[0];
-        
-        saveHoSoData(hoSoData);
-        
-        showNotification('Đã gửi lại hồ sơ đã chỉnh sửa!', 'success');
-        hideModal('capNhatHoSoModal');
-        loadHoSoCuaToi();
-        
-        // Simulate sending notification to staff
-        setTimeout(() => {
-            showNotification('Đã gửi thông báo cho nhân viên', 'info');
-        }, 1000);
-    }
-}
-
-// UC 1.10: Tải dữ liệu định kỳ trên hệ thống
-function loadTienDoDeTai() {
-    const user = getCurrentUser();
-    const hoSoData = getHoSoData();
-    
-    // Filter projects that are being implemented by current user
-    const dangThucHien = hoSoData.filter(h => 
-        h.trangThai === 'dang-thuc-hien' && 
-        (h.nguoiDeXuat === user.name || h.nguoiDeXuat.includes('Đặng'))
-    );
-    
-    const tableBody = document.getElementById('tienDoTable');
-    tableBody.innerHTML = '';
-    
-    dangThucHien.forEach(hoSo => {
-        const progressCount = hoSo.progressReports ? hoSo.progressReports.length : 0;
-        const nextReport = progressCount + 1;
-        
-        const row = `
-            <tr>
-                <td>${hoSo.id}</td>
-                <td>${hoSo.ten}</td>
-                <td>
-                    <div class="progress-container">
-                        <div class="progress-bar">
-                            <div class="progress-fill" style="width: ${progressCount * 25}%"></div>
-                        </div>
-                        <small>${progressCount}/4 kỳ báo cáo</small>
-                    </div>
-                </td>
-                <td>Kỳ ${nextReport <= 4 ? nextReport : 'Hoàn thành'}</td>
-                <td>
-                    ${nextReport <= 4 ? `
-                        <button class="btn btn-primary" onclick="taiBaoCaoTienDo('${hoSo.id}', ${nextReport})">
-                            <i class="fas fa-upload"></i> Tải báo cáo kỳ ${nextReport}
-                        </button>
-                    ` : `
-                        <span class="status hoan-tat">Đã hoàn thành</span>
-                    `}
-                </td>
-            </tr>
-        `;
-        tableBody.innerHTML += row;
-    });
-}
-
-function taiBaoCaoTienDo(hoSoId, ky) {
-    const hoSoData = getHoSoData();
-    const hoSo = hoSoData.find(h => h.id === hoSoId);
-    
-    if (!hoSo) return;
-    
-    let content = `
-        <h4>Báo cáo tiến độ kỳ ${ky}: ${hoSo.ten}</h4>
-        
-        <form id="baoCaoForm">
-            <div class="form-group required">
-                <label for="congViecHoanThanh">Các công việc đã hoàn thành:</label>
-                <textarea id="congViecHoanThanh" name="congViecHoanThanh" rows="4" required
-                         placeholder="Mô tả chi tiết các công việc đã thực hiện..."></textarea>
-            </div>
-            
-            <div class="form-group required">
-                <label for="ketQuaDatDuoc">Kết quả đạt được:</label>
-                <textarea id="ketQuaDatDuoc" name="ketQuaDatDuoc" rows="3" required
-                         placeholder="Liệt kê các kết quả cụ thể đã đạt được..."></textarea>
-            </div>
-            
-            <div class="form-group">
-                <label for="khoKhanPhatSinh">Khó khăn phát sinh:</label>
-                <textarea id="khoKhanPhatSinh" name="khoKhanPhatSinh" rows="3"
-                         placeholder="Mô tả các khó khăn gặp phải (nếu có)..."></textarea>
-            </div>
-            
-            <div class="form-group required">
-                <label for="keHoachTiepTheo">Kế hoạch tiếp theo:</label>
-                <textarea id="keHoachTiepTheo" name="keHoachTiepTheo" rows="3" required
-                         placeholder="Kế hoạch công việc cho kỳ tiếp theo..."></textarea>
-            </div>
-            
-            <div class="form-group">
-                <label for="taiLieuBaoCao">Tài liệu báo cáo:</label>
-                <input type="file" id="taiLieuBaoCao" name="taiLieuBaoCao" 
-                       accept=".pdf,.doc,.docx" multiple>
-                <small>Tải lên các tài liệu minh chứng, báo cáo chi tiết</small>
-            </div>
-            
-            <div style="margin-top: 20px;">
-                <button type="button" class="btn btn-primary" onclick="guiBaoCaoTienDo('${hoSoId}', ${ky})">
-                    <i class="fas fa-paper-plane"></i> Gửi báo cáo
-                </button>
-            </div>
-        </form>
-    `;
-    
-    document.getElementById('baoCaoContent').innerHTML = content;
-    showModal('baoCaoTienDoModal');
-}
-
-function guiBaoCaoTienDo(hoSoId, ky) {
-    const form = document.getElementById('baoCaoForm');
-    const formData = new FormData(form);
-    
-    // Validate required fields
-    const requiredFields = ['congViecHoanThanh', 'ketQuaDatDuoc', 'keHoachTiepTheo'];
-    let hasError = false;
-    
-    requiredFields.forEach(field => {
-        const value = formData.get(field);
-        if (!value || value.trim() === '') {
-            document.getElementById(field).parentElement.classList.add('error');
-            hasError = true;
-        } else {
-            document.getElementById(field).parentElement.classList.remove('error');
-        }
-    });
-    
-    if (hasError) {
-        showNotification('Vui lòng điền đầy đủ thông tin bắt buộc!', 'error');
-        return;
-    }
-    
-    const hoSoData = getHoSoData();
-    const hoSo = hoSoData.find(h => h.id === hoSoId);
-    
-    if (hoSo) {
-        if (!hoSo.progressReports) hoSo.progressReports = [];
-        
-        const baoCao = {
-            ky: ky,
-            congViecHoanThanh: formData.get('congViecHoanThanh'),
-            ketQuaDatDuoc: formData.get('ketQuaDatDuoc'),
-            khoKhanPhatSinh: formData.get('khoKhanPhatSinh'),
-            keHoachTiepTheo: formData.get('keHoachTiepTheo'),
-            trangThai: 'cho-kiem-tra',
-            ngayNop: new Date().toISOString().split('T')[0],
-            files: []
-        };
-        
-        // Handle file uploads (mock)
-        const fileInput = document.getElementById('taiLieuBaoCao');
-        Array.from(fileInput.files).forEach(file => {
-            baoCao.files.push(file.name);
-        });
-        
-        hoSo.progressReports.push(baoCao);
-        saveHoSoData(hoSoData);
-        
-        showNotification(`Đã gửi báo cáo tiến độ kỳ ${ky} thành công!`, 'success');
-        hideModal('baoCaoTienDoModal');
-        loadTienDoDeTai();
-        
-        // Simulate sending notification to staff
-        setTimeout(() => {
-            showNotification('Đã gửi thông báo cho nhân viên', 'info');
-        }, 1000);
-    }
-}
-
-// UC 1.15: Tải lên hồ sơ nghiệm thu
-function loadNghiemThuCuaToi() {
-    const user = getCurrentUser();
-    const hoSoData = getHoSoData();
-    
-    // Filter projects that are near completion
-    const canNghiemThu = hoSoData.filter(h => 
-        h.trangThai === 'dang-thuc-hien' && 
-        h.progressReports && 
-        h.progressReports.length >= 3 &&
-        (h.nguoiDeXuat === user.name || h.nguoiDeXuat.includes('Bùi'))
-    );
-    
-    const tableBody = document.getElementById('nghiemThuTable');
-    tableBody.innerHTML = '';
-    
-    if (canNghiemThu.length === 0) {
-        tableBody.innerHTML = '<tr><td colspan="5" style="text-align: center;">Chưa có đề tài nào cần nghiệm thu</td></tr>';
-        return;
-    }
-    
-    canNghiemThu.forEach(hoSo => {
-        const progressCount = hoSo.progressReports ? hoSo.progressReports.length : 0;
-        const hanNghiemThu = new Date();
-        hanNghiemThu.setMonth(hanNghiemThu.getMonth() + 1);
-        
-        const row = `
-            <tr>
-                <td>${hoSo.id}</td>
-                <td>${hoSo.ten}</td>
-                <td>
-                    <div class="progress-container">
-                        <div class="progress-bar">
-                            <div class="progress-fill" style="width: ${progressCount * 25}%"></div>
-                        </div>
-                        <small>${progressCount}/4 kỳ báo cáo</small>
-                    </div>
-                </td>
-                <td>${formatDate(hanNghiemThu)}</td>
-                <td>
-                    <button class="btn btn-warning" onclick="taiHoSoNghiemThu('${hoSo.id}')">
-                        <i class="fas fa-upload"></i> Tải hồ sơ nghiệm thu
-                    </button>
-                </td>
-            </tr>
-        `;
-        tableBody.innerHTML += row;
-    });
-}
-
-function taiHoSoNghiemThu(hoSoId) {
-    const hoSoData = getHoSoData();
-    const hoSo = hoSoData.find(h => h.id === hoSoId);
-    
-    if (!hoSo) return;
-    
-    const nghiemThuCategories = [
-        { key: 'baocao-tongket', name: 'Báo cáo tổng kết', required: true },
-        { key: 'sanpham-nghiencuu', name: 'Sản phẩm nghiên cứu', required: true },
-        { key: 'tailieu-minh-chung', name: 'Tài liệu minh chứng', required: true },
-        { key: 'bang-danh-gia', name: 'Bảng tự đánh giá', required: true },
-        { key: 'tailieu-khac', name: 'Tài liệu khác', required: false }
-    ];
-    
-    let content = `
-        <h4>Tải hồ sơ nghiệm thu: ${hoSo.ten}</h4>
-        <p class="alert info">
-            <i class="fas fa-info-circle"></i>
-            Vui lòng tải lên đầy đủ hồ sơ nghiệm thu theo danh mục yêu cầu
-        </p>
-        
-        <form id="nghiemThuForm">
-    `;
-    
-    nghiemThuCategories.forEach(category => {
-        const existingDoc = hoSo.nghiemThuDocs ? hoSo.nghiemThuDocs.find(d => d.category === category.key) : null;
-        
-        content += `
-            <div class="form-group ${category.required ? 'required' : ''}">
-                <label for="${category.key}">
-                    ${category.name} ${category.required ? '*' : ''}
-                    ${existingDoc ? '<span style="color: green;">✓ Đã tải lên</span>' : ''}
-                </label>
-                <input type="file" id="${category.key}" name="${category.key}" 
-                       accept=".pdf,.doc,.docx" ${category.required ? 'required' : ''}>
-                ${existingDoc ? `<small>File hiện tại: ${existingDoc.name}</small>` : ''}
-            </div>
-        `;
-    });
-    
-    content += `
-            <div class="form-group">
-                <label for="tomTatKetQua">Tóm tắt kết quả nghiên cứu:</label>
-                <textarea id="tomTatKetQua" name="tomTatKetQua" rows="4" 
-                         placeholder="Tóm tắt các kết quả chính đã đạt được...">${hoSo.tomTatKetQua || ''}</textarea>
-            </div>
-            
-            <div style="margin-top: 20px;">
-                <button type="button" class="btn btn-primary" onclick="guiHoSoNghiemThu('${hoSoId}')">
-                    <i class="fas fa-paper-plane"></i> Gửi hồ sơ nghiệm thu
-                </button>
-            </div>
-        </form>
-    `;
-    
-    document.getElementById('nghiemThuContent').innerHTML = content;
-    showModal('nghiemThuModal');
-}
-
-function guiHoSoNghiemThu(hoSoId) {
-    const form = document.getElementById('nghiemThuForm');
-    const formData = new FormData(form);
-    
-    // Validate required files
-    const requiredCategories = ['baocao-tongket', 'sanpham-nghiencuu', 'tailieu-minh-chung', 'bang-danh-gia'];
-    const missingFiles = [];
-    
-    requiredCategories.forEach(category => {
-        const fileInput = document.getElementById(category);
-        if (!fileInput.files.length) {
-            // Check if file already exists
-            const hoSoData = getHoSoData();
-            const hoSo = hoSoData.find(h => h.id === hoSoId);
-            const existingDoc = hoSo.nghiemThuDocs ? hoSo.nghiemThuDocs.find(d => d.category === category) : null;
-            
-            if (!existingDoc) {
-                missingFiles.push(category);
-            }
-        }
-    });
-    
-    if (missingFiles.length > 0) {
-        showNotification('Vui lòng tải đủ tài liệu bắt buộc!', 'error');
-        return;
-    }
-    
-    // Process file uploads (mock)
-    const hoSoData = getHoSoData();
-    const hoSo = hoSoData.find(h => h.id === hoSoId);
-    
-    if (!hoSo.nghiemThuDocs) hoSo.nghiemThuDocs = [];
-    
-    // Process all categories
-    ['baocao-tongket', 'sanpham-nghiencuu', 'tailieu-minh-chung', 'bang-danh-gia', 'tailieu-khac'].forEach(category => {
-        const fileInput = document.getElementById(category);
-        if (fileInput.files.length > 0) {
-            const file = fileInput.files[0];
-            
-            // Remove existing document of same category
-            hoSo.nghiemThuDocs = hoSo.nghiemThuDocs.filter(d => d.category !== category);
-            
-            // Add new document
-            hoSo.nghiemThuDocs.push({
-                name: file.name,
-                category: category,
-                uploaded: true,
-                size: file.size,
-                uploadDate: new Date().toISOString()
-            });
-        }
-    });
-    
-    hoSo.tomTatKetQua = formData.get('tomTatKetQua');
-    hoSo.nghiemThuStatus = 'cho-kiem-tra';
-    hoSo.ngayNopNghiemThu = new Date().toISOString().split('T')[0];
-    
-    saveHoSoData(hoSoData);
-    
-    showNotification('Đã gửi hồ sơ nghiệm thu thành công!', 'success');
-    hideModal('nghiemThuModal');
-    loadNghiemThuCuaToi();
-    
-    // Simulate sending notification to staff
     setTimeout(() => {
-        showNotification('Đã gửi thông báo cho nhân viên', 'info');
-    }, 1000);
+        notification.remove();
+    }, 5000);
 }
 
-function xemHoSo(hoSoId) {
-    const hoSoData = getHoSoData();
-    const hoSo = hoSoData.find(h => h.id === hoSoId);
+function setupDragAndDrop() {
+    const uploadAreas = document.querySelectorAll('.upload-area');
     
-    if (hoSo) {
-        alert(`Thông tin hồ sơ:\nMã: ${hoSo.id}\nTên: ${hoSo.ten}\nTrạng thái: ${getStatusText(hoSo.trangThai)}\nNgày tạo: ${formatDate(hoSo.ngayTao)}`);
-    }
+    uploadAreas.forEach(area => {
+        area.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            area.classList.add('dragover');
+        });
+        
+        area.addEventListener('dragleave', () => {
+            area.classList.remove('dragover');
+        });
+        
+        area.addEventListener('drop', (e) => {
+            e.preventDefault();
+            area.classList.remove('dragover');
+            
+            const files = e.dataTransfer.files;
+            if (files.length > 0) {
+                const docType = parseInt(area.getAttribute('onclick').match(/\d+/)[0]);
+                const fileInput = document.getElementById(`file${docType}`);
+                if (fileInput) {
+                    // Create a new FileList-like object
+                    const dt = new DataTransfer();
+                    dt.items.add(files[0]);
+                    fileInput.files = dt.files;
+                    uploadFile(docType);
+                }
+            }
+        });
+    });
 }
