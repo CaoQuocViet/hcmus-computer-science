@@ -1,7 +1,7 @@
 // CHỦ NHIỆM ĐỀ TÀI - Dashboard Functionality
 // Theo đặc tả UC 1.3, 1.8, 1.10, 1.15
 
-// Mock Data
+// Mock Data - Bổ sung đủ dữ liệu cho demo
 const hoSoData = [
     {
         id: 'HS001',
@@ -18,6 +18,20 @@ const hoSoData = [
         thanhVienList: ''
     },
     {
+        id: 'HS002',
+        maHoSo: 'HS002',
+        tenDeTai: 'Phát triển ứng dụng mobile cho du lịch',
+        linhVuc: 'Công nghệ thông tin',
+        trangThai: 'cho-kiem-tra',
+        ngayTao: '2024-10-01',
+        chuNhiem: 'TS. Nguyễn Văn A',
+        yeuCauChinhSua: '',
+        documents: {
+            1: 'de-cuong-du-lich.pdf', 2: 'cv-chunhiem.pdf', 3: 'kinh-phi.xlsx', 4: 'tai-lieu-tham-khao.pdf', 5: 'bao-cao-so-bo.docx'
+        },
+        thanhVienList: 'Nguyễn Thị B, Trần Văn C'
+    },
+    {
         id: 'HS003',
         maHoSo: 'HS003',
         tenDeTai: 'Phát triển hệ thống quản lý thông minh',
@@ -31,6 +45,48 @@ const hoSoData = [
             1: 'de-cuong-v1.pdf', 2: 'cv-chunhiem.pdf', 3: null, 4: null, 5: null
         },
         thanhVienList: ''
+    },
+    {
+        id: 'HS004',
+        maHoSo: 'HS004',
+        tenDeTai: 'Nghiên cứu blockchain trong tài chính',
+        linhVuc: 'Công nghệ thông tin',
+        trangThai: 'da-hoan-thien',
+        ngayTao: '2024-08-15',
+        chuNhiem: 'TS. Nguyễn Văn A',
+        yeuCauChinhSua: '',
+        documents: {
+            1: 'de-cuong-blockchain.pdf', 2: 'cv-chunhiem.pdf', 3: 'kinh-phi-blockchain.xlsx', 4: 'tai-lieu-blockchain.pdf', 5: 'bao-cao-blockchain.docx'
+        },
+        thanhVienList: 'Lê Văn D, Phạm Thị E, Hoàng Văn F'
+    },
+    {
+        id: 'HS005',
+        maHoSo: 'HS005',
+        tenDeTai: 'Ứng dụng IoT trong nông nghiệp',
+        linhVuc: 'Công nghệ thông tin',
+        trangThai: 'da-phe-duyet',
+        ngayTao: '2024-07-10',
+        chuNhiem: 'TS. Nguyễn Văn A',
+        yeuCauChinhSua: '',
+        documents: {
+            1: 'de-cuong-iot.pdf', 2: 'cv-chunhiem.pdf', 3: 'kinh-phi-iot.xlsx', 4: 'tai-lieu-iot.pdf', 5: 'bao-cao-iot.docx'
+        },
+        thanhVienList: 'Nguyễn Văn G, Trần Thị H'
+    },
+    {
+        id: 'HS006',
+        maHoSo: 'HS006',
+        tenDeTai: 'Machine Learning trong y tế',
+        linhVuc: 'Công nghệ thông tin',
+        trangThai: 'dang-thuc-hien',
+        ngayTao: '2024-06-01',
+        chuNhiem: 'TS. Nguyễn Văn A',
+        yeuCauChinhSua: '',
+        documents: {
+            1: 'de-cuong-ml-yte.pdf', 2: 'cv-chunhiem.pdf', 3: 'kinh-phi-ml.xlsx', 4: 'tai-lieu-ml.pdf', 5: 'bao-cao-ml.docx'
+        },
+        thanhVienList: 'Lê Thị I, Phạm Văn J, Hoàng Thị K'
     }
 ];
 
@@ -47,10 +103,37 @@ const tienDoData = [
     {
         id: 'DT002', 
         maDeTai: 'DT002',
-        tenDeTai: 'Hệ thống IoT cho nông nghiệp thông minh',
+        tenDeTai: 'Ứng dụng IoT trong nông nghiệp',
         kyBaoCao: 'Quý 4/2024',
         hanNop: '2024-12-31',
         trangThai: 'da-nop',
+        chuNhiem: 'TS. Nguyễn Văn A'
+    },
+    {
+        id: 'DT003',
+        maDeTai: 'DT003',
+        tenDeTai: 'Machine Learning trong y tế',
+        kyBaoCao: 'Quý 4/2024',
+        hanNop: '2024-11-30',
+        trangThai: 'can-nop',
+        chuNhiem: 'TS. Nguyễn Văn A'
+    },
+    {
+        id: 'DT004',
+        maDeTai: 'DT004',
+        tenDeTai: 'Nghiên cứu blockchain trong tài chính',
+        kyBaoCao: 'Quý 3/2024',
+        hanNop: '2024-09-30',
+        trangThai: 'da-nop',
+        chuNhiem: 'TS. Nguyễn Văn A'
+    },
+    {
+        id: 'DT005',
+        maDeTai: 'DT005',
+        tenDeTai: 'Phát triển ứng dụng mobile cho du lịch',
+        kyBaoCao: 'Quý 1/2025',
+        hanNop: '2025-02-28',
+        trangThai: 'can-nop',
         chuNhiem: 'TS. Nguyễn Văn A'
     }
 ];
@@ -59,10 +142,26 @@ const nghiemThuData = [
     {
         id: 'DT002',
         maDeTai: 'DT002', 
-        tenDeTai: 'Hệ thống IoT cho nông nghiệp thông minh',
+        tenDeTai: 'Ứng dụng IoT trong nông nghiệp',
         hanNopNghiemThu: '2025-02-28',
         trangThai: 'can-nop-nghiem-thu',
-        chuNhiem: 'TS. Nguyễn Vă A'
+        chuNhiem: 'TS. Nguyễn Văn A'
+    },
+    {
+        id: 'DT004',
+        maDeTai: 'DT004',
+        tenDeTai: 'Nghiên cứu blockchain trong tài chính',
+        hanNopNghiemThu: '2025-01-15',
+        trangThai: 'can-nop-nghiem-thu',
+        chuNhiem: 'TS. Nguyễn Văn A'
+    },
+    {
+        id: 'DT006',
+        maDeTai: 'DT006',
+        tenDeTai: 'Machine Learning trong y tế',
+        hanNopNghiemThu: '2025-03-31',
+        trangThai: 'can-nop-nghiem-thu',
+        chuNhiem: 'TS. Nguyễn Văn A'
     }
 ];
 
