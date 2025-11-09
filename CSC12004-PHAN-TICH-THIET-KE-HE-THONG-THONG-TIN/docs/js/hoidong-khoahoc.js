@@ -36,6 +36,40 @@ const xetDuyetData = [
             { id: 5, name: 'Tài liệu tham khảo', file: 'blockchain-references.pdf' }
         ],
         danhGia: null
+    },
+    {
+        id: 'HS005',
+        maHoSo: 'HS005',
+        tenDeTai: 'Machine Learning trong phân tích dữ liệu y tế',
+        chuNhiem: 'TS. Phạm Văn D',
+        linhVuc: 'Y học',
+        ngayGui: '2024-11-01',
+        trangThai: 'cho-xet-duyet',
+        documents: [
+            { id: 1, name: 'Đề cương chi tiết', file: 'ml-healthcare-proposal.pdf' },
+            { id: 2, name: 'CV chủ nhiệm', file: 'cv-pham-van-d.pdf' },
+            { id: 3, name: 'Danh sách thành viên', file: 'healthcare-team.pdf' },
+            { id: 4, name: 'Dự toán kinh phí', file: 'ml-budget.xlsx' },
+            { id: 5, name: 'Tài liệu tham khảo', file: 'ml-references.pdf' }
+        ],
+        danhGia: null
+    },
+    {
+        id: 'HS006',
+        maHoSo: 'HS006',
+        tenDeTai: 'Nghiên cứu vật liệu xanh từ phụ phẩm nông nghiệp',
+        chuNhiem: 'PGS. Trần Thị E',
+        linhVuc: 'Môi trường',
+        ngayGui: '2024-11-03',
+        trangThai: 'cho-xet-duyet',
+        documents: [
+            { id: 1, name: 'Đề cương chi tiết', file: 'green-material-proposal.pdf' },
+            { id: 2, name: 'CV chủ nhiệm', file: 'cv-tran-thi-e.pdf' },
+            { id: 3, name: 'Danh sách thành viên', file: 'green-team.pdf' },
+            { id: 4, name: 'Dự toán kinh phí', file: 'green-budget.xlsx' },
+            { id: 5, name: 'Tài liệu tham khảo', file: 'green-references.pdf' }
+        ],
+        danhGia: null
     }
 ];
 
