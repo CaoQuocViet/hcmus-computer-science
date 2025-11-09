@@ -360,9 +360,108 @@ function loadTienDoData() {
     `).join('');
 }
 
+// UC 1.10: Tải dữ liệu định kỳ lên hệ thống - LUỒNG CHÍNH 
 function taiLenTienDo(deTaiId) {
-    showNotification('📊 Chức năng tải lên báo cáo tiến độ đang được phát triển', 'info');
-    // TODO: Implement UC 1.10 - Tải dữ liệu định kỳ trên hệ thống
+    // Bước 1-3: Đăng nhập và chọn chức năng (đã thực hiện)
+    
+    // Bước 4: Hệ thống hiển thị form tải dữ liệu
+    const deTai = tienDoData.find(td => td.id === deTaiId);
+    if (!deTai) {
+        showNotification('❌ Không tìm thấy thông tin đề tài', 'error');
+        return;
+    }
+    
+    // Bước 5: Chủ nhiệm chọn loại dữ liệu và tải file
+    const modalContent = `
+        <div class="modal" id="taiDuLieuModal" style="display: block;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title">📊 TẢI DỮ LIỆU ĐỊNH KỲ</h3>
+                    <button class="close" onclick="hideModal('taiDuLieuModal')">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label class="form-label">Đề tài:</label>
+                        <div style="padding: 10px; background: #f8f9fa; border-radius: 5px;">
+                            <strong>${deTai.tenDeTai}</strong> (${deTai.maDeTai})
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Kỳ báo cáo: <span class="required">*</span></label>
+                        <input type="text" value="${deTai.kyBaoCao}" class="form-input" readonly>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Loại dữ liệu: <span class="required">*</span></label>
+                        <select id="loaiDuLieu" class="form-select" required>
+                            <option value="">Chọn loại dữ liệu...</option>
+                            <option value="bao-cao-tien-do">Báo cáo tiến độ</option>
+                            <option value="bao-cao-tai-chinh">Báo cáo tài chính</option>
+                            <option value="ket-qua-nghien-cuu">Kết quả nghiên cứu</option>
+                            <option value="tai-lieu-khac">Tài liệu khác</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Tải file: <span class="required">*</span></label>
+                        <input type="file" id="fileTaiLen" class="form-input" 
+                               accept=".pdf,.doc,.docx,.xls,.xlsx" required>
+                        <div class="form-help">🔧 Chỉ chấp nhận: PDF, DOC, DOCX, XLS, XLSX</div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Ghi chú:</label>
+                        <textarea id="ghiChuTaiLieu" class="form-textarea" rows="3" 
+                                  placeholder="Mô tả ngắn về nội dung tài liệu..."></textarea>
+                    </div>
+                    
+                    <div style="text-align: right; margin-top: 20px;">
+                        <button type="button" class="btn btn-secondary" onclick="hideModal('taiDuLieuModal')">Hủy</button>
+                        <button type="button" class="btn btn-primary" onclick="xacNhanTaiLenDuLieu('${deTaiId}')">
+                            📤 Tải lên
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `;
+    
+    document.body.insertAdjacentHTML('beforeend', modalContent);
+}
+
+function xacNhanTaiLenDuLieu(deTaiId) {
+    const loaiDuLieu = document.getElementById('loaiDuLieu').value;
+    const fileTaiLen = document.getElementById('fileTaiLen').files[0];
+    const ghiChu = document.getElementById('ghiChuTaiLieu').value;
+    
+    // Bước 6-8: Kiểm tra và xác nhận
+    if (!loaiDuLieu || !fileTaiLen) {
+        showNotification('❌ Vui lòng điền đầy đủ thông tin bắt buộc', 'error');
+        return;
+    }
+    
+    // Bước 9: Hệ thống lưu dữ liệu
+    const duLieuMoi = {
+        id: 'DL' + Date.now(),
+        deTaiId: deTaiId,
+        loai: loaiDuLieu,
+        tenFile: fileTaiLen.name,
+        kichThuoc: fileTaiLen.size,
+        ngayTai: new Date().toISOString(),
+        ghiChu: ghiChu,
+        trangThai: 'da-tai-len'
+    };
+    
+    // Cập nhật trạng thái
+    const deTai = tienDoData.find(td => td.id === deTaiId);
+    deTai.trangThai = 'da-nop';
+    deTai.duLieuDaTai = duLieuMoi;
+    
+    // Bước 10: Hiển thị kết quả
+    hideModal('taiDuLieuModal');
+    loadTienDoData();
+    showNotification(`✅ Đã tải lên thành công dữ liệu "${loaiDuLieu}" cho đề tài ${deTai.tenDeTai}`, 'success');
 }
 
 function loadLichBaoCao() {
@@ -485,4 +584,12 @@ function setupDragAndDrop() {
             }
         });
     });
+}
+
+// Modal helper functions
+function hideModal(modalId) {
+    const modal = document.getElementById(modalId);
+    if (modal) {
+        modal.remove();
+    }
 }
