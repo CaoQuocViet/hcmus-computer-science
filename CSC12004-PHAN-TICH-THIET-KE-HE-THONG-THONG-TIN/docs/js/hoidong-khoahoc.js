@@ -169,7 +169,7 @@ function xetDuyetHoSo(hoSoId) {
                 <div class="radio-group">
                     <div class="radio-item">
                         <input type="radio" name="decision" value="phe-duyet" id="pheDuyet">
-                        <label for="pheDuyet">✅ Phê duyệt</label>
+                        <label for="pheDuyet">Phê duyệt</label>
                     </div>
                     <div class="radio-item">
                         <input type="radio" name="decision" value="yeu-cau-chinh-sua" id="yeuCauChinhSua">
@@ -292,7 +292,7 @@ function luuDanhGia() {
         // Update trạng thái
         if (decision.value === 'phe-duyet') {
             currentHoSo.trangThai = 'da-phe-duyet';
-            showNotification('✅ Đã phê duyệt đề tài thành công!', 'success');
+            showNotification('Đã phê duyệt đề tài thành công!', 'success');
         } else {
             currentHoSo.trangThai = 'yeu-cau-chinh-sua';
             showNotification('📝 Đã gửi yêu cầu chỉnh sửa!', 'success');

@@ -400,7 +400,7 @@ function luuKetQuaDanhGia() {
         
         currentDeTai.trangThai = 'da-nghiem-thu';
         
-        showNotification(`✅ Đã lưu kết quả đánh giá! Điểm: ${finalScore}/10 - Xếp loại: ${classification}`, 'success');
+        showNotification(`Đã lưu kết quả đánh giá! Điểm: ${finalScore}/10 - Xếp loại: ${classification}`, 'success');
         
         // Refresh table
         loadNghiemThuData();
