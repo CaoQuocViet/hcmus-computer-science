@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Hội đồng nghiệm thu</title>
+    <link rel="stylesheet" href="../components/common-styles.css">
+    <link rel="stylesheet" href="../components/form-styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            margin: 0;
+            padding: 0;
+            background: #f8f9fa;
+            font-size: 14px;
+        }
+        
+        .container {
+            display: flex;
+            min-height: 100vh;
+        }
+        
+        .sidebar {
+            width: 280px;
+            background: #6f42c1;
+            color: white;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+        }
+        
+        .sidebar-brand {
+            padding: 20px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            text-align: center;
+        }
+        
+        .sidebar h3 {
+            margin: 0;
+            color: white;
+            font-size: 18px;
+        }
+        
+        .nav-section {
+            padding: 15px 0;
+        }
+        
+        .nav-section-title {
+            color: rgba(255,255,255,0.6);
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            padding: 0 20px 10px;
+            letter-spacing: 1px;
+        }
+        
+        .nav-link {
+            display: flex;
+            align-items: center;
+            padding: 12px 20px;
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+        
+        .nav-link:hover {
+            background: rgba(255,255,255,0.1);
+            color: white;
+        }
+        
+        .nav-link.active {
+            background: rgba(255,255,255,0.2);
+            color: white;
+        }
+        
+        .nav-link i {
+            width: 20px;
+            margin-right: 12px;
+        }
+        
+        .main-content {
+            margin-left: 280px;
+            flex: 1;
+            min-height: 100vh;
+        }
+        
+        .header {
+            background: white;
+            padding: 15px 30px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .header h1 {
+            margin: 0;
+            color: #2c3e50;
+            font-size: 24px;
+        }
+        
+        .breadcrumb {
+            color: #666;
+            font-size: 14px;
+        }
+        
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .user-avatar {
+            width: 35px;
+            height: 35px;
+            background: #6f42c1;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+        }
+        
+        .content {
+            padding: 30px;
+        }
+        
+        .content-section {
+            display: none;
+        }
+        
+        .content-section.active {
+            display: block;
+        }
+        
+        .table-container {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .table-header {
+            padding: 20px 25px;
+            background: #f8f9fa;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .table-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #2c3e50;
+            margin: 0;
+        }
+        
+        .btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.3s;
+        }
+        
+        .btn-primary {
+            background: #6f42c1;
+            color: white;
+        }
+        
+        .btn-success {
+            background: #27ae60;
+            color: white;
+        }
+        
+        .btn-warning {
+            background: #f39c12;
+            color: white;
+        }
+        
+        .btn-danger {
+            background: #e74c3c;
+            color: white;
+        }
+        
+        .btn-info {
+            background: #3498db;
+            color: white;
+        }
+        
+        .btn-sm {
+            padding: 4px 8px;
+            font-size: 12px;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+        
+        th {
+            background: #f8f9fa;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+        
+        tbody tr:hover {
+            background: #f8f9fa;
+        }
+        
+        .status {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+        
+        .status-cho-nghiem-thu {
+            background: #fff3e0;
+            color: #f57c00;
+        }
+        
+        .status-da-nghiem-thu {
+            background: #e8f5e8;
+            color: #388e3c;
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+        }
+        
+        .modal-content {
+            background: white;
+            margin: 2% auto;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 1200px;
+            max-height: 90vh;
+            overflow: hidden;
+        }
+        
+        .modal-header {
+            background: #6f42c1;
+            color: white;
+            padding: 20px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .modal-title {
+            margin: 0;
+            font-size: 18px;
+        }
+        
+        .close {
+            background: transparent;
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+        }
+        
+        .modal-body {
+            padding: 25px;
+            max-height: 70vh;
+            overflow-y: auto;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+            color: #2c3e50;
+        }
+        
+        .form-input, .form-select, .form-textarea {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 14px;
+            transition: border-color 0.3s;
+        }
+        
+        .form-input:focus, .form-select:focus, .form-textarea:focus {
+            outline: none;
+            border-color: #6f42c1;
+        }
+        
+        .form-textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+        
+        .required {
+            color: #e74c3c;
+        }
+        
+        .document-viewer {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            min-height: 200px;
+            padding: 20px;
+            background: #f8f9fa;
+            margin-bottom: 20px;
+        }
+        
+        .document-list {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+        
+        .document-item {
+            background: #007bff;
+            color: white;
+            padding: 8px 12px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+        
+        .document-item:hover {
+            background: #0056b3;
+        }
+        
+        .document-item.active {
+            background: #6f42c1;
+        }
+        
+        .evaluation-section {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+        
+        .score-group {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .score-item {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+        }
+        
+        .score-input {
+            width: 80px;
+            text-align: center;
+            font-weight: 600;
+            font-size: 16px;
+            border: 2px solid #6f42c1;
+        }
+        
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 20px;
+            border-radius: 6px;
+            color: white;
+            font-weight: 500;
+            z-index: 2000;
+            animation: slideIn 0.3s ease;
+        }
+        
+        .notification.success {
+            background: #27ae60;
+        }
+        
+        .notification.error {
+            background: #e74c3c;
+        }
+        
+        .notification.info {
+            background: #3498db;
+        }
+        
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-brand">
+                <i class="fas fa-medal" style="font-size: 32px; margin-bottom: 10px;"></i>
+                <h3>HỘI ĐỒNG NGHIỆM THU</h3>
+            </div>
+            
+            <nav class="nav-section">
+                <div class="nav-section-title">NGHIỆM THU</div>
+                <a href="#danh-gia-nghiem-thu" class="nav-link active" onclick="showSection('danh-gia-nghiem-thu')">
+                    <i class="fas fa-clipboard-list"></i>
+                    <span>Đánh giá nghiệm thu</span>
+                </a>
+            </nav>
+            
+            <nav class="nav-section">
+                <div class="nav-section-title">HỆ THỐNG</div>
+                <a href="../index.html" class="nav-link">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Đăng xuất</span>
+                </a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="header">
+                <div>
+                    <h1>Hội đồng nghiệm thu - Trang chủ</h1>
+                    <div class="breadcrumb">
+                        <span>Trang chủ > <span id="currentPage">Đánh giá nghiệm thu</span></span>
+                    </div>
+                </div>
+                <div class="user-info">
+                    <div class="user-avatar">NT</div>
+                    <div>
+                        <div style="font-weight: 600;">PGS.TS. Phạm Văn D</div>
+                        <div style="font-size: 12px; color: #666;">Thành viên hội đồng nghiệm thu</div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Content -->
+            <div class="content">
+                <!-- UC 1.17: Đánh giá nghiệm thu -->
+                <section id="danh-gia-nghiem-thu" class="content-section active">
+                    <div class="table-container">
+                        <div class="table-header">
+                            <h2 class="table-title">🏆 ĐÁNH GIÁ NGHIỆM THU</h2>
+                        </div>
+                        
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Mã đề tài</th>
+                                    <th>Tên đề tài</th>
+                                    <th>Chủ nhiệm</th>
+                                    <th>Ngày nộp</th>
+                                    <th>Trạng thái</th>
+                                    <th>Thao tác</th>
+                                </tr>
+                            </thead>
+                            <tbody id="nghiemThuTable">
+                                <!-- Data will be loaded here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal đánh giá nghiệm thu -->
+    <div id="nghiemThuModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">🏆 ĐÁNH GIÁ NGHIỆM THU</h3>
+                <button class="close" onclick="hideModal('nghiemThuModal')">&times;</button>
+            </div>
+            <div class="modal-body" id="nghiemThuContent">
+                <!-- Content will be loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/hoidong-nghiemthu.js"></script>
+</body>
+</html>
