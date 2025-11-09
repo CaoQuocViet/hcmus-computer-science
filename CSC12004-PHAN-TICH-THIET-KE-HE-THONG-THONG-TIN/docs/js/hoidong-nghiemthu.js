@@ -34,6 +34,38 @@ const nghiemThuData = [
             { id: 5, name: 'Tài liệu kỹ thuật', file: 'tai-lieu-ky-thuat.pdf' }
         ],
         ketQua: null
+    },
+    {
+        id: 'DT003',
+        maDeTai: 'DT003',
+        tenDeTai: 'Blockchain trong quản lý chuỗi cung ứng',
+        chuNhiem: 'PGS. Nguyễn Văn C',
+        ngayNop: '2024-11-05',
+        trangThai: 'cho-nghiem-thu',
+        documents: [
+            { id: 1, name: 'Báo cáo tổng kết', file: 'blockchain-report.pdf' },
+            { id: 2, name: 'Hệ thống blockchain', file: 'blockchain-system.pdf' },
+            { id: 3, name: 'Case study', file: 'blockchain-casestudy.pdf' },
+            { id: 4, name: 'Demo hệ thống', file: 'blockchain-demo.mp4' },
+            { id: 5, name: 'White paper', file: 'blockchain-whitepaper.pdf' }
+        ],
+        ketQua: null
+    },
+    {
+        id: 'DT004',
+        maDeTai: 'DT004',
+        tenDeTai: 'Machine Learning trong dự báo thời tiết',
+        chuNhiem: 'TS. Hoàng Thị D',
+        ngayNop: '2024-11-07',
+        trangThai: 'cho-nghiem-thu',
+        documents: [
+            { id: 1, name: 'Báo cáo tổng kết', file: 'ml-weather-report.pdf' },
+            { id: 2, name: 'Mô hình ML', file: 'ml-weather-model.pdf' },
+            { id: 3, name: 'Dataset và kết quả', file: 'weather-dataset.pdf' },
+            { id: 4, name: 'Web app demo', file: 'weather-app-demo.mp4' },
+            { id: 5, name: 'Hướng dẫn sử dụng', file: 'weather-manual.pdf' }
+        ],
+        ketQua: null
     }
 ];
 

@@ -127,6 +127,52 @@ function loadMockData() {
             ],
             sapNghiemThu: true,
             hanNopNghiemThu: '2025-01-31'
+        },
+        {
+            id: 'DT2024004',
+            ten: 'Ứng dụng AR/VR trong giáo dục',
+            nguoiDeXuat: 'Lê Thị G',
+            email: 'lethig@edu.vn',
+            sdt: '0978901234',
+            linhVuc: 'Công nghệ thông tin',
+            trangThai: 'can-bo-sung',
+            ngayTao: '2024-11-01',
+            ngayBatDau: '2025-01-01',
+            ngayKetThuc: '2025-12-31',
+            kinhPhi: 70000000,
+            moTa: 'Nghiên cứu ứng dụng thực tế ảo trong giáo dục',
+            documents: [],
+            yeuCauBoSung: 'Cần bổ sung tài liệu khảo sát thị trường và phân tích chi phí chi tiết'
+        },
+        {
+            id: 'DT2024005',
+            ten: 'Nghiên cứu thuật toán tối ưu',
+            nguoiDeXuat: 'Võ Văn H',
+            email: 'vovanh@edu.vn',
+            sdt: '0989012345',
+            linhVuc: 'Khoa học tự nhiên',
+            trangThai: 'cho-xet-duyet',
+            ngayTao: '2024-10-20',
+            ngayBatDau: '2025-02-01',
+            ngayKetThuc: '2026-01-31',
+            kinhPhi: 60000000,
+            moTa: 'Phát triển thuật toán tối ưu cho bài toán lịch trình',
+            documents: []
+        },
+        {
+            id: 'DT2024006',
+            ten: 'Phân tích dữ liệu lớn trong y tế',
+            nguoiDeXuat: 'Đặng Thị I',
+            email: 'dangthii@edu.vn',
+            sdt: '0990123456',
+            linhVuc: 'Y học',
+            trangThai: 'cho-kiem-tra',
+            ngayTao: '2024-11-08',
+            ngayBatDau: '2025-01-15',
+            ngayKetThuc: '2025-12-15',
+            kinhPhi: 110000000,
+            moTa: 'Ứng dụng big data trong chẩn đoán y tế',
+            documents: []
         }
     ];
 
