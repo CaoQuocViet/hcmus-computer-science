@@ -1022,7 +1022,7 @@ function kiemTraBaoCaoTienDo(hoSoId, ky) {
     if (!hoSo || !report) return;
     
     const content = `
-        <h4>📊 BÁO CÁO TIẾN ĐỘ CHI TIẾT</h4>
+        <h4>BÁO CÁO TIẾN ĐỘ CHI TIẾT</h4>
         
         <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin-bottom: 20px;">
             <p><strong>Tên:</strong> ${hoSo.ten}</p>
@@ -1237,7 +1237,7 @@ function hoanTatXacNhanTienDo(hoSoId, ky) {
         report.daXacNhan = true;
         report.ngayXacNhan = new Date().toISOString().split('T')[0];
         
-        showNotification('Xác nhận tiến độ thành công!\n\n📋 Mã đề tài: ' + hoSo.id + '\n📊 Kỳ báo cáo: Quý ' + ky + '/2025\n📈 Tiến độ: ' + report.tienDo + '%\n⏰ Thời gian: ' + new Date().toLocaleString('vi-VN') + '\n\n✓ Đã đánh dấu giai đoạn hoàn thành\n✓ Đã gửi email cho ' + hoSo.nguoiDeXuat + '\n✓ Đã tạo nhắc nhở cho Quý ' + (ky + 1) + '/2025', 'success');
+        showNotification('Xác nhận tiến độ thành công!\n\n📋 Mã đề tài: ' + hoSo.id + '\nKỳ báo cáo: Quý ' + ky + '/2025\n📈 Tiến độ: ' + report.tienDo + '%\n⏰ Thời gian: ' + new Date().toLocaleString('vi-VN') + '\n\n✓ Đã đánh dấu giai đoạn hoàn thành\n✓ Đã gửi email cho ' + hoSo.nguoiDeXuat + '\n✓ Đã tạo nhắc nhở cho Quý ' + (ky + 1) + '/2025', 'success');
         hideModal('kiemTraModal');
         loadCapNhatTienDoTable();
     }
@@ -1313,7 +1313,7 @@ function taoTongHopTienDo() {
     const selectedProjects = hoSoData.filter(h => selectedIds.includes(h.id));
     
     let tongHopContent = `
-        <h4>📊 BẢNG TỔNG HỢP TIẾN ĐỘ CÁC ĐỀ TÀI</h4>
+        <h4>BẢNG TỔNG HỢP TIẾN ĐỘ CÁC ĐỀ TÀI</h4>
         <p><strong>Ngày tạo:</strong> ${new Date().toLocaleDateString('vi-VN')}</p>
         <p><strong>Số đề tài:</strong> ${selectedIds.length}</p>
         
