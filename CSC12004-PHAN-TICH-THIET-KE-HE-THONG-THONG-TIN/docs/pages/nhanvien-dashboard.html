@@ -510,6 +510,11 @@
                     <i class="fas fa-paper-plane"></i>
                     <span>Gửi xét duyệt</span>
                 </a>
+                <a href="#thong-bao-yeu-cau-chinh-sua" class="nav-link" onclick="showSection('thong-bao-yeu-cau-chinh-sua')">
+                    <i class="fas fa-edit"></i>
+                    <span>Thông báo yêu cầu chỉnh sửa</span>
+                    <span class="nav-badge" id="choChinhSuaBadge">0</span>
+                </a>
                 <a href="#xac-nhan-phe-duyet" class="nav-link" onclick="showSection('xac-nhan-phe-duyet')">
                     <i class="fas fa-check-circle"></i>
                     <span>Xác nhận phê duyệt</span>
@@ -714,6 +719,32 @@
                                 </tr>
                             </thead>
                             <tbody id="guiXetDuyetTable">
+                                <!-- Data will be loaded here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- UC 1.7: Thông báo yêu cầu chỉnh sửa -->
+                <section id="thong-bao-yeu-cau-chinh-sua" class="content-section">
+                    <div class="table-container">
+                        <div class="table-header">
+                            <h2 class="table-title">✏️ THÔNG BÁO YÊU CẦU CHỈNH SỬA</h2>
+                            <p class="table-desc">Gửi thông báo yêu cầu chỉnh sửa hồ sơ đến chủ nhiệm đề tài</p>
+                        </div>
+                        
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Mã hồ sơ</th>
+                                    <th>Tên đề tài</th>
+                                    <th>Chủ nhiệm</th>
+                                    <th>Ngày nộp</th>
+                                    <th>Trạng thái</th>
+                                    <th>Thao tác</th>
+                                </tr>
+                            </thead>
+                            <tbody id="chinhSuaTable">
                                 <!-- Data will be loaded here -->
                             </tbody>
                         </table>
@@ -1048,6 +1079,76 @@
             </div>
             <div class="modal-body" id="kiemTraContent">
                 <!-- Content will be loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal cho UC 1.7: Thông báo yêu cầu chỉnh sửa -->
+    <div id="thongBaoChinhSuaModal" class="modal">
+        <div class="modal-content" style="max-width: 700px;">
+            <div class="modal-header">
+                <h3 class="modal-title">✏️ THÔNG BÁO YÊU CẦU CHỈNH SỬA</h3>
+                <button class="close" onclick="hideModal('thongBaoChinhSuaModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="thongBaoChinhSuaForm">
+                    <div class="form-group">
+                        <label class="form-label">Hồ sơ đề tài:</label>
+                        <div id="thongTinDeTai" style="padding: 15px; background: #f8f9fa; border-radius: 8px; margin-bottom: 15px;">
+                            <!-- Thông tin đề tài sẽ được load ở đây -->
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Loại yêu cầu chỉnh sửa: <span class="required">*</span></label>
+                        <select id="loaiChinhSua" class="form-select" required onchange="updateChinhSuaFields()">
+                            <option value="">Chọn loại yêu cầu...</option>
+                            <option value="thong-tin-co-ban">Thông tin cơ bản</option>
+                            <option value="tai-lieu-dinh-kem">Tài liệu đính kèm</option>
+                            <option value="noi-dung-nghien-cuu">Nội dung nghiên cứu</option>
+                            <option value="kinh-phi">Kinh phí</option>
+                            <option value="thoi-gian">Thời gian thực hiện</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Nội dung cần chỉnh sửa cụ thể: <span class="required">*</span></label>
+                        <textarea id="noiDungChinhSua" class="form-textarea" rows="4" 
+                            placeholder="Mô tả chi tiết những phần cần chỉnh sửa..." required></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Lý do yêu cầu chỉnh sửa: <span class="required">*</span></label>
+                        <textarea id="lyDoChinhSua" class="form-textarea" rows="3" 
+                            placeholder="Giải thích lý do tại sao cần chỉnh sửa..." required></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Hạn chót hoàn thành: <span class="required">*</span></label>
+                        <input type="datetime-local" id="hanChotChinhSua" class="form-input" required>
+                        <div class="form-help">💡 Gợi ý: Thông thường cho 7-14 ngày để chỉnh sửa</div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Mức độ ưu tiên:</label>
+                        <select id="mucDoUuTien" class="form-select">
+                            <option value="binh-thuong">Bình thường</option>
+                            <option value="cao">Cao</option>
+                            <option value="khan-cap">Khẩn cấp</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Ghi chú thêm:</label>
+                        <textarea id="ghiChuThem" class="form-textarea" rows="2" 
+                            placeholder="Ghi chú bổ sung (nếu có)..."></textarea>
+                    </div>
+                    
+                    <div style="text-align: right; margin-top: 20px;">
+                        <button type="button" class="btn btn-secondary" onclick="hideModal('thongBaoChinhSuaModal')">Hủy</button>
+                        <button type="submit" class="btn btn-primary">📧 Gửi thông báo</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>

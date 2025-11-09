@@ -187,6 +187,7 @@ function updateBreadcrumb(sectionId) {
         'quan-ly-hoso': 'Quản lý Hồ sơ',
         'kiem-tra-hoso': 'Kiểm tra hồ sơ',
         'gui-xet-duyet': 'Gửi xét duyệt',
+        'thong-bao-yeu-cau-chinh-sua': 'Thông báo yêu cầu chỉnh sửa',
         'xac-nhan-phe-duyet': 'Xác nhận phê duyệt',
         'lich-bao-cao': 'Lịch báo cáo tiến độ',
         'kiem-tra-tien-do': 'Kiểm tra tiến độ',
@@ -213,6 +214,9 @@ function loadSectionData(sectionId) {
             break;
         case 'gui-xet-duyet':
             loadGuiXetDuyetTable();
+            break;
+        case 'thong-bao-yeu-cau-chinh-sua':
+            loadChinhSuaTable();
             break;
         case 'xac-nhan-phe-duyet':
             loadPheDuyetTable();
@@ -258,6 +262,17 @@ function updateStats() {
 function updateNavigationBadges() {
     const choKiemTraCount = hoSoData.filter(h => h.trangThai === 'cho-kiem-tra').length;
     document.getElementById('choKiemTraBadge').textContent = choKiemTraCount;
+    
+    // UC 1.7: Cập nhật badge cho yêu cầu chỉnh sửa
+    const choChinhSuaCount = hoSoData.filter(h => 
+        h.trangThai === 'can-bo-sung' || 
+        h.trangThai === 'cho-kiem-tra' ||
+        (h.trangThai === 'da-tao' && h.documents && h.documents.length > 0)
+    ).length;
+    const choChinhSuaBadge = document.getElementById('choChinhSuaBadge');
+    if (choChinhSuaBadge) {
+        choChinhSuaBadge.textContent = choChinhSuaCount;
+    }
 }
 
 // UC 1.1: Tạo hồ sơ sơ bộ
@@ -1550,6 +1565,134 @@ window.onclick = function(event) {
             modal.style.display = 'none';
         }
     });
+}
+
+// ============= UC 1.7: THÔNG BÁO YÊU CẦU CHỈNH SỬA =============
+
+function loadChinhSuaTable() {
+    const tbody = document.getElementById('chinhSuaTable');
+    if (!tbody) return;
+    
+    // Lọc các hồ sơ cần chỉnh sửa (có vấn đề hoặc cần bổ sung)
+    const hoSoCanChinhSua = hoSoData.filter(hs => 
+        hs.trangThai === 'can-bo-sung' || 
+        hs.trangThai === 'cho-kiem-tra' ||
+        (hs.trangThai === 'da-tao' && hs.documents && hs.documents.length > 0)
+    );
+    
+    tbody.innerHTML = hoSoCanChinhSua.map(hs => `
+        <tr>
+            <td>${hs.id}</td>
+            <td>${hs.ten}</td>
+            <td>${hs.nguoiDeXuat}</td>
+            <td>${formatDate(hs.ngayTao)}</td>
+            <td>
+                <span class="status-badge status-${hs.trangThai}">
+                    ${getStatusText(hs.trangThai)}
+                </span>
+            </td>
+            <td>
+                <button class="btn btn-sm btn-warning" onclick="guiYeuCauChinhSua('${hs.id}')">
+                    ✏️ Yêu cầu chỉnh sửa
+                </button>
+            </td>
+        </tr>
+    `).join('');
+}
+
+function guiYeuCauChinhSua(hoSoId) {
+    const hoSo = hoSoData.find(hs => hs.id === hoSoId);
+    if (!hoSo) return;
+    
+    // Load thông tin đề tài vào modal
+    document.getElementById('thongTinDeTai').innerHTML = `
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+            <div><strong>Mã hồ sơ:</strong> ${hoSo.id}</div>
+            <div><strong>Tên đề tài:</strong> ${hoSo.ten}</div>
+            <div><strong>Chủ nhiệm:</strong> ${hoSo.nguoiDeXuat}</div>
+            <div><strong>Lĩnh vực:</strong> ${hoSo.linhVuc}</div>
+            <div><strong>Email:</strong> ${hoSo.email}</div>
+            <div><strong>Số điện thoại:</strong> ${hoSo.sdt}</div>
+        </div>
+    `;
+    
+    // Set default deadline (7 days from now)
+    const defaultDeadline = new Date();
+    defaultDeadline.setDate(defaultDeadline.getDate() + 7);
+    document.getElementById('hanChotChinhSua').value = defaultDeadline.toISOString().slice(0, 16);
+    
+    showModal('thongBaoChinhSuaModal');
+    
+    // Handle form submission
+    const form = document.getElementById('thongBaoChinhSuaForm');
+    form.onsubmit = function(e) {
+        e.preventDefault();
+        
+        const yeuCau = {
+            hoSoId: hoSoId,
+            loaiChinhSua: document.getElementById('loaiChinhSua').value,
+            noiDungChinhSua: document.getElementById('noiDungChinhSua').value,
+            lyDoChinhSua: document.getElementById('lyDoChinhSua').value,
+            hanChot: document.getElementById('hanChotChinhSua').value,
+            mucDoUuTien: document.getElementById('mucDoUuTien').value,
+            ghiChu: document.getElementById('ghiChuThem').value,
+            ngayGui: new Date().toISOString().slice(0, 19),
+            nguoiGui: 'Nhân viên X'
+        };
+        
+        // Gửi thông báo (mock)
+        sendChinhSuaNotification(yeuCau);
+        
+        // Update trạng thái hồ sơ
+        hoSo.trangThai = 'can-chinh-sua';
+        hoSo.yeuCauChinhSua = yeuCau;
+        
+        hideModal('thongBaoChinhSuaModal');
+        form.reset();
+        loadChinhSuaTable();
+        updateStats();
+        updateNavigationBadges();
+        
+        showNotification(`Đã gửi yêu cầu chỉnh sửa đến ${hoSo.nguoiDeXuat}`, 'success');
+    };
+}
+
+function sendChinhSuaNotification(yeuCau) {
+    // Mock gửi email/thông báo đến chủ nhiệm đề tài
+    console.log('Gửi thông báo yêu cầu chỉnh sửa:', yeuCau);
+    
+    // Log thông báo vào hệ thống
+    const thongBao = {
+        id: 'TB' + Date.now(),
+        type: 'yeu-cau-chinh-sua',
+        recipient: yeuCau.hoSoId,
+        content: yeuCau,
+        status: 'da-gui',
+        timestamp: new Date().toISOString()
+    };
+    
+    // Lưu vào localStorage để demo
+    let thongBaoList = JSON.parse(localStorage.getItem('thongBaoList') || '[]');
+    thongBaoList.push(thongBao);
+    localStorage.setItem('thongBaoList', JSON.stringify(thongBaoList));
+}
+
+function updateChinhSuaFields() {
+    const loaiChinhSua = document.getElementById('loaiChinhSua').value;
+    const noiDungField = document.getElementById('noiDungChinhSua');
+    
+    // Gợi ý nội dung dựa trên loại chỉnh sửa
+    const suggestions = {
+        'thong-tin-co-ban': 'Vui lòng kiểm tra và cập nhật lại thông tin cơ bản như tên đề tài, mô tả, thời gian thực hiện...',
+        'tai-lieu-dinh-kem': 'Cần bổ sung hoặc cập nhật các tài liệu đính kèm theo yêu cầu...',
+        'noi-dung-nghien-cuu': 'Nội dung nghiên cứu cần được làm rõ hơn, bổ sung phương pháp và kết quả dự kiến...',
+        'kinh-phi': 'Cần điều chỉnh kinh phí và bảng chi tiết phân bổ kinh phí...',
+        'thoi-gian': 'Cần điều chỉnh lại thời gian thực hiện và các mốc quan trọng...'
+    };
+    
+    if (suggestions[loaiChinhSua]) {
+        noiDungField.placeholder = suggestions[loaiChinhSua];
+    }
 }
 
 // Initialize default tab
