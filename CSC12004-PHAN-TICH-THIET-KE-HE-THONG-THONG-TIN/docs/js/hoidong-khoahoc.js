@@ -293,9 +293,27 @@ function luuDanhGia() {
         if (decision.value === 'phe-duyet') {
             currentHoSo.trangThai = 'da-phe-duyet';
             showNotification('Đã phê duyệt đề tài thành công!', 'success');
+            
+            // Add to notification system
+            if (typeof addNotification === 'function') {
+                addNotification(
+                    'Đề tài đã được phê duyệt', 
+                    `Đề tài "${currentHoSo.tenDeTai}" đã được hội đồng khoa học phê duyệt và chuyển sang giai đoạn thực hiện.`,
+                    'success'
+                );
+            }
         } else {
             currentHoSo.trangThai = 'yeu-cau-chinh-sua';
             showNotification('Đã gửi yêu cầu chỉnh sửa!', 'success');
+            
+            // Add to notification system
+            if (typeof addNotification === 'function') {
+                addNotification(
+                    'Yêu cầu chỉnh sửa hồ sơ', 
+                    `Đề tài "${currentHoSo.tenDeTai}" cần chỉnh sửa theo ý kiến của hội đồng khoa học.`,
+                    'warning'
+                );
+            }
         }
         
         // Refresh table

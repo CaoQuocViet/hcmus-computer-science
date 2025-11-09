@@ -111,7 +111,121 @@
         .user-info {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 15px;
+        }
+        
+        .notification-center {
+            position: relative;
+        }
+        
+        .notification-bell {
+            background: none;
+            border: none;
+            color: #666;
+            font-size: 20px;
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 50%;
+            transition: all 0.3s;
+            position: relative;
+        }
+        
+        .notification-bell:hover {
+            background: #f8f9fa;
+            color: #333;
+        }
+        
+        .notification-badge {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background: #e74c3c;
+            color: white;
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            font-weight: 600;
+        }
+        
+        .notification-dropdown {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            width: 350px;
+            max-height: 400px;
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            z-index: 1000;
+            display: none;
+            overflow: hidden;
+        }
+        
+        .notification-header {
+            padding: 15px 20px;
+            border-bottom: 1px solid #eee;
+            font-weight: 600;
+            color: #2c3e50;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .notification-list {
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        
+        .notification-item {
+            padding: 12px 20px;
+            border-bottom: 1px solid #f5f5f5;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        
+        .notification-item:hover {
+            background: #f8f9fa;
+        }
+        
+        .notification-item.unread {
+            background: #e8f4f8;
+            border-left: 3px solid #3498db;
+        }
+        
+        .notification-title {
+            font-weight: 600;
+            font-size: 13px;
+            color: #2c3e50;
+            margin-bottom: 4px;
+        }
+        
+        .notification-message {
+            font-size: 12px;
+            color: #666;
+            margin-bottom: 4px;
+            line-height: 1.4;
+        }
+        
+        .notification-time {
+            font-size: 11px;
+            color: #999;
+        }
+        
+        .notification-footer {
+            padding: 10px 20px;
+            text-align: center;
+            border-top: 1px solid #eee;
+        }
+        
+        .notification-footer a {
+            color: #3498db;
+            text-decoration: none;
+            font-size: 12px;
         }
         
         .user-avatar {
@@ -423,8 +537,10 @@
         <!-- Sidebar -->
         <aside class="sidebar">
             <div class="sidebar-brand">
-                <i class="fas fa-medal" style="font-size: 32px; margin-bottom: 10px;"></i>
-                <h3>HỘI ĐỒNG NGHIỆM THU</h3>
+                <img src="../images/Logo_chinh.png" 
+     alt="Logo" 
+     style="height:48px; margin-bottom:10px; filter:brightness(0) invert(1);">
+                <h3>QUẢN LÝ ĐỀ TÀI<br>NGHIÊN CỨU KHOA HỌC</h3>
             </div>
             
             <nav class="nav-section">
@@ -455,6 +571,36 @@
                     </div>
                 </div>
                 <div class="user-info">
+                    <!-- Notification Center -->
+                    <div class="notification-center">
+                        <button class="notification-bell" onclick="toggleNotifications()">
+                            <i class="fas fa-bell"></i>
+                            <span class="notification-badge" id="notificationBadge">1</span>
+                        </button>
+                        
+                        <div class="notification-dropdown" id="notificationDropdown">
+                            <div class="notification-header">
+                                <span>Thông báo</span>
+                                <button onclick="markAllAsRead()" style="background: none; border: none; color: #3498db; font-size: 12px; cursor: pointer;">Đánh dấu đã đọc</button>
+                            </div>
+                            <div class="notification-list" id="notificationList">
+                                <div class="notification-item unread" onclick="readNotification(1)">
+                                    <div class="notification-title">Danh sách đề tài cần nghiệm thu</div>
+                                    <div class="notification-message">Nhân viên đã gửi danh sách 5 đề tài cần đánh giá nghiệm thu</div>
+                                    <div class="notification-time">2 giờ trước</div>
+                                </div>
+                                <div class="notification-item" onclick="readNotification(2)">
+                                    <div class="notification-title">Hồ sơ nghiệm thu đã hoàn thiện</div>
+                                    <div class="notification-message">Đề tài "Ứng dụng AI trong y tế" đã sẵn sàng cho đánh giá nghiệm thu</div>
+                                    <div class="notification-time">1 ngày trước</div>
+                                </div>
+                            </div>
+                            <div class="notification-footer">
+                                <a href="#" onclick="showAllNotifications()">Xem tất cả thông báo</a>
+                            </div>
+                        </div>
+                    </div>
+                    
                     <div class="user-avatar">NT</div>
                     <div>
                         <div style="font-weight: 600;">PGS.TS. Phạm Văn D</div>
@@ -507,5 +653,85 @@
     </div>
 
     <script src="../js/hoidong-nghiemthu.js"></script>
+    <script>
+        // Notification system functions
+        function toggleNotifications() {
+            const dropdown = document.getElementById('notificationDropdown');
+            dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+        }
+        
+        function readNotification(id) {
+            const item = event.currentTarget;
+            item.classList.remove('unread');
+            updateNotificationBadge();
+        }
+        
+        function markAllAsRead() {
+            const items = document.querySelectorAll('.notification-item.unread');
+            items.forEach(item => item.classList.remove('unread'));
+            updateNotificationBadge();
+        }
+        
+        function updateNotificationBadge() {
+            const unreadCount = document.querySelectorAll('.notification-item.unread').length;
+            const badge = document.getElementById('notificationBadge');
+            if (unreadCount > 0) {
+                badge.textContent = unreadCount;
+                badge.style.display = 'flex';
+            } else {
+                badge.style.display = 'none';
+            }
+        }
+        
+        function showAllNotifications() {
+            alert('Chức năng xem tất cả thông báo đang được phát triển');
+        }
+        
+        // Close notification dropdown when clicking outside
+        document.addEventListener('click', function(event) {
+            const notificationCenter = document.querySelector('.notification-center');
+            const dropdown = document.getElementById('notificationDropdown');
+            
+            if (!notificationCenter.contains(event.target)) {
+                dropdown.style.display = 'none';
+            }
+        });
+        
+        // Add new notification function for system use
+        function addNotification(title, message, type = 'info') {
+            const notificationList = document.getElementById('notificationList');
+            
+            const notificationItem = document.createElement('div');
+            notificationItem.className = 'notification-item unread';
+            notificationItem.onclick = function() { readNotification(); };
+            
+            notificationItem.innerHTML = `
+                <div class="notification-title">${title}</div>
+                <div class="notification-message">${message}</div>
+                <div class="notification-time">Vừa xong</div>
+            `;
+            
+            notificationList.insertBefore(notificationItem, notificationList.firstChild);
+            updateNotificationBadge();
+            
+            // Show notification badge animation
+            const badge = document.getElementById('notificationBadge');
+            badge.style.animation = 'bounce 0.5s';
+            setTimeout(() => {
+                badge.style.animation = '';
+            }, 500);
+        }
+        
+        // CSS animation for badge
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes bounce {
+                0%, 20%, 60%, 100% { transform: translateY(0); }
+                40% { transform: translateY(-10px); }
+                80% { transform: translateY(-5px); }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
 </body>
 </html>
