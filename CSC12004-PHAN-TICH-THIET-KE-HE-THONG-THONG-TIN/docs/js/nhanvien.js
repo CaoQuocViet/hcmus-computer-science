@@ -14,7 +14,52 @@ document.addEventListener('DOMContentLoaded', function() {
     updateStats();
     loadHoSoTable();
     updateNavigationBadges();
+    
+    // Handle URL hash on page load/reload
+    handleUrlHash();
 });
+
+// Listen for hash changes (back/forward buttons)
+window.addEventListener('hashchange', handleUrlHash);
+
+// Handle URL hash to show correct section
+function handleUrlHash() {
+    const hash = window.location.hash.substring(1); // Remove # symbol
+    if (hash && document.getElementById(hash)) {
+        showSectionByHash(hash);
+    }
+}
+
+// Show section based on hash without requiring event
+function showSectionByHash(sectionId) {
+    // Hide all sections
+    document.querySelectorAll('.content-section').forEach(section => {
+        section.classList.remove('active');
+    });
+    
+    // Remove active class from all nav links
+    document.querySelectorAll('.nav-link').forEach(link => {
+        link.classList.remove('active');
+    });
+    
+    // Show selected section
+    const targetSection = document.getElementById(sectionId);
+    if (targetSection) {
+        targetSection.classList.add('active');
+    }
+    
+    // Add active class to corresponding nav link
+    const navLink = document.querySelector(`a[href="#${sectionId}"]`);
+    if (navLink) {
+        navLink.classList.add('active');
+    }
+    
+    // Update breadcrumb
+    updateBreadcrumb(sectionId);
+    
+    // Load section data
+    loadSectionData(sectionId);
+}
 
 // Load mock data from seed files
 function loadMockData() {
@@ -219,7 +264,12 @@ function showSection(sectionId) {
     document.getElementById(sectionId).classList.add('active');
     
     // Add active class to clicked nav link
-    event.target.closest('.nav-link').classList.add('active');
+    if (event && event.target) {
+        event.target.closest('.nav-link').classList.add('active');
+    }
+    
+    // Update URL hash without reloading page
+    window.history.replaceState(null, null, `#${sectionId}`);
     
     // Update breadcrumb
     updateBreadcrumb(sectionId);
