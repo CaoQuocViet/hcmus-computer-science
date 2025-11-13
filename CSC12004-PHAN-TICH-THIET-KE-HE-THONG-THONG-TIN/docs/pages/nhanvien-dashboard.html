@@ -435,6 +435,39 @@
             color: #0288d1;
         }
         
+        .status-dat {
+            background: #e8f5e8;
+            color: #2e7d32;
+            font-weight: 600;
+        }
+        
+        .status-chua-dat {
+            background: #ffebee;
+            color: #c62828;
+            font-weight: 600;
+        }
+        
+        .status-da-danh-gia {
+            background: #fff3e0;
+            color: #ef6c00;
+        }
+        
+        .status-hoan-tat {
+            background: #f3e5f5;
+            color: #7b1fa2;
+            font-weight: 600;
+        }
+        
+        .filter-controls {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+        
+        .filter-controls select {
+            min-width: 200px;
+        }
+        
         /* Modal */
         .modal {
             display: none;
@@ -947,9 +980,9 @@
                         <div style="padding: 20px 25px; background: #f8f9fa; border-bottom: 1px solid #eee;">
                             <h4 style="margin: 0 0 15px;">Tổng quan:</h4>
                             <div style="display: flex; gap: 20px;">
-                                <div>🔴 <span id="canBaoCao3Ngay">0</span> đề tài cần báo cáo trong 3 ngày</div>
-                                <div>🟡 <span id="canBaoCao7Ngay">0</span> đề tài cần báo cáo trong 7 ngày</div>
-                                <div>🟢 <span id="dangThucHienBinhThuong">0</span> đề tài đang thực hiện bình thường</div>
+                                <div><span class="status status-can-bo-sung"><span id="canBaoCao3Ngay">0</span> đề tài cần báo cáo trong 3 ngày</span></div>
+                                <div><span class="status status-cho-kiem-tra"><span id="canBaoCao7Ngay">0</span> đề tài cần báo cáo trong 7 ngày</span></div>
+                                <div><span class="status status-da-hoan-thien"><span id="dangThucHienBinhThuong">0</span> đề tài đang thực hiện bình thường</span></div>
                             </div>
                         </div>
                         
@@ -1140,10 +1173,22 @@
                 </section>
 
                 <!-- UC 1.20: Xác nhận hoàn tất đề tài -->
+                <!-- UC 1.20: Xác nhận hoàn tất đề tài -->
                 <section id="xac-nhan-hoan-tat" class="content-section">
                     <div class="table-container">
                         <div class="table-header">
                             <h2 class="table-title">XÁC NHẬN HOÀN TẤT ĐỀ TÀI</h2>
+                            <div class="filter-controls">
+                                <div class="filter-tabs" style="display: flex; gap: 10px; margin-bottom: 15px;">
+                                    <button class="btn btn-primary" onclick="filterDeTaiHoanTat('all')">Tất cả</button>
+                                    <button class="btn btn-outline-primary" onclick="filterDeTaiHoanTat('dat')">Đạt</button>
+                                    <button class="btn btn-outline-primary" onclick="filterDeTaiHoanTat('chua-dat')">Chưa đạt</button>
+                                    <button class="btn btn-outline-primary" onclick="filterDeTaiHoanTat('hoan-tat')">Đã hoàn tất</button>
+                                </div>
+                                <button class="btn btn-info btn-sm" onclick="refreshDeTaiHoanTat()">
+                                    <i class="fas fa-sync-alt"></i> Làm mới
+                                </button>
+                            </div>
                         </div>
                         
                         <table>
@@ -1153,14 +1198,36 @@
                                     <th>Tên đề tài</th>
                                     <th>Chủ nhiệm</th>
                                     <th>Kết quả xếp loại</th>
-                                    <th>Điểm</th>
+                                    <th>Điểm trung bình</th>
+                                    <th>Ngày nghiệm thu</th>
+                                    <th>Trạng thái</th>
                                     <th>Thao tác</th>
                                 </tr>
                             </thead>
-                            <tbody id="hoanTatTable">
-                                <!-- Data will be loaded here -->
+                            <tbody id="deTaiHoanTatTable">
+                                <!-- Data will be loaded from JavaScript -->
                             </tbody>
                         </table>
+                    </div>
+                    
+                    <!-- Statistics -->
+                    <div class="stats-grid" style="margin-top: 30px;">
+                        <div class="stat-card" style="--card-color: #27ae60;">
+                            <div class="stat-number" id="statDat">0</div>
+                            <div class="stat-label">Đề tài ĐẠT</div>
+                        </div>
+                        <div class="stat-card" style="--card-color: #e74c3c;">
+                            <div class="stat-number" id="statChuaDat">0</div>
+                            <div class="stat-label">Đề tài CHƯA ĐẠT</div>
+                        </div>
+                        <div class="stat-card" style="--card-color: #3498db;">
+                            <div class="stat-number" id="statHoanTat">0</div>
+                            <div class="stat-label">Đã hoàn tất</div>
+                        </div>
+                        <div class="stat-card" style="--card-color: #f39c12;">
+                            <div class="stat-number" id="statTongDeTai">0</div>
+                            <div class="stat-label">Tổng đề tài</div>
+                        </div>
                     </div>
                 </section>
             </div>
@@ -1171,7 +1238,7 @@
     <div id="createModal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
-                <h3 class="modal-title">➕ TẠO HỒ SƠ SƠ BỘ</h3>
+                <h3 class="modal-title">TẠO HỒ SƠ SƠ BỘ</h3>
                 <button class="close" onclick="hideModal('createModal')">&times;</button>
             </div>
             <div class="modal-body">
@@ -1307,14 +1374,168 @@
                     
                     <div style="text-align: right; margin-top: 20px;">
                         <button type="button" class="btn btn-secondary" onclick="hideModal('thongBaoChinhSuaModal')">Hủy</button>
-                        <button type="submit" class="btn btn-primary">📧 Gửi thông báo</button>
+                        <button type="submit" class="btn btn-primary">Gửi thông báo</button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
 
-    <!-- Modal khác sẽ được thêm tương tự -->
+    <!-- Modal xem chi tiết kết quả nghiệm thu -->
+    <div id="chiTietKetQuaModal" class="modal">
+        <div class="modal-content" style="max-width: 900px;">
+            <div class="modal-header">
+                <h3 class="modal-title">CHI TIẾT KẾT QUẢ NGHIỆM THU</h3>
+                <button class="close" onclick="hideModal('chiTietKetQuaModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label class="form-label">Thông tin đề tài:</label>
+                    <div style="background: #f8f9fa; padding: 15px; border-radius: 6px; margin-bottom: 20px;">
+                        <div><strong>Mã đề tài:</strong> <span id="detailMaDeTai"></span></div>
+                        <div><strong>Tên đề tài:</strong> <span id="detailTenDeTai"></span></div>
+                        <div><strong>Chủ nhiệm:</strong> <span id="detailChuNhiem"></span></div>
+                        <div><strong>Ngày nghiệm thu:</strong> <span id="detailNgayNghiemThu"></span></div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Kết quả đánh giá:</label>
+                    <div style="background: #f0f8ff; padding: 15px; border-radius: 6px; border-left: 4px solid #3498db;">
+                        <div><strong>Điểm trung bình:</strong> <span id="detailDiem" style="font-size: 18px; color: #2c3e50;"></span>/10</div>
+                        <div><strong>Xếp loại:</strong> <span id="detailXepLoai" class="status"></span></div>
+                        <div><strong>Quyết định:</strong> <span id="detailQuyetDinh"></span></div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Phiếu đánh giá từ hội đồng:</label>
+                    <table style="margin-bottom: 15px;">
+                        <thead>
+                            <tr>
+                                <th>Thành viên hội đồng</th>
+                                <th>Điểm</th>
+                                <th>Nhận xét</th>
+                            </tr>
+                        </thead>
+                        <tbody id="detailPhieuDanhGia">
+                            <tr>
+                                <td>PGS.TS. Nguyễn Văn X</td>
+                                <td>8.5</td>
+                                <td>Đề tài có tính ứng dụng cao, kết quả nghiên cứu rõ ràng</td>
+                            </tr>
+                            <tr>
+                                <td>GS.TS. Trần Thị Y</td>
+                                <td>8.2</td>
+                                <td>Phương pháp nghiên cứu phù hợp, cần cải thiện phần thực nghiệm</td>
+                            </tr>
+                            <tr>
+                                <td>TS. Lê Văn Z</td>
+                                <td>8.8</td>
+                                <td>Kết quả vượt mong đợi, có thể áp dụng thực tế</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Biên bản nghiệm thu:</label>
+                    <textarea id="detailBienBan" class="form-textarea" rows="4" readonly>
+Hội đồng nghiệm thu đã xem xét đầy đủ hồ sơ và nghe báo cáo của tác giả. Đề tài đạt các mục tiêu đề ra, có tính khả thi và ứng dụng cao. Sản phẩm nghiên cứu hoàn thiện, tài liệu rõ ràng. Hội đồng thống nhất đánh giá đề tài đạt yêu cầu.
+                    </textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Modal xác nhận hoàn tất -->
+    <div id="xacNhanHoanTatModal" class="modal">
+        <div class="modal-content" style="max-width: 600px;">
+            <div class="modal-header">
+                <h3 class="modal-title">XÁC NHẬN HOÀN TẤT ĐỀ TÀI</h3>
+                <button class="close" onclick="hideModal('xacNhanHoanTatModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form onsubmit="submitXacNhanHoanTat(event)">
+                    <div class="form-group">
+                        <label class="form-label">Thông tin đề tài:</label>
+                        <div style="background: #f8f9fa; padding: 15px; border-radius: 6px; margin-bottom: 20px;">
+                            <div><strong>Mã đề tài:</strong> <span id="confirmMaDeTai"></span></div>
+                            <div><strong>Tên đề tài:</strong> <span id="confirmTenDeTai"></span></div>
+                            <div><strong>Kết quả:</strong> <span id="confirmKetQua" class="status"></span></div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Ghi chú cuối cùng:</label>
+                        <textarea id="ghiChuCuoiCung" class="form-textarea" rows="3" 
+                            placeholder="Nhập ghi chú cuối cùng về đề tài (tùy chọn)..."></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label style="display: flex; align-items: center; gap: 8px;">
+                            <input type="checkbox" id="chkGuiThongBao" checked>
+                            Gửi thông báo hoàn tất đến chủ nhiệm đề tài
+                        </label>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label style="display: flex; align-items: center; gap: 8px;">
+                            <input type="checkbox" id="chkCapNhatTrangThai" checked>
+                            Cập nhật trạng thái đề tài sang "Hoàn tất"
+                        </label>
+                    </div>
+                    
+                    <div style="text-align: right; margin-top: 20px;">
+                        <button type="button" class="btn btn-secondary" onclick="hideModal('xacNhanHoanTatModal')">Hủy</button>
+                        <button type="submit" class="btn btn-success">
+                            <i class="fas fa-check-circle"></i> Xác nhận hoàn tất
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Modal gửi yêu cầu bổ sung -->
+    <div id="yeuCauBoSungModal" class="modal">
+        <div class="modal-content" style="max-width: 700px;">
+            <div class="modal-header">
+                <h3 class="modal-title">GỬI YÊU CẦU BỔ SUNG THÔNG TIN</h3>
+                <button class="close" onclick="hideModal('yeuCauBoSungModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form onsubmit="submitYeuCauBoSung(event)">
+                    <div class="form-group">
+                        <label class="form-label">Thông tin đề tài:</label>
+                        <div style="background: #fff5f5; padding: 15px; border-radius: 6px; margin-bottom: 20px; border-left: 4px solid #e74c3c;">
+                            <div><strong>Mã đề tài:</strong> <span id="boSungMaDeTai"></span></div>
+                            <div><strong>Tên đề tài:</strong> <span id="boSungTenDeTai"></span></div>
+                            <div><strong>Kết quả:</strong> <span class="status status-chua-dat">Chưa đạt</span></div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Yêu cầu bổ sung/làm rõ thông tin: <span class="required">*</span></label>
+                        <textarea id="noiDungYeuCau" class="form-textarea" rows="5" required
+                            placeholder="Nhập chi tiết các yêu cầu bổ sung hoặc làm rõ thông tin mà chủ nhiệm đề tài cần thực hiện..."></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Hạn phản hồi:</label>
+                        <input type="date" id="hanPhanHoi" class="form-input" required>
+                    </div>
+                    
+                    <div style="text-align: right; margin-top: 20px;">
+                        <button type="button" class="btn btn-secondary" onclick="hideModal('yeuCauBoSungModal')">Hủy</button>
+                        <button type="submit" class="btn btn-warning">
+                            <i class="fas fa-paper-plane"></i> Gửi yêu cầu
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 
     <script src="../js/nhanvien.js"></script>
     <script>
