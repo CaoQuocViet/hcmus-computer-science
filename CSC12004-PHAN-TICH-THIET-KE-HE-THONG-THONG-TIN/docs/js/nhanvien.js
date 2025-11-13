@@ -292,7 +292,7 @@ function loadSectionData(sectionId) {
             loadLuuTruTable();
             break;
         case 'xac-nhan-hoan-tat':
-            loadHoanTatTable();
+            loadDeTaiHoanTatTable();
             break;
     }
 }
@@ -378,7 +378,7 @@ document.addEventListener('DOMContentLoaded', function() {
             
             // Show success
             hideModal('createModal');
-            showNotification('Tạo hồ sơ thành công!\n\nMã hồ sơ: ' + newId + '\nĐã gửi email cho: ' + nguoiDeXuat + '\n\nTrạng thái hiện tại: 🟡 Đã tạo', 'success');
+            showNotification('Tạo hồ sơ thành công!\n\nMã hồ sơ: ' + newId + '\nĐã gửi email cho: ' + nguoiDeXuat + '\n\nTrạng thái hiện tại: Đã tạo', 'success');
             
             // Update display
             updateStats();
@@ -814,14 +814,14 @@ function loadLichBaoCaoTable() {
         if (daysToDeadline <= 3) {
             canBaoCao3Ngay++;
             trangThaiUuTien = 'style="color: #e74c3c; font-weight: bold;"';
-            iconTrangThai = '🔴 KHẨN CẤP';
+            iconTrangThai = 'KHẨN CẤP';
         } else if (daysToDeadline <= 7) {
             canBaoCao7Ngay++;
             trangThaiUuTien = 'style="color: #f39c12; font-weight: bold;"';
-            iconTrangThai = '🟡';
+            iconTrangThai = 'Sắp hết hạn';
         } else {
             dangThucHienBinhThuong++;
-            iconTrangThai = '🟢';
+            iconTrangThai = 'Bình thường';
         }
         
         const soLanNhac = Math.floor(Math.random() * 3); // 0-2 lần
@@ -877,7 +877,7 @@ function xemLichChiTiet(hoSoId) {
             <p><strong>Email:</strong> ${hoSo.email}</p>
             <p><strong>SĐT:</strong> ${hoSo.sdt}</p>
             <p><strong>Thời gian thực hiện:</strong> ${hoSo.ngayBatDau} - ${hoSo.ngayKetThuc}</p>
-            <p><strong>Trạng thái:</strong> 🟢 Đang thực hiện</p>
+            <p><strong>Trạng thái:</strong> Đang thực hiện</p>
         </div>
         
         <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin-bottom: 20px;">
@@ -887,15 +887,15 @@ function xemLichChiTiet(hoSoId) {
                 <small>Hạn nộp: 31/03/2025 | Ngày nộp: 28/03/2025 (sớm 3 ngày)</small>
             </div>
             <div style="border-left: 3px solid #e74c3c; padding-left: 15px; margin: 10px 0;">
-                🔴 <strong>Kỳ 2 - Quý 2/2025</strong> - ⚠️ Sắp đến hạn<br>
+                <strong>Kỳ 2 - Quý 2/2025</strong> - Sắp đến hạn<br>
                 <small>Hạn nộp: 30/06/2025 (còn 5 ngày) | Trạng thái: Chưa nộp | Đã nhắc: 1 lần</small>
             </div>
             <div style="border-left: 3px solid #f39c12; padding-left: 15px; margin: 10px 0;">
-                ⏳ <strong>Kỳ 3 - Quý 3/2025</strong> - 🟡 Sắp tới<br>
+                <strong>Kỳ 3 - Quý 3/2025</strong> - Sắp tới<br>
                 <small>Hạn nộp: 30/09/2025 (còn 95 ngày) | Trạng thái: Chưa đến kỳ</small>
             </div>
             <div style="border-left: 3px solid #f39c12; padding-left: 15px; margin: 10px 0;">
-                ⏳ <strong>Kỳ 4 - Báo cáo tổng kết</strong> - 🟡 Sắp tới<br>
+                <strong>Kỳ 4 - Báo cáo tổng kết</strong> - Sắp tới<br>
                 <small>Hạn nộp: ${hoSo.ngayKetThuc} | Trạng thái: Chưa đến kỳ</small>
             </div>
         </div>
@@ -916,7 +916,7 @@ function guiNhacNho(hoSoId) {
     if (!hoSo) return;
     
     const content = `
-        <h4>📧 GỬI NHẮC NHỞ BÁO CÁO TIẾN ĐỘ</h4>
+        <h4>GỬI NHẮC NHỞ BÁO CÁO TIẾN ĐỘ</h4>
         
         <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin-bottom: 20px;">
             <p><strong>Người nhận:</strong> ${hoSo.nguoiDeXuat} (${hoSo.email})</p>
@@ -973,7 +973,7 @@ function xacNhanGuiEmail(hoSoId) {
     const hoSo = hoSoData.find(h => h.id === hoSoId);
     if (!hoSo) return;
     
-    showNotification('Gửi nhắc nhở thành công!\n\n📧 Người nhận: ' + hoSo.nguoiDeXuat + '\n📧 Email: ' + hoSo.email + '\nThời gian: ' + new Date().toLocaleString('vi-VN') + '\n\nHệ thống đã ghi nhận lần nhắc nhở', 'success');
+    showNotification('Gửi nhắc nhở thành công!\n\nNgười nhận: ' + hoSo.nguoiDeXuat + '\nEmail: ' + hoSo.email + '\nThời gian: ' + new Date().toLocaleString('vi-VN') + '\n\nHệ thống đã ghi nhận lần nhắc nhở', 'success');
     hideModal('kiemTraModal');
     loadLichBaoCaoTable();
 }
@@ -1384,13 +1384,13 @@ function loadNhacNopTable() {
         
         let tinhTrang = '';
         if (daysLeft < 0) {
-            tinhTrang = '🔴 Quá hạn';
+            tinhTrang = 'Quá hạn';
         } else if (daysLeft <= 3) {
-            tinhTrang = '🟡 Khẩn cấp';
+            tinhTrang = 'Khẩn cấp';
         } else if (daysLeft <= 10) {
-            tinhTrang = '🟠 Sắp đến hạn';
+            tinhTrang = 'Sắp đến hạn';
         } else {
-            tinhTrang = '🟢 Bình thường';
+            tinhTrang = 'Bình thường';
         }
         
         const row = `
@@ -1745,3 +1745,732 @@ function updateChinhSuaFields() {
 document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('tabAll')?.classList.add('btn-primary');
 });
+
+// ==================== XÁC NHẬN HOÀN TẤT ĐỀ TÀI FUNCTIONS ====================
+
+// Mock data cho đề tài hoàn tất
+let deTaiHoanTatData = [
+    {
+        maDeTai: 'DT001',
+        tenDeTai: 'Ứng dụng AI trong giáo dục',
+        chuNhiem: 'TS. Nguyễn Văn A',
+        ngayNghiemThu: '2024-11-15',
+        diemTB: 8.5,
+        ketQua: 'Đạt',
+        trangThai: 'Đã đánh giá nghiệm thu',
+        xepLoai: 'Tốt',
+        quyetDinh: 'Chấp nhận hoàn tất',
+        bienBan: 'Hội đồng nghiệm thu đã xem xét đầy đủ hồ sơ và nghe báo cáo của tác giả. Đề tài đạt các mục tiêu đề ra, có tính khả thi và ứng dụng cao. Sản phẩm nghiên cứu hoàn thiện, tài liệu rõ ràng. Hội đồng thống nhất đánh giá đề tài đạt yêu cầu.',
+        phieuDanhGia: [
+            { thanh_vien: 'PGS.TS. Nguyễn Văn X', diem: 8.5, nhan_xet: 'Đề tài có tính ứng dụng cao, kết quả nghiên cứu rõ ràng' },
+            { thanh_vien: 'GS.TS. Trần Thị Y', diem: 8.2, nhan_xet: 'Phương pháp nghiên cứu phù hợp, cần cải thiện phần thực nghiệm' },
+            { thanh_vien: 'TS. Lê Văn Z', diem: 8.8, nhan_xet: 'Kết quả vượt mong đợi, có thể áp dụng thực tế' }
+        ]
+    },
+    {
+        maDeTai: 'DT002',
+        tenDeTai: 'Nghiên cứu IoT trong nông nghiệp',
+        chuNhiem: 'ThS. Lê Thị B',
+        ngayNghiemThu: '2024-11-20',
+        diemTB: 9.2,
+        ketQua: 'Đạt',
+        trangThai: 'Đã đánh giá nghiệm thu',
+        xepLoai: 'Xuất sắc',
+        quyetDinh: 'Chấp nhận hoàn tất',
+        bienBan: 'Đề tài có tính sáng tạo và ứng dụng thực tiễn cao. Kết quả nghiên cứu vượt mong đợi với nhiều đóng góp mới.',
+        phieuDanhGia: [
+            { thanh_vien: 'GS.TS. Phạm Văn M', diem: 9.0, nhan_xet: 'Kết quả nghiên cứu vượt trội, có tính ứng dụng cao' },
+            { thanh_vien: 'PGS.TS. Hoàng Thị N', diem: 9.3, nhan_xet: 'Phương pháp sáng tạo, kết quả ấn tượng' },
+            { thanh_vien: 'TS. Nguyễn Văn P', diem: 9.3, nhan_xet: 'Đề tài có giá trị khoa học và thực tiễn cao' }
+        ]
+    },
+    {
+        maDeTai: 'DT003',
+        tenDeTai: 'Blockchain trong chuỗi cung ứng',
+        chuNhiem: 'TS. Trần Văn C',
+        ngayNghiemThu: '2024-11-10',
+        diemTB: 5.8,
+        ketQua: 'Chưa đạt',
+        trangThai: 'Đã đánh giá nghiệm thu',
+        xepLoai: 'Không đạt',
+        quyetDinh: 'Yêu cầu bổ sung',
+        bienBan: 'Đề tài chưa đạt một số mục tiêu đề ra. Cần bổ sung thêm dữ liệu thực nghiệm và hoàn thiện phần kết luận.',
+        phieuDanhGia: [
+            { thanh_vien: 'GS.TS. Vũ Thị Q', diem: 6.0, nhan_xet: 'Ý tưởng tốt nhưng thực hiện chưa đầy đủ' },
+            { thanh_vien: 'PGS.TS. Đỗ Văn R', diem: 5.5, nhan_xet: 'Cần bổ sung thêm thực nghiệm' },
+            { thanh_vien: 'TS. Bùi Thị S', diem: 6.0, nhan_xet: 'Phần lý thuyết tốt, thực hành chưa đủ' }
+        ]
+    },
+    {
+        maDeTai: 'DT004',
+        tenDeTai: 'Machine Learning dự báo thời tiết',
+        chuNhiem: 'PGS.TS. Phạm Thị D',
+        ngayNghiemThu: '2024-10-25',
+        diemTB: 8.8,
+        ketQua: 'Đã hoàn tất',
+        trangThai: 'Đã hoàn tất',
+        xepLoai: 'Tốt',
+        quyetDinh: 'Hoàn tất thành công',
+        bienBan: 'Đề tài đã hoàn tất thành công với kết quả đáng kể. Đã được xác nhận hoàn tất.',
+        phieuDanhGia: [
+            { thanh_vien: 'GS.TS. Cao Văn T', diem: 8.5, nhan_xet: 'Kết quả tốt, có thể áp dụng thực tế' },
+            { thanh_vien: 'PGS.TS. Lý Thị U', diem: 9.0, nhan_xet: 'Phương pháp hiệu quả, kết quả ổn định' },
+            { thanh_vien: 'TS. Mai Văn V', diem: 9.0, nhan_xet: 'Đạt được mục tiêu đề ra' }
+        ]
+    }
+];
+
+// Mock data cho nghiệm thu
+let nhacNopNghiemThuData = [
+    {
+        maDeTai: 'DT001',
+        tenDeTai: 'Ứng dụng AI trong giáo dục',
+        chuNhiem: 'TS. Nguyễn Văn A',
+        email: 'nguyenvana@edu.vn',
+        hanNop: '2024-12-01',
+        tinhTrang: 'Sắp hết hạn',
+        soNgayConLai: 3,
+        lanNhac: 2
+    },
+    {
+        maDeTai: 'DT002',
+        tenDeTai: 'Nghiên cứu IoT trong nông nghiệp',
+        chuNhiem: 'ThS. Lê Thị B',
+        email: 'lethib@edu.vn',
+        hanNop: '2024-11-25',
+        tinhTrang: 'Quá hạn',
+        soNgayConLai: -5,
+        lanNhac: 3
+    },
+    {
+        maDeTai: 'DT003',
+        tenDeTai: 'Blockchain trong chuỗi cung ứng',
+        chuNhiem: 'TS. Trần Văn C',
+        email: 'tranvanc@edu.vn',
+        hanNop: '2024-12-15',
+        tinhTrang: 'Bình thường',
+        soNgayConLai: 15,
+        lanNhac: 0
+    },
+    {
+        maDeTai: 'DT004',
+        tenDeTai: 'Machine Learning dự báo thời tiết',
+        chuNhiem: 'PGS.TS. Phạm Thị D',
+        email: 'phamthid@edu.vn',
+        hanNop: '2024-11-30',
+        tinhTrang: 'Cần nhắc',
+        soNgayConLai: 7,
+        lanNhac: 1
+    }
+];
+
+let danhSachNghiemThuData = [
+    {
+        maDeTai: 'DT001',
+        tenDeTai: 'Ứng dụng AI trong giáo dục',
+        chuNhiem: 'TS. Nguyễn Văn A',
+        ngayHoanThanh: '2024-11-20',
+        trangThai: 'Sẵn sàng nghiệm thu',
+        hoSoDay: true,
+        sanPhamHoanThien: true
+    },
+    {
+        maDeTai: 'DT002',
+        tenDeTai: 'Nghiên cứu IoT trong nông nghiệp',
+        chuNhiem: 'ThS. Lê Thị B',
+        ngayHoanThanh: '2024-11-18',
+        trangThai: 'Đã lập danh sách',
+        hoSoDay: true,
+        sanPhamHoanThien: true
+    },
+    {
+        maDeTai: 'DT003',
+        tenDeTai: 'Blockchain trong chuỗi cung ứng',
+        chuNhiem: 'TS. Trần Văn C',
+        ngayHoanThanh: '2024-11-22',
+        trangThai: 'Chờ kiểm tra',
+        hoSoDay: false,
+        sanPhamHoanThien: true
+    }
+];
+
+let kiemTraNghiemThuData = [
+    {
+        maDeTai: 'DT001',
+        tenDeTai: 'Ứng dụng AI trong giáo dục',
+        chuNhiem: 'TS. Nguyễn Văn A',
+        ngayNop: '2024-11-15',
+        tinhTrang: 'Đầy đủ',
+        ketQua: 'Đạt yêu cầu',
+        ghiChu: 'Hồ sơ hoàn chỉnh, sẵn sàng nghiệm thu'
+    },
+    {
+        maDeTai: 'DT002',
+        tenDeTai: 'Nghiên cứu IoT trong nông nghiệp',
+        chuNhiem: 'ThS. Lê Thị B',
+        ngayNop: '2024-11-18',
+        tinhTrang: 'Thiếu tài liệu',
+        ketQua: 'Cần bổ sung',
+        ghiChu: 'Thiếu báo cáo kỹ thuật chi tiết'
+    },
+    {
+        maDeTai: 'DT003',
+        tenDeTai: 'Blockchain trong chuỗi cung ứng',
+        chuNhiem: 'TS. Trần Văn C',
+        ngayNop: '2024-11-20',
+        tinhTrang: 'Đang kiểm tra',
+        ketQua: 'Chờ xử lý',
+        ghiChu: 'Đang trong quá trình kiểm tra'
+    }
+];
+
+let luuTruKetQuaData = [
+    {
+        maDeTai: 'DT001',
+        tenDeTai: 'Ứng dụng AI trong giáo dục',
+        chuNhiem: 'TS. Nguyễn Văn A',
+        ketQua: 'Đạt',
+        diemTB: 8.5,
+        ngayNghiemThu: '2024-11-15',
+        trangThai: 'Đã lưu trữ',
+        bienBan: 'Có',
+        bangDiem: 'Có'
+    },
+    {
+        maDeTai: 'DT002',
+        tenDeTai: 'Nghiên cứu IoT trong nông nghiệp',
+        chuNhiem: 'ThS. Lê Thị B',
+        ketQua: 'Đạt',
+        diemTB: 9.2,
+        ngayNghiemThu: '2024-11-20',
+        trangThai: 'Chờ lưu trữ',
+        bienBan: 'Có',
+        bangDiem: 'Có'
+    },
+    {
+        maDeTai: 'DT003',
+        tenDeTai: 'Blockchain trong chuỗi cung ứng',
+        chuNhiem: 'TS. Trần Văn C',
+        ketQua: 'Chưa đạt',
+        diemTB: 5.8,
+        ngayNghiemThu: '2024-11-10',
+        trangThai: 'Đã lưu trữ',
+        bienBan: 'Có',
+        bangDiem: 'Có'
+    },
+    {
+        maDeTai: 'DT004',
+        tenDeTai: 'Machine Learning dự báo thời tiết',
+        chuNhiem: 'PGS.TS. Phạm Thị D',
+        ketQua: 'Đạt',
+        diemTB: 8.8,
+        ngayNghiemThu: '2024-10-25',
+        trangThai: 'Đã lưu trữ',
+        bienBan: 'Có',
+        bangDiem: 'Có'
+    }
+];
+
+// Xem chi tiết kết quả nghiệm thu
+function xemChiTietKetQua(maDeTai) {
+    const deTai = deTaiHoanTatData.find(dt => dt.maDeTai === maDeTai);
+    if (!deTai) {
+        alert('Không tìm thấy thông tin đề tài!');
+        return;
+    }
+    
+    // Điền thông tin vào modal
+    document.getElementById('detailMaDeTai').textContent = deTai.maDeTai;
+    document.getElementById('detailTenDeTai').textContent = deTai.tenDeTai;
+    document.getElementById('detailChuNhiem').textContent = deTai.chuNhiem;
+    document.getElementById('detailNgayNghiemThu').textContent = new Date(deTai.ngayNghiemThu).toLocaleDateString('vi-VN');
+    document.getElementById('detailDiem').textContent = deTai.diemTB.toFixed(1);
+    document.getElementById('detailXepLoai').textContent = deTai.xepLoai;
+    document.getElementById('detailXepLoai').className = `status ${getStatusClass(deTai.ketQua)}`;
+    document.getElementById('detailQuyetDinh').textContent = deTai.quyetDinh;
+    document.getElementById('detailBienBan').textContent = deTai.bienBan;
+    
+    // Điền phiếu đánh giá
+    const tbody = document.getElementById('detailPhieuDanhGia');
+    tbody.innerHTML = '';
+    deTai.phieuDanhGia.forEach(phieu => {
+        const row = tbody.insertRow();
+        row.innerHTML = `
+            <td>${phieu.thanh_vien}</td>
+            <td style="text-align: center; font-weight: bold;">${phieu.diem}</td>
+            <td>${phieu.nhan_xet}</td>
+        `;
+    });
+    
+    showModal('chiTietKetQuaModal');
+}
+
+// Xác nhận hoàn tất đề tài
+function xacNhanHoanTat(maDeTai) {
+    const deTai = deTaiHoanTatData.find(dt => dt.maDeTai === maDeTai);
+    if (!deTai) {
+        alert('Không tìm thấy thông tin đề tài!');
+        return;
+    }
+    
+    if (deTai.ketQua === 'Chưa đạt') {
+        alert('Không thể xác nhận hoàn tất đề tài chưa đạt yêu cầu!');
+        return;
+    }
+    
+    if (deTai.trangThai === 'Đã hoàn tất') {
+        alert('Đề tài này đã được xác nhận hoàn tất!');
+        return;
+    }
+    
+    // Điền thông tin vào modal xác nhận
+    document.getElementById('confirmMaDeTai').textContent = deTai.maDeTai;
+    document.getElementById('confirmTenDeTai').textContent = deTai.tenDeTai;
+    document.getElementById('confirmKetQua').textContent = `${deTai.ketQua} (${deTai.diemTB}/10)`;
+    document.getElementById('confirmKetQua').className = `status ${getStatusClass(deTai.ketQua)}`;
+    
+    // Set ngày mặc định cho hạn phản hồi (7 ngày từ hôm nay)
+    const today = new Date();
+    today.setDate(today.getDate() + 7);
+    document.getElementById('hanPhanHoi').value = today.toISOString().split('T')[0];
+    
+    showModal('xacNhanHoanTatModal');
+}
+
+// Gửi yêu cầu bổ sung
+function guiYeuCauBoSung(maDeTai) {
+    const deTai = deTaiHoanTatData.find(dt => dt.maDeTai === maDeTai);
+    if (!deTai) {
+        alert('Không tìm thấy thông tin đề tài!');
+        return;
+    }
+    
+    if (deTai.ketQua !== 'Chưa đạt') {
+        alert('Chỉ có thể gửi yêu cầu bổ sung cho đề tài chưa đạt yêu cầu!');
+        return;
+    }
+    
+    // Điền thông tin vào modal
+    document.getElementById('boSungMaDeTai').textContent = deTai.maDeTai;
+    document.getElementById('boSungTenDeTai').textContent = deTai.tenDeTai;
+    
+    // Set ngày mặc định cho hạn phản hồi (30 ngày từ hôm nay)
+    const today = new Date();
+    today.setDate(today.getDate() + 30);
+    document.getElementById('hanPhanHoi').value = today.toISOString().split('T')[0];
+    
+    showModal('yeuCauBoSungModal');
+}
+
+// Submit xác nhận hoàn tất
+function submitXacNhanHoanTat(event) {
+    event.preventDefault();
+    
+    const maDeTai = document.getElementById('confirmMaDeTai').textContent;
+    const ghiChu = document.getElementById('ghiChuCuoiCung').value.trim();
+    const guiThongBao = document.getElementById('chkGuiThongBao').checked;
+    const capNhatTrangThai = document.getElementById('chkCapNhatTrangThai').checked;
+    
+    // Cập nhật data
+    const deTai = deTaiHoanTatData.find(dt => dt.maDeTai === maDeTai);
+    if (deTai && capNhatTrangThai) {
+        deTai.trangThai = 'Đã hoàn tất';
+        deTai.ketQua = 'Đã hoàn tất';
+        deTai.ghiChuCuoi = ghiChu;
+        deTai.ngayHoanTat = new Date().toISOString().split('T')[0];
+    }
+    
+    // Gửi thông báo nếu được chọn
+    if (guiThongBao) {
+        // Gọi API gửi thông báo (mock)
+        console.log(`Gửi thông báo hoàn tất đến chủ nhiệm đề tài ${maDeTai}`);
+    }
+    
+    // Refresh bảng
+    loadDeTaiHoanTatTable();
+    hideModal('xacNhanHoanTatModal');
+    
+    showNotification('Đã xác nhận hoàn tất đề tài thành công!', 'success');
+}
+
+// Submit yêu cầu bổ sung
+function submitYeuCauBoSung(event) {
+    event.preventDefault();
+    
+    const maDeTai = document.getElementById('boSungMaDeTai').textContent;
+    const noiDung = document.getElementById('noiDungYeuCau').value.trim();
+    const hanPhanHoi = document.getElementById('hanPhanHoi').value;
+    
+    if (!noiDung) {
+        alert('Vui lòng nhập nội dung yêu cầu bổ sung!');
+        return;
+    }
+    
+    if (!hanPhanHoi) {
+        alert('Vui lòng chọn hạn phản hồi!');
+        return;
+    }
+    
+    // Mock gửi yêu cầu bổ sung
+    console.log('Gửi yêu cầu bổ sung:', {
+        maDeTai: maDeTai,
+        noiDung: noiDung,
+        hanPhanHoi: hanPhanHoi,
+        ngayGui: new Date().toISOString().split('T')[0]
+    });
+    
+    hideModal('yeuCauBoSungModal');
+    showNotification('Đã gửi yêu cầu bổ sung thành công!', 'success');
+    
+    // Reset form
+    document.getElementById('noiDungYeuCau').value = '';
+}
+
+// Filter đề tài hoàn tất
+function filterDeTaiHoanTat(loai) {
+    // Update active button
+    document.querySelectorAll('.filter-tabs .btn').forEach(btn => {
+        btn.classList.remove('btn-primary');
+        btn.classList.add('btn-outline-primary');
+    });
+    event.target.classList.remove('btn-outline-primary');
+    event.target.classList.add('btn-primary');
+    
+    loadDeTaiHoanTatTable(loai);
+}
+
+// Load bảng đề tài hoàn tất với filter
+function loadDeTaiHoanTatTable(filter = 'all') {
+    console.log('loadDeTaiHoanTatTable được gọi với filter:', filter);
+    console.log('deTaiHoanTatData:', deTaiHoanTatData);
+    
+    let filteredData = deTaiHoanTatData;
+    
+    if (filter === 'dat') {
+        filteredData = deTaiHoanTatData.filter(dt => dt.ketQua === 'Đạt');
+    } else if (filter === 'chua-dat') {
+        filteredData = deTaiHoanTatData.filter(dt => dt.ketQua === 'Chưa đạt');
+    } else if (filter === 'hoan-tat') {
+        filteredData = deTaiHoanTatData.filter(dt => dt.ketQua === 'Đã hoàn tất');
+    }
+    
+    const tbody = document.getElementById('deTaiHoanTatTable');
+    if (!tbody) {
+        console.log('Không tìm thấy element deTaiHoanTatTable');
+        return;
+    }
+    
+    tbody.innerHTML = '';
+    
+    filteredData.forEach(deTai => {
+        const row = tbody.insertRow();
+        row.innerHTML = `
+            <td>${deTai.maDeTai}</td>
+            <td style="text-align: left;">
+                <strong>${deTai.tenDeTai}</strong><br>
+                <small class="text-muted">Chủ nhiệm: ${deTai.chuNhiem}</small>
+            </td>
+            <td style="text-align: center;">${new Date(deTai.ngayNghiemThu).toLocaleDateString('vi-VN')}</td>
+            <td style="text-align: center;">
+                <span style="font-weight: bold; font-size: 16px;">${deTai.diemTB.toFixed(1)}</span>/10
+            </td>
+            <td style="text-align: center;">
+                <span class="status ${getStatusClass(deTai.ketQua)}">${deTai.ketQua}</span>
+            </td>
+            <td style="text-align: center;">
+                <button class="btn btn-info btn-sm" onclick="xemChiTietKetQua('${deTai.maDeTai}')" title="Xem chi tiết">
+                    <i class="fas fa-eye"></i>
+                </button>
+                ${deTai.ketQua === 'Đạt' && deTai.trangThai !== 'Đã hoàn tất' ? `
+                    <button class="btn btn-success btn-sm" onclick="xacNhanHoanTat('${deTai.maDeTai}')" title="Xác nhận hoàn tất">
+                        <i class="fas fa-check-circle"></i>
+                    </button>
+                ` : ''}
+                ${deTai.ketQua === 'Chưa đạt' ? `
+                    <button class="btn btn-warning btn-sm" onclick="guiYeuCauBoSung('${deTai.maDeTai}')" title="Gửi yêu cầu bổ sung">
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                ` : ''}
+            </td>
+        `;
+    });
+    
+    // Update statistics
+    updateHoanTatStats(filteredData);
+}
+
+// Refresh bảng đề tài hoàn tất
+function refreshDeTaiHoanTat() {
+    loadDeTaiHoanTatTable();
+    showNotification('Đã làm mới dữ liệu!', 'info');
+}
+
+// Update statistics for hoàn tất section
+function updateHoanTatStats(data = deTaiHoanTatData) {
+    const totalEl = document.getElementById('statTongDeTai');
+    const datEl = document.getElementById('statDat');
+    const chuaDatEl = document.getElementById('statChuaDat');
+    const hoanTatEl = document.getElementById('statHoanTat');
+    
+    if (totalEl) totalEl.textContent = data.length;
+    if (datEl) datEl.textContent = data.filter(dt => dt.ketQua === 'Đạt').length;
+    if (chuaDatEl) chuaDatEl.textContent = data.filter(dt => dt.ketQua === 'Chưa đạt').length;
+    if (hoanTatEl) hoanTatEl.textContent = data.filter(dt => dt.ketQua === 'Đã hoàn tất').length;
+}
+
+// Helper functions
+function getStatusClass(ketQua) {
+    switch(ketQua) {
+        case 'Đạt': return 'status-dat';
+        case 'Chưa đạt': return 'status-chua-dat';
+        case 'Đã hoàn tất': return 'status-hoan-tat';
+        default: return 'status-da-danh-gia';
+    }
+}
+
+function getStatusIcon(ketQua) {
+    // Removed emoji icons, using only CSS status classes for colors
+    return '';
+}
+
+// Load table on page load if in xac-nhan-hoan-tat section
+document.addEventListener('DOMContentLoaded', function() {
+    if (document.getElementById('deTaiHoanTatTable')) {
+        loadDeTaiHoanTatTable();
+    }
+});
+
+// ==================== NGHIỆM THU SECTION FUNCTIONS ====================
+
+// UC 1.14: Nhắc nộp hồ sơ nghiệm thu
+function loadNhacNopTable() {
+    const tbody = document.getElementById('nhacNopTable');
+    if (!tbody) return;
+    
+    tbody.innerHTML = '';
+    
+    nhacNopNghiemThuData.forEach(item => {
+        const row = tbody.insertRow();
+        const tinhTrangClass = getTinhTrangClass(item.tinhTrang);
+        
+        row.innerHTML = `
+            <td>${item.maDeTai}</td>
+            <td style="text-align: left;">
+                <strong>${item.tenDeTai}</strong><br>
+                <small class="text-muted">Email: ${item.email}</small>
+            </td>
+            <td>${item.chuNhiem}</td>
+            <td style="text-align: center;">${new Date(item.hanNop).toLocaleDateString('vi-VN')}</td>
+            <td style="text-align: center;">
+                <span class="status ${tinhTrangClass}">${item.tinhTrang}</span>
+                ${item.soNgayConLai > 0 ? `<br><small>Còn ${item.soNgayConLai} ngày</small>` : 
+                  item.soNgayConLai < 0 ? `<br><small class="text-danger">Quá hạn ${Math.abs(item.soNgayConLai)} ngày</small>` : ''}
+            </td>
+            <td style="text-align: center;">
+                <button class="btn btn-warning btn-sm" onclick="guiThongBaoNhac('${item.maDeTai}')" title="Gửi thông báo nhắc">
+                    <i class="fas fa-bell"></i> Nhắc (${item.lanNhac})
+                </button>
+                <button class="btn btn-info btn-sm" onclick="xemLichSuNhac('${item.maDeTai}')" title="Xem lịch sử nhắc">
+                    <i class="fas fa-history"></i>
+                </button>
+            </td>
+        `;
+    });
+}
+
+// UC 1.16: Lập danh sách đề tài cần nghiệm thu
+function loadDanhSachNghiemThuTable() {
+    const container = document.getElementById('danhSachDeTaiNghiemThu');
+    if (!container) return;
+    
+    container.innerHTML = '';
+    
+    danhSachNghiemThuData.forEach(item => {
+        const div = document.createElement('div');
+        div.className = 'form-check';
+        div.style.marginBottom = '15px';
+        div.style.padding = '15px';
+        div.style.border = '1px solid #ddd';
+        div.style.borderRadius = '6px';
+        
+        const statusColor = item.trangThai === 'Sẵn sàng nghiệm thu' ? '#27ae60' : 
+                          item.trangThai === 'Đã lập danh sách' ? '#3498db' : '#f39c12';
+        
+        div.innerHTML = `
+            <input type="checkbox" class="form-check-input" id="dt_${item.maDeTai}" 
+                ${item.trangThai === 'Sẵn sàng nghiệm thu' ? 'checked' : ''}>
+            <label class="form-check-label" for="dt_${item.maDeTai}" style="margin-left: 10px;">
+                <strong>${item.maDeTai}: ${item.tenDeTai}</strong><br>
+                <small>Chủ nhiệm: ${item.chuNhiem}</small><br>
+                <small>Ngày hoàn thành: ${new Date(item.ngayHoanThanh).toLocaleDateString('vi-VN')}</small><br>
+                <span style="color: ${statusColor}; font-weight: bold;">${item.trangThai}</span><br>
+                <small>Hồ sơ: ${item.hoSoDay ? 'Đầy đủ' : 'Thiếu'} | 
+                Sản phẩm: ${item.sanPhamHoanThien ? 'Hoàn thiện' : 'Chưa xong'}</small>
+            </label>
+        `;
+        
+        container.appendChild(div);
+    });
+}
+
+// UC 1.19: Kiểm tra hồ sơ nghiệm thu
+function loadKiemTraNghiemThuTable() {
+    const tbody = document.getElementById('kiemTraNghiemThuTable');
+    if (!tbody) return;
+    
+    tbody.innerHTML = '';
+    
+    kiemTraNghiemThuData.forEach(item => {
+        const row = tbody.insertRow();
+        const tinhTrangClass = item.tinhTrang === 'Đầy đủ' ? 'status-dat' : 
+                             item.tinhTrang === 'Thiếu tài liệu' ? 'status-chua-dat' : 'status-da-danh-gia';
+        
+        row.innerHTML = `
+            <td>${item.maDeTai}</td>
+            <td style="text-align: left;">
+                <strong>${item.tenDeTai}</strong><br>
+                <small class="text-muted">${item.chuNhiem}</small>
+            </td>
+            <td>${item.chuNhiem}</td>
+            <td style="text-align: center;">${new Date(item.ngayNop).toLocaleDateString('vi-VN')}</td>
+            <td style="text-align: center;">
+                <span class="status ${tinhTrangClass}">${item.tinhTrang}</span>
+            </td>
+            <td style="text-align: center;">
+                <button class="btn btn-info btn-sm" onclick="kiemTraChiTiet('${item.maDeTai}')" title="Kiểm tra chi tiết">
+                    <i class="fas fa-search"></i>
+                </button>
+                ${item.tinhTrang === 'Đầy đủ' ? `
+                    <button class="btn btn-success btn-sm" onclick="pheDuyetNghiemThu('${item.maDeTai}')" title="Phê duyệt">
+                        <i class="fas fa-check"></i>
+                    </button>
+                ` : ''}
+                ${item.tinhTrang === 'Thiếu tài liệu' ? `
+                    <button class="btn btn-warning btn-sm" onclick="yeuCauBoSungNghiemThu('${item.maDeTai}')" title="Yêu cầu bổ sung">
+                        <i class="fas fa-edit"></i>
+                    </button>
+                ` : ''}
+            </td>
+        `;
+    });
+}
+
+// UC 1.18: Lưu trữ biên bản, bảng điểm và kết quả
+function loadLuuTruTable() {
+    const tbody = document.getElementById('luuTruTable');
+    if (!tbody) return;
+    
+    tbody.innerHTML = '';
+    
+    luuTruKetQuaData.forEach(item => {
+        const row = tbody.insertRow();
+        const ketQuaClass = getStatusClass(item.ketQua);
+        const trangThaiClass = item.trangThai === 'Đã lưu trữ' ? 'status-hoan-tat' : 'status-da-danh-gia';
+        
+        row.innerHTML = `
+            <td>${item.maDeTai}</td>
+            <td style="text-align: left;">
+                <strong>${item.tenDeTai}</strong><br>
+                <small class="text-muted">${item.chuNhiem}</small>
+            </td>
+            <td>${item.chuNhiem}</td>
+            <td style="text-align: center;">
+                <span class="status ${ketQuaClass}">${item.ketQua}</span><br>
+                <small>Điểm: ${item.diemTB}/10</small>
+            </td>
+            <td style="text-align: center;">${new Date(item.ngayNghiemThu).toLocaleDateString('vi-VN')}</td>
+            <td style="text-align: center;">
+                <button class="btn btn-info btn-sm" onclick="xemTaiLieu('${item.maDeTai}')" title="Xem tài liệu">
+                    <i class="fas fa-file-alt"></i>
+                </button>
+                ${item.trangThai === 'Chờ lưu trữ' ? `
+                    <button class="btn btn-success btn-sm" onclick="luuTruKetQua('${item.maDeTai}')" title="Lưu trữ">
+                        <i class="fas fa-save"></i>
+                    </button>
+                ` : `
+                    <button class="btn btn-secondary btn-sm" onclick="taiVeKetQua('${item.maDeTai}')" title="Tải về">
+                        <i class="fas fa-download"></i>
+                    </button>
+                `}
+            </td>
+        `;
+    });
+}
+
+// Helper functions cho nghiệm thu
+function getTinhTrangClass(tinhTrang) {
+    switch(tinhTrang) {
+        case 'Sắp hết hạn': return 'status-chua-dat';
+        case 'Quá hạn': return 'status-can-bo-sung';
+        case 'Cần nhắc': return 'status-cho-kiem-tra';
+        default: return 'status-da-hoan-thien';
+    }
+}
+
+function getTinhTrangIcon(tinhTrang) {
+    // Removed emoji icons, using only CSS status classes for colors
+    return '';
+}
+
+// Action functions (mock implementations)
+function guiThongBaoNhac(maDeTai) {
+    const item = nhacNopNghiemThuData.find(dt => dt.maDeTai === maDeTai);
+    if (item) {
+        item.lanNhac++;
+        showNotification(`Đã gửi thông báo nhắc đến chủ nhiệm đề tài ${maDeTai}`, 'success');
+        loadNhacNopTable();
+    }
+}
+
+function xemLichSuNhac(maDeTai) {
+    alert(`Lịch sử nhắc đề tài ${maDeTai}\n- Lần 1: 10/11/2024\n- Lần 2: 15/11/2024`);
+}
+
+function lapDanhSachNghiemThu() {
+    const selectedItems = [];
+    document.querySelectorAll('#danhSachDeTaiNghiemThu input:checked').forEach(checkbox => {
+        selectedItems.push(checkbox.id.replace('dt_', ''));
+    });
+    
+    if (selectedItems.length === 0) {
+        alert('Vui lòng chọn ít nhất một đề tài!');
+        return;
+    }
+    
+    showNotification(`Đã lập danh sách nghiệm thu cho ${selectedItems.length} đề tài`, 'success');
+}
+
+function kiemTraChiTiet(maDeTai) {
+    const item = kiemTraNghiemThuData.find(dt => dt.maDeTai === maDeTai);
+    if (item) {
+        alert(`Chi tiết kiểm tra ${maDeTai}:\n${item.ghiChu}`);
+    }
+}
+
+function pheDuyetNghiemThu(maDeTai) {
+    showNotification(`Đã phê duyệt hồ sơ nghiệm thu đề tài ${maDeTai}`, 'success');
+}
+
+function yeuCauBoSungNghiemThu(maDeTai) {
+    const noiDung = prompt(`Nhập yêu cầu bổ sung cho đề tài ${maDeTai}:`);
+    if (noiDung) {
+        showNotification(`Đã gửi yêu cầu bổ sung cho đề tài ${maDeTai}`, 'success');
+    }
+}
+
+function xemTaiLieu(maDeTai) {
+    alert(`Xem tài liệu đề tài ${maDeTai}:\n- Biên bản nghiệm thu\n- Bảng điểm chi tiết\n- Kết quả đánh giá`);
+}
+
+function luuTruKetQua(maDeTai) {
+    const item = luuTruKetQuaData.find(dt => dt.maDeTai === maDeTai);
+    if (item) {
+        item.trangThai = 'Đã lưu trữ';
+        showNotification(`Đã lưu trữ kết quả đề tài ${maDeTai}`, 'success');
+        loadLuuTruTable();
+    }
+}
+
+function taiVeKetQua(maDeTai) {
+    showNotification(`Đang tải về kết quả đề tài ${maDeTai}...`, 'info');
+}
