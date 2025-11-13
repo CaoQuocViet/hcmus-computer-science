@@ -356,7 +356,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         
         // Show confirmation
-        if (confirm(`Xác nhận tạo hồ sơ:\n\n• Tên đề tài: ${tenDeTai}\n• Người đề xuất: ${nguoiDeXuat}\n• Lĩnh vực: ${linhVuc}\n• Thời gian: ${ngayBatDau} - ${ngayKetThuc}\n\nSau khi tạo:\n• Hệ thống sẽ tạo mã hồ sơ tự động\n• Gửi email thông báo cho người đề xuất\n• Hướng dẫn người đề xuất hoàn thiện hồ sơ`)) {
+        if (confirm(`Xác nhận tạo hồ sơ:\n\n• Tên đề tài: ${tenDeTai}\n• Người đề xuất: ${nguoiDeXuat}\n• Lĩnh vực: ${linhVuc}\n• Thời gian: ${ngayBatDau} - ${ngayKetThuc}\n\nSau khi tạo:\n• Hệ thống sẽ tạo mã hồ sơ tự động\n• Gửi thông báo nội bộ cho người đề xuất\n• Hướng dẫn người đề xuất hoàn thiện hồ sơ`)) {
             
             // Create new record
             const newId = `DT${new Date().getFullYear()}${String(hoSoData.length + 1).padStart(3, '0')}`;
@@ -378,7 +378,7 @@ document.addEventListener('DOMContentLoaded', function() {
             
             // Show success
             hideModal('createModal');
-            showNotification('Tạo hồ sơ thành công!\n\nMã hồ sơ: ' + newId + '\nĐã gửi email cho: ' + nguoiDeXuat + '\n\nTrạng thái hiện tại: Đã tạo', 'success');
+            showNotification('Tạo hồ sơ thành công!\n\nMã hồ sơ: ' + newId + '\nĐã gửi thông báo cho: ' + nguoiDeXuat + '\n\nTrạng thái hiện tại: Đã tạo', 'success');
             
             // Update display
             updateStats();
@@ -388,9 +388,9 @@ document.addEventListener('DOMContentLoaded', function() {
             // Reset form
             document.getElementById('createForm').reset();
             
-            // Simulate email notification
+            // Simulate internal notification
             setTimeout(() => {
-                showNotification('Đã gửi email thông báo cho người đề xuất', 'info');
+                showNotification('Đã gửi thông báo nội bộ cho người đề xuất', 'info');
             }, 2000);
         }
     });
@@ -764,14 +764,14 @@ function hoanTatXacNhanTrienKhai(hoSoId) {
             };
             hoSo.progressReports = [];
             
-            showNotification('Đã xác nhận triển khai thành công!\n\nMã đề tài: ' + hoSo.id + '\nĐã gửi email cho: ' + hoSo.nguoiDeXuat + '\n\n• Đã tạo lịch nhắc nhở đánh giá định kỳ\n• Đã tạo lịch báo cáo tiến độ\n• Đã tạo deadline', 'success');
+            showNotification('Đã xác nhận triển khai thành công!\n\nMã đề tài: ' + hoSo.id + '\nĐã gửi thông báo cho: ' + hoSo.nguoiDeXuat + '\n\n• Đã tạo lịch nhắc nhở đánh giá định kỳ\n• Đã tạo lịch báo cáo tiến độ\n• Đã tạo deadline', 'success');
             hideModal('kiemTraModal');
             loadPheDuyetTable();
             updateStats();
             
             // Simulate creating reminder schedule and sending notification
             setTimeout(() => {
-                showNotification('Đã gửi email thông báo và tạo lịch nhắc nhở', 'info');
+                showNotification('Đã gửi thông báo nội bộ và tạo lịch nhắc nhở', 'info');
             }, 2000);
         }
     }
@@ -874,7 +874,7 @@ function xemLichChiTiet(hoSoId) {
             <p><strong>Tên đề tài:</strong> ${hoSo.ten}</p>
             <p><strong>Mã:</strong> ${hoSo.id}</p>
             <p><strong>Chủ nhiệm:</strong> ${hoSo.nguoiDeXuat}</p>
-            <p><strong>Email:</strong> ${hoSo.email}</p>
+
             <p><strong>SĐT:</strong> ${hoSo.sdt}</p>
             <p><strong>Thời gian thực hiện:</strong> ${hoSo.ngayBatDau} - ${hoSo.ngayKetThuc}</p>
             <p><strong>Trạng thái:</strong> Đang thực hiện</p>
@@ -919,14 +919,14 @@ function guiNhacNho(hoSoId) {
         <h4>GỬI NHẮC NHỞ BÁO CÁO TIẾN ĐỘ</h4>
         
         <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin-bottom: 20px;">
-            <p><strong>Người nhận:</strong> ${hoSo.nguoiDeXuat} (${hoSo.email})</p>
+            <p><strong>Người nhận:</strong> ${hoSo.nguoiDeXuat}</p>
             <p><strong>Đề tài:</strong> ${hoSo.ten} (${hoSo.id})</p>
             <p><strong>Kỳ báo cáo:</strong> Kỳ 2/4 - Quý 2/2025</p>
             <p><strong>Hạn nộp:</strong> 30/06/2025 (còn 5 ngày)</p>
         </div>
         
         <div class="form-group">
-            <label class="form-label">Nội dung email: (Có thể chỉnh sửa)</label>
+            <label class="form-label">Nội dung thông báo: (Có thể chỉnh sửa)</label>
             <textarea id="noiDungEmail" class="form-textarea" rows="10">Kính gửi ${hoSo.nguoiDeXuat},
 
 Đây là thư nhắc nhở về việc nộp báo cáo tiến độ đề tài:
@@ -959,8 +959,8 @@ Phòng Quản lý Khoa học</textarea>
         
         <div style="text-align: right; margin-top: 20px;">
             <button class="btn btn-secondary" onclick="hideModal('kiemTraModal')">Hủy</button>
-            <button class="btn btn-primary" onclick="xacNhanGuiEmail('${hoSo.id}')">
-                <i class="fas fa-paper-plane"></i> Gửi email
+            <button class="btn btn-primary" onclick="xacNhanGuiThongBao('${hoSo.id}')">
+                <i class="fas fa-paper-plane"></i> Gửi thông báo
             </button>
         </div>
     `;
@@ -969,11 +969,18 @@ Phòng Quản lý Khoa học</textarea>
     showModal('kiemTraModal');
 }
 
-function xacNhanGuiEmail(hoSoId) {
+function xacNhanGuiThongBao(hoSoId) {
     const hoSo = hoSoData.find(h => h.id === hoSoId);
     if (!hoSo) return;
     
-    showNotification('Gửi nhắc nhở thành công!\n\nNgười nhận: ' + hoSo.nguoiDeXuat + '\nEmail: ' + hoSo.email + '\nThời gian: ' + new Date().toLocaleString('vi-VN') + '\n\nHệ thống đã ghi nhận lần nhắc nhở', 'success');
+    // Add notification to system
+    addNotification(
+        'Nhắc nhở báo cáo tiến độ', 
+        `Đề tài "${hoSo.ten}" sắp đến hạn báo cáo tiến độ kỳ 2/4. Vui lòng nộp báo cáo trước 30/06/2025.`,
+        'warning'
+    );
+    
+    showNotification('Gửi thông báo thành công!\n\nNgười nhận: ' + hoSo.nguoiDeXuat + '\nThời gian: ' + new Date().toLocaleString('vi-VN') + '\n\nHệ thống đã ghi nhận lần nhắc nhở', 'success');
     hideModal('kiemTraModal');
     loadLichBaoCaoTable();
 }
@@ -1186,30 +1193,14 @@ function xacNhanTienDo(hoSoId, ky) {
             <h5>Sau khi xác nhận:</h5>
             <p>• Đánh dấu giai đoạn tiến độ Quý ${ky} đã nộp</p>
             <p>• Cập nhật thanh tiến trình tổng thể của đề tài</p>
-            <p>• Gửi email xác nhận cho chủ nhiệm đề tài</p>
+            <p>• Gửi thông báo xác nhận cho chủ nhiệm đề tài</p>
             <p>• Tạo nhắc nhở cho kỳ báo cáo tiếp theo</p>
         </div>
         
-        <div class="form-group">
-            <label class="form-label">Nội dung email thông báo:</label>
-            <textarea class="form-textarea" rows="8" readonly>Kính gửi ${hoSo.nguoiDeXuat},
-
-Báo cáo tiến độ Quý ${ky}/2025 của bạn đã được xác nhận:
-
-• Tên đề tài: ${hoSo.ten}
-• Mã đề tài: ${hoSo.id}
-• Kỳ báo cáo: Quý ${ky}/2025 (Kỳ ${ky}/4)
-• Tiến độ: ${report.tienDo}% - ${report.tienDo >= 75 ? 'Vượt kế hoạch' : report.tienDo >= 25 ? 'Đúng kế hoạch' : 'Cần cải thiện'}
-• Ngày xác nhận: ${new Date().toLocaleDateString('vi-VN')}
-
-Kỳ báo cáo tiếp theo:
-• Quý ${ky + 1}/2025 (Kỳ ${ky + 1}/4)
-• Hạn nộp: ${new Date(new Date().setMonth(new Date().getMonth() + 3)).toLocaleDateString('vi-VN')}
-
-Chúc mừng và tiếp tục phát huy!
-
-Trân trọng,
-Phòng Quản lý Khoa học</textarea>
+        <div style="background: #e8f5e8; border: 1px solid #4caf50; padding: 15px; border-radius: 8px;">
+            <h5>Thông báo sẽ được gửi qua hệ thống nội bộ:</h5>
+            <p><strong>Tiêu đề:</strong> Báo cáo tiến độ Quý ${ky}/2025 đã được xác nhận</p>
+            <p><strong>Nội dung:</strong> Báo cáo tiến độ "${hoSo.ten}" đã được xác nhận với tiến độ ${report.tienDo}%. Kỳ báo cáo tiếp theo: Quý ${ky + 1}/2025.</p>
         </div>
         
         <div style="margin: 15px 0;">
@@ -2257,7 +2248,7 @@ function loadNhacNopTable() {
             <td>${item.maDeTai}</td>
             <td style="text-align: left;">
                 <strong>${item.tenDeTai}</strong><br>
-                <small class="text-muted">Email: ${item.email}</small>
+                <small class="text-muted">Chủ nhiệm: ${item.chuNhiem}</small>
             </td>
             <td>${item.chuNhiem}</td>
             <td style="text-align: center;">${new Date(item.hanNop).toLocaleDateString('vi-VN')}</td>
