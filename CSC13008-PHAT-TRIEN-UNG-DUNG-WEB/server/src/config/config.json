@@ -1,24 +1,41 @@
 {
   "development": {
-    "username": "vietcq",
-    "password": "123456789000",
-    "database": "ptudw_project_2025",
-    "host": "127.0.0.1",
+    "username": "ptudw",
+    "password": "Z3XM7jkpPJiqA1fwuz3CGze9SI8utFlj",
+    "database": "ptudw_db_pmiq",
+    "host": "dpg-d4bguvqdbo4c738qb87g-a.singapore-postgres.render.com",
     "dialect": "postgres",
-    "port": 5432
+    "dialectOptions": {
+      "ssl": {
+        "require": true,
+        "rejectUnauthorized": false
+      }
+    }
   },
   "test": {
-    "username": "root",
-    "password": null,
-    "database": "database_test",
-    "host": "127.0.0.1",
-    "dialect": "mysql"
+    "username": "ptudw",
+    "password": "Z3XM7jkpPJiqA1fwuz3CGze9SI8utFlj",
+    "database": "ptudw_db_pmiq",
+    "host": "dpg-d4bguvqdbo4c738qb87g-a.singapore-postgres.render.com",
+    "dialect": "postgres",
+    "dialectOptions": {
+      "ssl": {
+        "require": true,
+        "rejectUnauthorized": false
+      }
+    }
   },
   "production": {
-    "username": "root",
-    "password": null,
-    "database": "database_production",
-    "host": "127.0.0.1",
-    "dialect": "mysql"
+    "username": "ptudw",
+    "password": "Z3XM7jkpPJiqA1fwuz3CGze9SI8utFlj",
+    "database": "ptudw_db_pmiq",
+    "host": "dpg-d4bguvqdbo4c738qb87g-a.singapore-postgres.render.com",
+    "dialect": "postgres",
+    "dialectOptions": {
+      "ssl": {
+        "require": true,
+        "rejectUnauthorized": false
+      }
+    }
   }
 }
