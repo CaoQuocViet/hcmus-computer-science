@@ -1,0 +1,16 @@
+{
+  "name": "bt3",
+  "version": "1.0.0",
+  "description": "- Lập trình chức năng tra cứu nhân viên theo một trong các tiêu chí sau : Họ tên , Tuổi, Đơn vị\r - Môi trường lập trình :  Node Js +Express  với dữ liệu JSON đính kèm\r - Ghi chú : Giao diện tiện dụng nhất",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "express": "^5.2.1"
+  }
+}
