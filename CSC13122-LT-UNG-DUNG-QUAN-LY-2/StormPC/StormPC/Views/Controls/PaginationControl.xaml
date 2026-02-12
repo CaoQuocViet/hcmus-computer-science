@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<UserControl
+    x:Class="StormPC.Controls.PaginationControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+<!-- 
+        <TextBlock Text="Số mục mỗi trang:" 
+                  Grid.Column="0"
+                  VerticalAlignment="Center"
+                  Margin="0,0,8,0"/> -->
+
+        <ComboBox x:Name="PageSizeComboBox"
+                  Grid.Column="1"
+                  Width="65"
+                  Height="32"
+                  Margin="0,0,16,0"
+                  SelectedValue="{x:Bind PageSize, Mode=TwoWay}"
+                  SelectionChanged="PageSizeComboBox_SelectionChanged">
+            <x:Int32>10</x:Int32>
+            <x:Int32>20</x:Int32>
+            <x:Int32>30</x:Int32>
+            <x:Int32>50</x:Int32>
+        </ComboBox>
+
+        <Button x:Name="PreviousButton"
+                Grid.Column="2"
+                Click="PreviousButton_Click"
+                Style="{ThemeResource AccentButtonStyle}"
+                Width="40"
+                Height="32"
+                Margin="0,0,8,0"
+                CornerRadius="4">
+            <FontIcon Glyph="&#xE72B;" FontSize="12"/>
+        </Button>
+
+        <TextBox x:Name="CurrentPageBox"
+                 Grid.Column="3"
+                 Text="{x:Bind CurrentPage, Mode=TwoWay}"
+                 TextAlignment="Center"
+                 MinWidth="32"
+                 Height="32"
+                 Margin="0,0,8,0"
+                 VerticalAlignment="Center"
+                 VerticalContentAlignment="Center"
+                 BeforeTextChanging="CurrentPageBox_BeforeTextChanging"
+                 KeyDown="CurrentPageBox_KeyDown"/>
+
+        <TextBlock Grid.Column="4"
+                  Text="/" 
+                  Margin="0,0,8,0"
+                  VerticalAlignment="Center"
+                  Foreground="{ThemeResource SystemBaseMediumColor}"/>
+
+        <TextBlock Grid.Column="5"
+                  x:Name="TotalPagesText"
+                  Text="{x:Bind TotalPages, Mode=OneWay}"
+                  Margin="0,0,8,0"
+                  VerticalAlignment="Center"/>
+
+        <Button Grid.Column="6"
+                x:Name="NextButton"
+                Click="NextButton_Click"
+                Style="{ThemeResource AccentButtonStyle}"
+                Width="40"
+                Height="32"
+                CornerRadius="4">
+            <FontIcon Glyph="&#xE72A;" FontSize="12"/>
+        </Button>
+    </Grid>
+</UserControl>

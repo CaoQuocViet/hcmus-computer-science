@@ -1,0 +1,191 @@
+<Page
+    x:Class="StormPC.Views.Settings.SettingsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:helpers="using:StormPC.Helpers"
+    xmlns:xaml="using:Microsoft.UI.Xaml"
+    mc:Ignorable="d">
+    <Page.Resources>
+        <helpers:EnumToBooleanConverter x:Key="EnumToBooleanConverter" />
+        <helpers:InverseBooleanConverter x:Key="InverseBooleanConverter" />
+        <helpers:StringToVisibilityConverter x:Key="StringToVisibilityConverter" />
+        
+        <Style x:Key="PageTitleStyle" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="32"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Margin" Value="0,20,0,20"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="Foreground" Value="#0168EF"/>
+        </Style>
+        
+        <Style x:Key="SectionTitleStyle" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Margin" Value="0,24,0,8"/>
+        </Style>
+        
+        <Style x:Key="CardStyle" TargetType="Grid">
+            <Setter Property="Background" Value="{ThemeResource CardBackgroundFillColorDefaultBrush}"/>
+            <Setter Property="BorderBrush" Value="{ThemeResource CardStrokeColorDefaultBrush}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="CornerRadius" Value="8"/>
+            <Setter Property="Padding" Value="16"/>
+            <Setter Property="Margin" Value="0,0,0,16"/>
+        </Style>
+    </Page.Resources>
+    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Text="Cấu hình giao diện hệ thống"
+                  Style="{StaticResource PageTitleStyle}"/>
+
+        <ScrollViewer Grid.Row="1" Padding="0,0,12,0">
+            <StackPanel x:Name="ContentArea" Margin="20,0,20,20">
+                
+                <!-- Phần Cá nhân hóa -->
+                <TextBlock x:Uid="Settings_Personalization" Style="{StaticResource SectionTitleStyle}"/>
+                <Grid Style="{StaticResource CardStyle}">
+                    <StackPanel>
+                        <TextBlock x:Uid="Settings_Theme" FontWeight="SemiBold" Margin="0,0,0,8"/>
+                        <StackPanel Margin="0,0,0,8">
+                            <RadioButton
+                                x:Uid="Settings_Theme_Light"
+                                Command="{x:Bind ViewModel.SwitchThemeCommand}"
+                                IsChecked="{x:Bind ViewModel.ElementTheme, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter=Light, Mode=OneWay}"
+                                FontSize="15"
+                                GroupName="AppTheme">
+                                <RadioButton.CommandParameter>
+                                    <xaml:ElementTheme>Light</xaml:ElementTheme>
+                                </RadioButton.CommandParameter>
+                            </RadioButton>
+                            <RadioButton
+                                x:Uid="Settings_Theme_Dark"
+                                Command="{x:Bind ViewModel.SwitchThemeCommand}"
+                                IsChecked="{x:Bind ViewModel.ElementTheme, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter=Dark, Mode=OneWay}"
+                                FontSize="15"
+                                GroupName="AppTheme">
+                                <RadioButton.CommandParameter>
+                                    <xaml:ElementTheme>Dark</xaml:ElementTheme>
+                                </RadioButton.CommandParameter>
+                            </RadioButton>
+                            <RadioButton
+                                x:Uid="Settings_Theme_Default"
+                                Command="{x:Bind ViewModel.SwitchThemeCommand}"
+                                IsChecked="{x:Bind ViewModel.ElementTheme, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter=Default, Mode=OneWay}"
+                                FontSize="15"
+                                GroupName="AppTheme">
+                                <RadioButton.CommandParameter>
+                                    <xaml:ElementTheme>Default</xaml:ElementTheme>
+                                </RadioButton.CommandParameter>
+                            </RadioButton>
+                        </StackPanel>
+                    </StackPanel>
+                </Grid>
+
+                <!-- Phần Quản lý cơ sở dữ liệu -->
+                <TextBlock Text="Quản lý cơ sở dữ liệu" Style="{StaticResource SectionTitleStyle}" />
+                <Grid Style="{StaticResource CardStyle}">
+                    <StackPanel Orientation="Horizontal" Spacing="12">
+                        <Button Command="{x:Bind ViewModel.BackupDatabaseCommand}"
+                                IsEnabled="{x:Bind ViewModel.IsBackupInProgress, Mode=OneWay, Converter={StaticResource InverseBooleanConverter}}"
+                                Style="{StaticResource AccentButtonStyle}">
+                            <StackPanel Orientation="Horizontal" Spacing="8">
+                                <FontIcon Glyph="&#xE74E;" FontSize="16"/>
+                                <TextBlock Text="Sao lưu dữ liệu"/>
+                                <ProgressRing IsActive="{x:Bind ViewModel.IsBackupInProgress, Mode=OneWay}" 
+                                            Width="16" Height="16" 
+                                            Visibility="{x:Bind ViewModel.IsBackupInProgress, Mode=OneWay}"/>
+                            </StackPanel>
+                        </Button>
+
+                        <Button Command="{x:Bind ViewModel.RestoreDatabaseCommand}"
+                                IsEnabled="{x:Bind ViewModel.IsRestoreInProgress, Mode=OneWay, Converter={StaticResource InverseBooleanConverter}}">
+                            <StackPanel Orientation="Horizontal" Spacing="8">
+                                <FontIcon Glyph="&#xE777;" FontSize="16"/>
+                                <TextBlock Text="Phục hồi dữ liệu"/>
+                                <ProgressRing IsActive="{x:Bind ViewModel.IsRestoreInProgress, Mode=OneWay}" 
+                                            Width="16" Height="16" 
+                                            Visibility="{x:Bind ViewModel.IsRestoreInProgress, Mode=OneWay}"/>
+                            </StackPanel>
+                        </Button>
+                    </StackPanel>
+                </Grid>
+                
+                <!-- Phần Cấu hình cơ sở dữ liệu -->
+                <TextBlock Text="Cấu hình cơ sở dữ liệu" Style="{StaticResource SectionTitleStyle}" />
+                <Grid Style="{StaticResource CardStyle}">
+                    <StackPanel Spacing="12">
+                        <TextBlock Text="Nhập thông tin cấu hình kết nối đến cơ sở dữ liệu PostgreSQL" FontWeight="SemiBold" Margin="0,0,0,8"/>
+                        
+                        <TextBox Header="Provider:" Text="{x:Bind ViewModel.DbProvider, Mode=TwoWay}" 
+                                 PlaceholderText="postgresql" Width="250" HorizontalAlignment="Left" IsEnabled="False"/>
+                        
+                        <TextBox Header="Host:" Text="{x:Bind ViewModel.DbHost, Mode=TwoWay}" 
+                                 PlaceholderText="localhost hoặc địa chỉ IP" Width="400" HorizontalAlignment="Left"/>
+                        
+                        <TextBox Header="Port:" Text="{x:Bind ViewModel.DbPort, Mode=TwoWay}" 
+                                 PlaceholderText="5432" Width="250" HorizontalAlignment="Left"/>
+                        
+                        <TextBox Header="Tên database:" Text="{x:Bind ViewModel.DbName, Mode=TwoWay}" 
+                                 PlaceholderText="stormpc_db" Width="400" HorizontalAlignment="Left"/>
+                        
+                        <TextBox Header="Tên đăng nhập:" Text="{x:Bind ViewModel.DbUsername, Mode=TwoWay}" 
+                                 PlaceholderText="postgres" Width="400" HorizontalAlignment="Left"/>
+                        
+                        <PasswordBox Header="Mật khẩu:" Password="{x:Bind ViewModel.DbPassword, Mode=TwoWay}" 
+                                     PlaceholderText="Nhập mật khẩu" Width="400" HorizontalAlignment="Left"/>
+                        
+                        <StackPanel Orientation="Horizontal" Spacing="12" Margin="0,12,0,0">
+                            <Button Command="{x:Bind ViewModel.SaveDatabaseConfigCommand}"
+                                    IsEnabled="{x:Bind ViewModel.IsSavingConfig, Mode=OneWay, Converter={StaticResource InverseBooleanConverter}}"
+                                    Style="{StaticResource AccentButtonStyle}">
+                                <StackPanel Orientation="Horizontal" Spacing="8">
+                                    <FontIcon Glyph="&#xE74E;" FontSize="16"/>
+                                    <TextBlock Text="Lưu cấu hình"/>
+                                    <ProgressRing IsActive="{x:Bind ViewModel.IsSavingConfig, Mode=OneWay}" 
+                                                Width="16" Height="16" 
+                                                Visibility="{x:Bind ViewModel.IsSavingConfig, Mode=OneWay}"/>
+                                </StackPanel>
+                            </Button>
+                        </StackPanel>
+                        
+                        <TextBlock Text="{x:Bind ViewModel.ConfigStatusMessage, Mode=OneWay}" 
+                                   Visibility="{x:Bind ViewModel.ConfigStatusMessage, Mode=OneWay, Converter={StaticResource StringToVisibilityConverter}}"
+                                   Foreground="{ThemeResource SystemFillColorSuccessBrush}"
+                                   FontWeight="SemiBold"/>
+                        
+                        <InfoBar Title="Lưu ý"
+                                 IsOpen="True"
+                                 Severity="Informational"
+                                 Message="Sau khi lưu cấu hình, bạn cần khởi động lại ứng dụng để áp dụng thay đổi. Nếu thông tin cấu hình không chính xác, ứng dụng có thể không hoạt động bình thường."/>
+                    </StackPanel>
+                </Grid>
+
+                <!-- Phần About -->
+                <TextBlock x:Uid="Settings_About" Style="{StaticResource SectionTitleStyle}"/>
+                <Grid Style="{StaticResource CardStyle}">
+                    <StackPanel>
+                        <TextBlock Text="{x:Bind ViewModel.VersionDescription, Mode=OneWay}" FontWeight="SemiBold"/>
+                        
+                        <TextBlock x:Uid="Settings_AboutDescription" 
+                                  Margin="0,12,0,0" 
+                                  TextWrapping="Wrap"/>
+                        
+                        <TextBlock x:Uid="Settings_Features"
+                                  Margin="0,12,0,0"
+                                  TextWrapping="Wrap"/>
+                        
+                        <HyperlinkButton x:Uid="SettingsPage_PrivacyTermsLink" 
+                                        Margin="0,12,0,0" />
+                    </StackPanel>
+                </Grid>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</Page>
