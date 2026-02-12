@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hệ Thống Quản Lý Đề Tài Nghiên Cứu Khoa Học</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-box">
+            <div class="logo">
+                <i class="fas fa-graduation-cap"></i>
+                <h1>HỆ THỐNG QUẢN LÝ ĐỀ TÀI NGHIÊN CỨU KHOA HỌC</h1>
+            </div>
+            
+            <form id="loginForm" class="login-form">
+                <div class="form-group">
+                    <label for="username">Tên đăng nhập:</label>
+                    <input type="text" id="username" name="username" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">Mật khẩu:</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="role">Vai trò:</label>
+                    <select id="role" name="role" required>
+                        <option value="">-- Chọn vai trò --</option>
+                        <option value="nhanvien">Nhân viên</option>
+                        <option value="chunhiem">Chủ nhiệm đề tài</option>
+                        <option value="hoidong-khoahoc">Hội đồng khoa học</option>
+                        <option value="hoidong-nghiemthu">Hội đồng nghiệm thu</option>
+                    </select>
+                </div>
+                
+                <button type="submit" class="btn-login">
+                    <i class="fas fa-sign-in-alt"></i> Đăng nhập
+                </button>
+            </form>
+            
+            <div class="demo-accounts">
+                <h3>Tài khoản demo:</h3>
+                <div class="demo-list">
+                    <div class="demo-item" onclick="fillDemo('nhanvien01', '123456', 'nhanvien')">
+                        <strong>Nhân viên:</strong> nhanvien01 / 123456
+                    </div>
+                    <div class="demo-item" onclick="fillDemo('chunhiem01', '123456', 'chunhiem')">
+                        <strong>Chủ nhiệm đề tài:</strong> chunhiem01 / 123456
+                    </div>
+                    <div class="demo-item" onclick="fillDemo('hoidong01', '123456', 'hoidong-khoahoc')">
+                        <strong>Hội đồng khoa học:</strong> hoidong01 / 123456
+                    </div>
+                    <div class="demo-item" onclick="fillDemo('nghiemthu01', '123456', 'hoidong-nghiemthu')">
+                        <strong>Hội đồng nghiệm thu:</strong> nghiemthu01 / 123456
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/login.js"></script>
+</body>
+</html>

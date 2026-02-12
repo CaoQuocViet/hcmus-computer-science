@@ -1,0 +1,65 @@
+[
+  {
+    "ma_thanh_vien": 1,
+    "ma_de_tai": 1,
+    "ma_nguoi_dung": 4,
+    "vai_tro_trong_de_tai": "Chủ nhiệm đề tài",
+    "nhiem_vu": "Quản lý chung dự án, định hướng nghiên cứu",
+    "ngay_tham_gia": "2024-01-20",
+    "trang_thai_hoat_dong": true
+  },
+  {
+    "ma_thanh_vien": 2,
+    "ma_de_tai": 1,
+    "ma_nguoi_dung": 9,
+    "vai_tro_trong_de_tai": "Nghiên cứu viên",
+    "nhiem_vu": "Thu thập và phân tích dữ liệu, huấn luyện mô hình",
+    "ngay_tham_gia": "2024-01-20",
+    "trang_thai_hoat_dong": true
+  },
+  {
+    "ma_thanh_vien": 3,
+    "ma_de_tai": 1,
+    "ma_nguoi_dung": 10,
+    "vai_tro_trong_de_tai": "Trợ lý nghiên cứu",
+    "nhiem_vu": "Tiền xử lý dữ liệu, viết tài liệu",
+    "ngay_tham_gia": "2024-01-20",
+    "trang_thai_hoat_dong": true
+  },
+  {
+    "ma_thanh_vien": 4,
+    "ma_de_tai": 2,
+    "ma_nguoi_dung": 5,
+    "vai_tro_trong_de_tai": "Chủ nhiệm đề tài",
+    "nhiem_vu": "Quản lý chung dự án, thiết kế hệ thống",
+    "ngay_tham_gia": "2024-03-01",
+    "trang_thai_hoat_dong": true
+  },
+  {
+    "ma_thanh_vien": 5,
+    "ma_de_tai": 2,
+    "ma_nguoi_dung": 10,
+    "vai_tro_trong_de_tai": "Kỹ sư phần cứng",
+    "nhiem_vu": "Phát triển và kiểm thử thiết bị IoT",
+    "ngay_tham_gia": "2024-03-01",
+    "trang_thai_hoat_dong": true
+  },
+  {
+    "ma_thanh_vien": 6,
+    "ma_de_tai": 3,
+    "ma_nguoi_dung": 4,
+    "vai_tro_trong_de_tai": "Chủ nhiệm đề tài",
+    "nhiem_vu": "Quản lý chung dự án, thiết kế kiến trúc blockchain",
+    "ngay_tham_gia": "2024-04-01",
+    "trang_thai_hoat_dong": true
+  },
+  {
+    "ma_thanh_vien": 7,
+    "ma_de_tai": 3,
+    "ma_nguoi_dung": 9,
+    "vai_tro_trong_de_tai": "Lập trình viên Blockchain",
+    "nhiem_vu": "Phát triển smart contract, triển khai hệ thống",
+    "ngay_tham_gia": "2024-04-01",
+    "trang_thai_hoat_dong": true
+  }
+]

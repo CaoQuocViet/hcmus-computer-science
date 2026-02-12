@@ -1,0 +1,52 @@
+[
+  {
+    "ma_de_tai": 1,
+    "ma_code": "DT2024001",
+    "tieu_de": "Nghiên cứu ứng dụng Machine Learning trong dự báo thời tiết",
+    "mo_ta": "Đề tài nghiên cứu ứng dụng các thuật toán học máy để cải thiện độ chính xác của dự báo thời tiết ngắn hạn",
+    "ma_linh_vuc": 1,
+    "chu_nhiem": 4,
+    "ma_trang_thai": "dang_thuc_hien",
+    "ngay_bat_dau_du_kien": "2024-01-15",
+    "ngay_ket_thuc_du_kien": "2024-12-31",
+    "ngay_bat_dau_thuc_te": "2024-01-20",
+    "kinh_phi": 50000000,
+    "muc_tieu": "Xây dựng mô hình dự báo thời tiết với độ chính xác cao hơn 85%",
+    "ket_qua_mong_doi": "Hệ thống dự báo thời tiết tự động, bài báo khoa học quốc tế",
+    "nguoi_de_xuat": 4,
+    "nguoi_phe_duyet": 3,
+    "ngay_phe_duyet": "2024-01-10T10:00:00"
+  },
+  {
+    "ma_de_tai": 2,
+    "ma_code": "DT2024002",
+    "tieu_de": "Phát triển hệ thống IoT cho nông nghiệp thông minh",
+    "mo_ta": "Nghiên cứu và phát triển hệ thống IoT giám sát và điều khiển tự động cho nông nghiệp",
+    "ma_linh_vuc": 2,
+    "chu_nhiem": 5,
+    "ma_trang_thai": "da_phe_duyet",
+    "ngay_bat_dau_du_kien": "2024-03-01",
+    "ngay_ket_thuc_du_kien": "2024-12-31",
+    "kinh_phi": 75000000,
+    "muc_tieu": "Xây dựng hệ thống IoT hoàn chỉnh cho giám sát và điều khiển nông nghiệp",
+    "ket_qua_mong_doi": "Sản phẩm IoT demo, bài báo khoa học trong nước",
+    "nguoi_de_xuat": 5,
+    "nguoi_phe_duyet": 3,
+    "ngay_phe_duyet": "2024-02-20T14:30:00"
+  },
+  {
+    "ma_de_tai": 3,
+    "ma_code": "DT2024003",
+    "tieu_de": "Nghiên cứu blockchain trong quản lý chuỗi cung ứng",
+    "mo_ta": "Ứng dụng công nghệ blockchain để tăng tính minh bạch và truy xuất nguồn gốc trong chuỗi cung ứng",
+    "ma_linh_vuc": 1,
+    "chu_nhiem": 4,
+    "ma_trang_thai": "cho_xet_duyet",
+    "ngay_bat_dau_du_kien": "2024-04-01",
+    "ngay_ket_thuc_du_kien": "2025-03-31",
+    "kinh_phi": 60000000,
+    "muc_tieu": "Xây dựng hệ thống blockchain cho quản lý chuỗi cung ứng",
+    "ket_qua_mong_doi": "Prototype hệ thống, bài báo khoa học",
+    "nguoi_de_xuat": 4
+  }
+]

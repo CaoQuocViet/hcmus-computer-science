@@ -1,0 +1,47 @@
+[
+  {
+    "ma_bao_cao": 1,
+    "ma_de_tai": 1,
+    "loai_bao_cao": "Báo cáo tiến độ",
+    "ten_bao_cao": "Báo cáo tiến độ tháng 2/2024 - Đề tài ML dự báo thời tiết",
+    "noi_dung": "## Tiến độ thực hiện\n\n### Đã hoàn thành:\n- Thu thập và làm sạch dữ liệu thời tiết từ 5 năm gần nhất\n- Xây dựng pipeline xử lý dữ liệu tự động\n- Triển khai 3 mô hình baseline: Linear Regression, Random Forest, LSTM\n\n### Đang thực hiện:\n- Fine-tuning các mô hình để tăng độ chính xác\n- Thử nghiệm với ensemble methods\n\n### Kế hoạch tháng tới:\n- Hoàn thiện hệ thống API\n- Triển khai dashboard giám sát",
+    "ket_qua_dat_duoc": "Đã đạt độ chính xác 82% với mô hình LSTM, gần đạt mục tiêu 85%",
+    "kho_khan": "Dữ liệu thời tiết có nhiễu, cần thêm thời gian làm sạch",
+    "ngay_bao_cao": "2024-02-28",
+    "ky_bao_cao": "Tháng 2/2024",
+    "nguoi_bao_cao": 4,
+    "ma_trang_thai": 4,
+    "nguoi_duyet": 3,
+    "ngay_duyet": "2024-03-02T10:00:00"
+  },
+  {
+    "ma_bao_cao": 2,
+    "ma_de_tai": 1,
+    "loai_bao_cao": "Báo cáo tiến độ",
+    "ten_bao_cao": "Báo cáo tiến độ tháng 3/2024 - Đề tài ML dự báo thời tiết",
+    "noi_dung": "## Tiến độ thực hiện\n\n### Đã hoàn thành:\n- Fine-tuning mô hình LSTM, đạt độ chính xác 86%\n- Xây dựng API REST cho hệ thống\n- Hoàn thiện dashboard giám sát\n\n### Đang thực hiện:\n- Viết tài liệu kỹ thuật\n- Chuẩn bị demo cho hội đồng\n\n### Kế hoạch tháng tới:\n- Triển khai pilot test\n- Viết bài báo khoa học",
+    "ket_qua_dat_duoc": "Đã vượt mục tiêu với độ chính xác 86%, hoàn thành hệ thống API và dashboard",
+    "kho_khan": "Không có khó khăn đáng kể",
+    "ngay_bao_cao": "2024-03-31",
+    "ky_bao_cao": "Tháng 3/2024",
+    "nguoi_bao_cao": 4,
+    "ma_trang_thai": 2,
+    "nguoi_duyet": null,
+    "ngay_duyet": null
+  },
+  {
+    "ma_bao_cao": 3,
+    "ma_de_tai": 2,
+    "loai_bao_cao": "Báo cáo tiến độ",
+    "ten_bao_cao": "Báo cáo tiến độ tháng 3/2024 - Đề tài IoT nông nghiệp",
+    "noi_dung": "## Tiến độ thực hiện\n\n### Đã hoàn thành:\n- Thiết kế kiến trúc hệ thống IoT\n- Lựa chọn các cảm biến phù hợp\n- Phát triển prototype phiên bản 1\n\n### Đang thực hiện:\n- Test và calibrate các cảm biến\n- Xây dựng mobile app cho người dùng\n\n### Kế hoạch tháng tới:\n- Hoàn thiện prototype\n- Triển khai thử nghiệm tại 2 trang trại",
+    "ket_qua_dat_duoc": "Hoàn thành thiết kế và prototype đầu tiên",
+    "kho_khan": "Một số cảm biến cần calibrate lại, mất thời gian hơn dự kiến",
+    "ngay_bao_cao": "2024-03-31",
+    "ky_bao_cao": "Tháng 3/2024",
+    "nguoi_bao_cao": 5,
+    "ma_trang_thai": 1,
+    "nguoi_duyet": null,
+    "ngay_duyet": null
+  }
+]

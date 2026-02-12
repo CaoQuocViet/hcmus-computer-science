@@ -1,0 +1,32 @@
+[
+  {
+    "ma_linh_vuc": 1,
+    "ma_code": "CNTT",
+    "ten_linh_vuc": "Công nghệ Thông tin",
+    "mo_ta": "Nghiên cứu về công nghệ thông tin, kỹ thuật phần mềm, trí tuệ nhân tạo và các lĩnh vực liên quan"
+  },
+  {
+    "ma_linh_vuc": 2,
+    "ma_code": "KTDN",
+    "ten_linh_vuc": "Kỹ thuật Điện - Điện tử",
+    "mo_ta": "Nghiên cứu các lĩnh vực kỹ thuật điện và điện tử"
+  },
+  {
+    "ma_linh_vuc": 3,
+    "ma_code": "TOAN",
+    "ten_linh_vuc": "Toán học",
+    "mo_ta": "Nghiên cứu toán học thuần túy và ứng dụng"
+  },
+  {
+    "ma_linh_vuc": 4,
+    "ma_code": "VATLY",
+    "ten_linh_vuc": "Vật lý",
+    "mo_ta": "Nghiên cứu vật lý lý thuyết và thực nghiệm"
+  },
+  {
+    "ma_linh_vuc": 5,
+    "ma_code": "SINHHOC",
+    "ten_linh_vuc": "Sinh học",
+    "mo_ta": "Nghiên cứu khoa học sinh học"
+  }
+]

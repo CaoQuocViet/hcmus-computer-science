@@ -1,0 +1,32 @@
+[
+  {
+    "ma_dot_danh_gia": 1,
+    "ten_dot_danh_gia": "Xét duyệt đề tài mới Q1/2024",
+    "loai_danh_gia": "Xét duyệt ban đầu",
+    "ngay_bat_dau": "2024-01-05",
+    "ngay_ket_thuc": "2024-01-15",
+    "ma_hoi_dong": 3,
+    "trang_thai": "da_hoan_thanh",
+    "ghi_chu": "Đợt xét duyệt các đề xuất đề tài mới quý 1 năm 2024"
+  },
+  {
+    "ma_dot_danh_gia": 2,
+    "ten_dot_danh_gia": "Xét duyệt đề tài IoT nông nghiệp",
+    "loai_danh_gia": "Xét duyệt ban đầu",
+    "ngay_bat_dau": "2024-02-10",
+    "ngay_ket_thuc": "2024-02-20",
+    "ma_hoi_dong": 2,
+    "trang_thai": "da_hoan_thanh",
+    "ghi_chu": "Xét duyệt đề tài ứng dụng IoT trong nông nghiệp"
+  },
+  {
+    "ma_dot_danh_gia": 3,
+    "ten_dot_danh_gia": "Xét duyệt đề tài Blockchain Q1/2024",
+    "loai_danh_gia": "Xét duyệt ban đầu",
+    "ngay_bat_dau": "2024-03-01",
+    "ngay_ket_thuc": "2024-03-10",
+    "ma_hoi_dong": 3,
+    "trang_thai": "dang_tien_hanh",
+    "ghi_chu": "Đang xét duyệt đề tài blockchain trong quản lý chuỗi cung ứng"
+  }
+]

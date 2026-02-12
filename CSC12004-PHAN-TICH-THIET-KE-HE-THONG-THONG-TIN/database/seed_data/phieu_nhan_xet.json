@@ -1,0 +1,74 @@
+[
+  {
+    "ma_nhan_xet": 1,
+    "ma_dot_danh_gia": 1,
+    "ma_thanh_vien_hoi_dong": 1,
+    "ma_nguoi_nhan_xet": 6,
+    "diem": 8.5,
+    "diem_manh": "- Đề tài có tính mới và phù hợp với xu hướng nghiên cứu hiện nay\n- Phương pháp nghiên cứu rõ ràng và khả thi\n- Nhóm nghiên cứu có kinh nghiệm",
+    "diem_yeu": "- Dự trù kinh phí có thể cần xem xét lại\n- Cần bổ sung thêm tài liệu tham khảo quốc tế",
+    "nhan_xet": "Đề tài tốt, nên được phê duyệt để triển khai",
+    "de_xuat": "phe_duyet",
+    "ngay_nhan_xet": "2024-01-08T10:00:00"
+  },
+  {
+    "ma_nhan_xet": 2,
+    "ma_dot_danh_gia": 1,
+    "ma_thanh_vien_hoi_dong": 2,
+    "ma_nguoi_nhan_xet": 7,
+    "diem": 8.0,
+    "diem_manh": "- Mục tiêu nghiên cứu rõ ràng\n- Kế hoạch triển khai chi tiết\n- Có tiềm năng ứng dụng thực tế",
+    "diem_yeu": "- Cần làm rõ hơn về phương pháp đánh giá kết quả\n- Timeline có thể hơi chặt",
+    "nhan_xet": "Đề tài đạt yêu cầu, đồng ý phê duyệt",
+    "de_xuat": "phe_duyet",
+    "ngay_nhan_xet": "2024-01-10T14:00:00"
+  },
+  {
+    "ma_nhan_xet": 3,
+    "ma_dot_danh_gia": 1,
+    "ma_thanh_vien_hoi_dong": 3,
+    "ma_nguoi_nhan_xet": 8,
+    "diem": 7.5,
+    "diem_manh": "- Chủ đề nghiên cứu phù hợp\n- Có tính ứng dụng cao",
+    "diem_yeu": "- Cần bổ sung thêm về phần methodology\n- Dataset cần được mô tả chi tiết hơn",
+    "nhan_xet": "Đề tài có thể chấp nhận được, nhưng nên lưu ý các điểm cần cải thiện",
+    "de_xuat": "phe_duyet",
+    "ngay_nhan_xet": "2024-01-12T16:00:00"
+  },
+  {
+    "ma_nhan_xet": 4,
+    "ma_dot_danh_gia": 2,
+    "ma_thanh_vien_hoi_dong": 4,
+    "ma_nguoi_nhan_xet": 7,
+    "diem": 8.8,
+    "diem_manh": "- Đề tài rất thực tiễn và cần thiết\n- Thiết kế hệ thống IoT hợp lý\n- Kinh phí dự trù phù hợp",
+    "diem_yeu": "- Cần làm rõ về phần bảo mật dữ liệu\n- Testing plan cần chi tiết hơn",
+    "nhan_xet": "Đề tài xuất sắc, rất đáng để triển khai",
+    "de_xuat": "phe_duyet",
+    "ngay_nhan_xet": "2024-02-12T09:00:00"
+  },
+  {
+    "ma_nhan_xet": 5,
+    "ma_dot_danh_gia": 2,
+    "ma_thanh_vien_hoi_dong": 5,
+    "ma_nguoi_nhan_xet": 8,
+    "diem": 8.3,
+    "diem_manh": "- Kiến trúc hệ thống được thiết kế tốt\n- Có khảo sát và phân tích nhu cầu thực tế",
+    "diem_yeu": "- Cần bổ sung về phần scalability\n- Maintenance plan chưa rõ",
+    "nhan_xet": "Đề tài tốt, đồng ý cho triển khai",
+    "de_xuat": "phe_duyet",
+    "ngay_nhan_xet": "2024-02-15T11:00:00"
+  },
+  {
+    "ma_nhan_xet": 6,
+    "ma_dot_danh_gia": 3,
+    "ma_thanh_vien_hoi_dong": 6,
+    "ma_nguoi_nhan_xet": 6,
+    "diem": 7.8,
+    "diem_manh": "- Blockchain là công nghệ phù hợp cho bài toán\n- Use case được mô tả rõ ràng",
+    "diem_yeu": "- Chi phí triển khai blockchain cần được phân tích kỹ hơn\n- Performance concerns cần được address",
+    "nhan_xet": "Đề tài có tiềm năng nhưng cần bổ sung thêm về phân tích chi phí-lợi ích",
+    "de_xuat": "can_chinh_sua",
+    "ngay_nhan_xet": "2024-03-05T10:30:00"
+  }
+]

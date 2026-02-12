@@ -1,0 +1,32 @@
+[
+  {
+    "ma_trang_thai": 1,
+    "ma_code": "chua_nop",
+    "ten_trang_thai": "Chưa nộp",
+    "mo_ta": "Báo cáo chưa được nộp"
+  },
+  {
+    "ma_trang_thai": 2,
+    "ma_code": "da_nop",
+    "ten_trang_thai": "Đã nộp",
+    "mo_ta": "Báo cáo đã được nộp"
+  },
+  {
+    "ma_trang_thai": 3,
+    "ma_code": "dang_kiem_tra",
+    "ten_trang_thai": "Đang kiểm tra",
+    "mo_ta": "Báo cáo đang được nhân viên kiểm tra"
+  },
+  {
+    "ma_trang_thai": 4,
+    "ma_code": "da_duyet",
+    "ten_trang_thai": "Đã duyệt",
+    "mo_ta": "Báo cáo đã được phê duyệt"
+  },
+  {
+    "ma_trang_thai": 5,
+    "ma_code": "can_chinh_sua",
+    "ten_trang_thai": "Cần chỉnh sửa",
+    "mo_ta": "Báo cáo cần chỉnh sửa"
+  }
+]
